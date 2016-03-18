@@ -37,7 +37,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'market',
     'product',
 )
 
@@ -58,7 +57,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
-                 '/home/yura/PycharmProjects/Internet_Market/templates']
+                 '/home/yura/PycharmProjects/InternetMarket/Internet_Market/templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -106,5 +105,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    ('static', "/home/yura/PycharmProjects/Internet_Market/static"),
+    ('static', "/home/yura/PycharmProjects/InternetMarket/Internet_Market/static"),
 )

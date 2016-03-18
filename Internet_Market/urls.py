@@ -20,5 +20,5 @@ from product import urls as product_urls
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^basicview/', include(product_urls)),
-    url(r'^', include('market.urls')),
+    url(r'^', include('product.urls')),
 ]
