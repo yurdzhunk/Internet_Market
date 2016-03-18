@@ -6,3 +6,8 @@ body {
      background: url('newyork.jpg');
      background-size: 1440px 800px;
 }
+
+ul li {
+    margin: 2px;
+    list-style-type: circle;
+}
