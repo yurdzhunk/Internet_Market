@@ -10,6 +10,7 @@ class Product(models.Model):
     product_image = models.ImageField()
     product_description = models.TextField()
     product_cost = models.IntegerField(default=0)
+    product_rate = models.IntegerField(default=0)
 
 class Comments(models.Model):
     class Meta():

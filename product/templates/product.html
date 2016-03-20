@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+{% load staticfiles %}
+{% block product %}
+<h6>{{ product.product_name }}</h6>
+    <p>{{ product.product_description }}</p>
+    <p><a href="http://127.0.0.1:8000/product/addlike/{{ product.id }}/"><img src="{% static "like.png" %}" width="25px" height="25px"></a>{{ product.product_rate }}</p>
+<h4>{{ product.product_cost }}$</h4>
+<hr>
+{% for comment in comments %}
+    <h3>{{ comment.id }}</h3>
+    <h4>{{ comment.comment_text }}</h4>
+{% endfor %}
+{% endblock %}
