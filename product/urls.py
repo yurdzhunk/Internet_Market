@@ -9,3 +9,4 @@ urlpatterns = [
     url(r'^', 'product.views.products'),
 
 ]
+
