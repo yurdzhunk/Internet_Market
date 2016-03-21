@@ -2,14 +2,37 @@
    background: rgba(0,0,0,0.4);
 }
 
-/*body {
-    background: url('newyork.jpg');
+body {
+    background: url('background.jpg');
     background-size: 1440px 800px;
-}*/
+}
 
 .dropdown-menu{
     background: rgba(0,0,0,0.4);
 }
 .divider{
     background-color: #0f0f0f;
+}
+
+/*.navbar-inverse .navbar-nav > li .dropdown-menu{
+   float:none;
+  z-index:100;
+  position:absolute;
+  width:100%;
+  overflow:hidden;
+}*/
+
+
+.dropdown-menu {
+    font-size: 30px;
+  }
+
+.nav.nav-tabs > li.dropdown.active.open > a,
+.nav.nav-tabs > li.dropdown.active.open > ul.dropdown-menu a:hover,
+.nav.nav-tabs > li.dropdown.open > a,
+.nav.nav-tabs > li.dropdown.open > ul.dropdown-menu a:hover
+{
+  color: #0f0f0f;
+  background-color: #b91773;
+  border-color: #0f0f0f;
 }
