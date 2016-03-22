@@ -57,8 +57,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
-                 '/home/yura/PycharmProjects/InternetMarket/Internet_Market/templates']
-        ,
+        '/home/valera/cours_project/Internet_Market/templates',
+        '/home/valera/cours_project/Internet_Market/product/templates'],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,6 +107,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
+
+STATICFILES_DIRS = (
+
     ('static', "/home/yura/PycharmProjects/InternetMarket/Internet_Market/static"),
-]
+
+)
+

@@ -1,0 +1,10 @@
+{% extends 'main.html' %}
+{% load staticfiles %}
+{% block product %}
+{% for product in products %}
+    <h6><a href="http://127.0.0.1:8000/product/get/{{ product.id }}">{{ product.product_name }}</a></h6>
+    <p>{{ product.product_description }}</p>
+    <p><a href="http://127.0.0.1:8000/product/addlike/{{ product.id }}/"><img src="{%  static "like.png" %}" width="25px" height="25px"></a>{{ product.product_rate }}</p>
+    <h4>{{ product.product_cost }}$</h4>
+{% endfor %}
+{% endblock %}

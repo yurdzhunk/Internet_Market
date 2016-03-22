@@ -2,12 +2,32 @@
    background: rgba(0,0,0,0.4);
 }
 
+.nav-tabs {
+    margin-bottom: 0;
+}
+
+.nav.nav-tabs a{
+    color: #000000;
+}
+
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #dddddd;
+    padding: 10px;
+    background: #ffffff;
+    width: auto;
+    height: 300px;
+    margin: auto;
+
+}
+
 body {
     background: url('background.jpg');
     background-size: 1440px 800px;
 }
 
-.dropdown-menu{
+.dropdown-menu.brends{
     background: rgba(0,0,0,0.4);
 }
 .divider{
@@ -23,7 +43,7 @@ body {
 }*/
 
 
-.dropdown-menu {
+.dropdown-menu.brends {
     font-size: 30px;
   }
 
@@ -36,3 +56,6 @@ body {
   background-color: #b91773;
   border-color: #0f0f0f;
 }
+
+
+.top-buffer { margin-top:20px; }
