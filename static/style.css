@@ -59,3 +59,8 @@ body {
 
 
 .top-buffer { margin-top:20px; }
+
+
+div.modal div.modal-backdrop {
+    z-index: 0;
+}
