@@ -64,3 +64,22 @@ body {
 div.modal div.modal-backdrop {
     z-index: 0;
 }
+
+img {
+    border-radius: 8px;
+    width: 266px;
+    height: 154px;
+    border: solid #cccccc;
+
+}
+
+.well{
+     width: 1000px;
+}
+div.well{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+h4.media-heading{
+    color: #2b669a;
+}
