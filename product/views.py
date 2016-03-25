@@ -93,10 +93,28 @@ def market(request):
     args = {}
     return render_to_response('shop.html', {})
 
+
 def startpage(request):
     args = {}
     return render_to_response('start_page.html', args)
 
+
+def notebook(request):
+    args = {}
+    args['techniks'] = Product.objects.filter(product_type='notebook')
+    return render_to_response('shop.html', args)
+
+
+def smartphone(request):
+    args = {}
+    args['techniks'] = Product.objects.filter(product_type='smartphone')
+    return render_to_response('shop.html', args)
+
+
+def tv(request):
+    args = {}
+    args['techniks'] = Product.objects.filter(product_type='tv')
+    return render_to_response('shop.html', args)
 
 
 
