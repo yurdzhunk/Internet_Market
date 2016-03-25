@@ -89,8 +89,13 @@ def addcomment(request, product_id):
     return redirect('http://127.0.0.1:8000/product/get/%s/' % product_id)
 
 
+def market(request):
+    args = {}
+    return render_to_response('shop.html', {})
 
-
+def startpage(request):
+    args = {}
+    return render_to_response('start_page.html', args)
 
 
 

@@ -1,0 +1,66 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Интернет-магазин</title>
+    <link rel="stylesheet" type="text/css" href="{% static "static/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "static/style.css" %}">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <!--<h1>Internet Market</h1>-->
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#responsive-menu">
+                        <span class="sr-only">Open navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Internet Market LOGO</a>
+                </div>
+                <div class="collapse navbar-collapse" id="responsive-menu">
+                    <ul class="nav navbar-nav">
+                        <li><a href="http://127.0.0.1:8000/market/">Магазин</a> </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Бренды<b class="caret"></b> </a>
+                            <ul class="dropdown-menu brends">
+
+                                <li><a class="fa fa-apple" style="color: #cccccc" href="/product/apple/"></a> </li>
+                                <li><a class="fa fa-android" style="color: #cccccc" href="#"></a> </li>
+                                <li><a class="fa fa-windows" style="color: #cccccc" href="#"></a> </li>
+
+                            </ul>
+                        </li>
+                        <li><a href="#">Акции</a> </li>
+                        <li><a href="#">О компании</a> </li>
+                        <li><a href="#">Контакты</a> </li>
+                    </ul>
+                    <form action="" class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Login" value="" style="background: #ffffff">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Password" value="">
+                        </div>
+                        <button type="submit" class="btn bg-primary">
+                            <i class="fa fa-sign-in"></i> Sign in
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block shop %}
+{% endblock %}
+{% block start %}
+{% endblock %}
+</body>
+</html>

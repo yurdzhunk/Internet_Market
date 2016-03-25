@@ -65,12 +65,11 @@ div.modal div.modal-backdrop {
     z-index: 0;
 }
 
-img {
+img.product-image {
     border-radius: 8px;
     width: 266px;
     height: 154px;
     border: solid #cccccc;
-
 }
 
 .well{
