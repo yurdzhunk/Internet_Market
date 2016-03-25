@@ -7,11 +7,12 @@ class Product(models.Model):
     class Meta():
         db_table = "product"
     product_name = models.CharField(max_length=200)
-    product_image = models.ImageField()
-    product_description = models.TextField()
+    product_image = models.ImageField(default=None)
+    product_type = models.CharField(default='notebook', max_length=100)
+    product_description = models.TextField(default='')
     product_cost = models.IntegerField(default=0)
     product_rate = models.IntegerField(default=0)
-    product_brend = models.TextField()
+    product_brand = models.TextField(default='')
     product_memory = models.IntegerField(default=0)
     product_orm = models.IntegerField(default=0)
 
