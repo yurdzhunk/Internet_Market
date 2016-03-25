@@ -1,0 +1,192 @@
+{% extends "main_page.html" %}
+{% load staticfiles %}
+
+{% block shop %}
+
+<br>
+<br>
+
+<div class="row">
+    <div class="col-lg-3">
+        <div id="accordeon" class="panel-group">
+<!--First panel-->
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a href="#collapse-1" data-parent="#accordeon" data-toggle="collapse">Первый раздел</a>
+                    </h4>
+                </div>
+                <div id="collapse-1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <a href="#">Продукт</a>
+                        <a href="#">Продукт</a>
+                        <a href="#">Продукт</a>
+                    </div>
+                </div>
+            </div>
+<!--Second panel-->
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a href="#collapse-2" data-parent="#accordeon" data-toggle="collapse">Второй раздел</a>
+                    </h4>
+                </div>
+                <div id="collapse-2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <a href="#">Продукт</a>
+                        <a href="#">Продукт</a>
+                        <a href="#">Продукт</a>
+                    </div>
+                </div>
+            </div>
+<!--Third panel-->
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a href="#collapse-3" data-parent="#accordeon" data-toggle="collapse">Третий раздел</a>
+                    </h4>
+                </div>
+                <div id="collapse-3" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <h5><a href="#">Ноутбуки</a></h5>
+                        <hr>
+                        <h5><a href="#">Планшеты</a></h5>
+                        <hr>
+                        <h5><a href="#">Десктопы</a></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-9">
+                <div class="col-xs-6 col-sm-3">
+                    <div class="thumbnail">
+                        <img class="product-image" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image"/>
+                        <div class="caption">
+                            <a href="#"><h3>Apple</h3></a>
+                            <p>fjlajflnaflnafklafn
+                            fakwnflaflnafl
+                                fjlajflnaflnafklafn
+                            fakwnflaflnafl
+                                fjlajflnaflnafklafn
+                            fakwnflaflnafl
+                            fmkawnfanwflankafn</p>
+                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-3">
+                    <div class="thumbnail">
+                        <img class="product-image" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image"/>
+                        <div class="caption">
+                            <a href="#"><h3>Apple</h3></a>
+                            <p>fjlajflnaflnafklafn
+                            fakwnflaflnafl
+                                fjlajflnaflnafklafn
+                            fakwnflaflnafl
+                                fjlajflnaflnafklafn
+                            fakwnflaflnafl
+                            fmkawnfanwflankafn</p>
+                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-3">
+                    <div class="thumbnail">
+                        <img class="product-image" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image"/>
+                        <div class="caption">
+                            <a href="#"><h3>Apple</h3></a>
+                            <p>fjlajflnaflnafklafn
+                            fakwnflaflnafl
+                                fjlajflnaflnafklafn
+                            fakwnflaflnafl
+                                fjlajflnaflnafklafn
+                            fakwnflaflnafl
+                            fmkawnfanwflankafn</p>
+                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-3">
+                    <div class="thumbnail">
+                        <img class="product-image" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image"/>
+                        <div class="caption">
+                            <a href="#"><h3>Apple</h3></a>
+                            <p>fjlajflnaflnafklafn
+                            fakwnflaflnafl
+                                fjlajflnaflnafklafn
+                            fakwnflaflnafl
+                                fjlajflnaflnafklafn
+                            fakwnflaflnafl
+                            fmkawnfanwflankafn</p>
+                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
+                        </div>
+                    </div>
+                </div>
+
+    </div>
+
+<!-- WELLES
+        <div class="well">
+            <div class="media">
+                 <a class="media-left" href="#">
+                 <img class="media-object" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image" style="padding-left: " />
+                 </a>
+                <div class="media-body">
+                    <a href="#"><h4 class="media-heading">Apple</h4></a>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <div class="media">
+                 <a class="media-left" href="#">
+                 <img class="media-object" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image" style="padding-left: " />
+                 </a>
+                <div class="media-body">
+                    <a href="#"><h4 class="media-heading">Apple</h4></a>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+                    </div>
+        </div>
+
+     </div>
+
+</div>
+-->
+
+    <!-- BUTTON FOR MODAL
+<div class="col-lg-2">
+        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal-1">открыть модал окно</button>
+</div>
+-->
+
+<div id="modal-1" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal"><i class="fa fa-close"></i> </button>
+                    <h4 class="modal-title">Заглавие</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Описание окна</p>
+                    <a href="#">link</a>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+{% endblock %}

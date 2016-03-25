@@ -1,275 +1,55 @@
+{% extends "main_page.html" %}
+
 {% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Интернет-магазин</title>
-    <link rel="stylesheet" type="text/css" href="{% static "static/bootstrap.min.css" %}">
-    <link rel="stylesheet" type="text/css" href="{% static "static/style.css" %}">
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
-</head>
-<body>
+{% block start %}
 
-<div class="container">
-    <div class="row">
-        <!--<h1>Internet Market</h1>-->
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#responsive-menu">
-                        <span class="sr-only">Open navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Internet Market LOGO</a>
-                </div>
-                <div class="collapse navbar-collapse" id="responsive-menu">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">Магазин</a> </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Бренды<b class="caret"></b> </a>
-                            <ul class="dropdown-menu brends">
+<div id="carousel" class="carousel slide">
+    <!--Индикаторы слайдов-->
+    <ol class="carousel-indicators">
+        <li class="active" data-target="#carousel" data-slide-to="0"></li>
+        <li data-target="#carousel" data-slide-to="1"></li>
+        <li data-target="#carousel" data-slide-to="2"></li>
+    </ol>
 
-                                <li><a class="fa fa-apple" style="color: #cccccc" href="/product/apple/"></a> </li>
-                                <li><a class="fa fa-android" style="color: #cccccc" href="#"></a> </li>
-                                <li><a class="fa fa-windows" style="color: #cccccc" href="#"></a> </li>
-
-                            </ul>
-                        </li>
-                        <li><a href="#">Акции</a> </li>
-                        <li><a href="#">О компании</a> </li>
-                        <li><a href="#">Контакты</a> </li>
-                    </ul>
-                    <form action="" class="navbar-form navbar-right">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Login" value="" style="background: #ffffff">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password" value="">
-                        </div>
-                        <button type="submit" class="btn bg-primary">
-                            <i class="fa fa-sign-in"></i> Sign in
-                        </button>
-                    </form>
-                </div>
+    <!--Слайды-->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="{% static "product_images/carousel-1.jpg" %}" alt=""/>
+            <div class="carousel-caption">
+                <h3>First slide</h3>
+                <p>Slide is about</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static "product_images/carousel-2.jpg" %}" alt=""/>
+            <div class="carousel-caption">
+                <h3>Second slide</h3>
+                <p>Slide is about</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="{% static "product_images/carousel-3.jpg" %}" alt=""/>
+            <div class="carousel-caption">
+                <h3>Third slide</h3>
+                <p>Slide is about</p>
             </div>
         </div>
     </div>
+
+    <!--Стрелки переключения слайдов-->
+    <a href="#carousel" class="left carousel-control" data-slide="prev">
+        <span style="position: absolute; top: 300px; left: 20px">
+            <img src="{% static "icon-chevron-big-left.png" %}" alt=""/>
+        </span>
+    </a>
+    <a href="#carousel" class="right carousel-control" data-slide="next">
+        <span style="position: absolute; top: 300px; left: 100px">
+            <img src="{% static "icon-chevron-big-right.png" %}" alt=""/>
+        </span>
+    </a>
 </div>
 
 
-
-<br>
-<br>
-
-<!-- Button scroll
-
-<div class="container">
-    <div class="row top-buffer">
-        <div class="col-lg-6">
-            <div class="btn-group">
-                <button class="btn btn-success">Primary</button>
-                <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                    <span class="fa fa-caret-down"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>Пункт 1</li>
-                    <li>Пункт 2</li>
-                    <li>Пункт 3</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
--->
-
-<br>
-<br>
-
-<!--
-<div class="container">
-=======
-<!--<div class="container">
->>>>>>> new2
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="tabs">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab-1" data-toggle="tab">Вкладка-1</a></li>
-                    <li><a href="#tab-2" data-toggle="tab">Вкладка-2</a></li>
-                    <li><a href="#tab-3" data-toggle="tab">Вкладка-3</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade in active" id="tab-1">
-                        <p>Текст</p>
-                    </div>
-                    <div class="tab-pane fade" id="tab-2">
-                        <p>Текст 2</p>
-                    </div>
-                    <div class="tab-pane fade" id="tab-3">
-                        <p>Текст 3</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<<<<<<< HEAD
-</div>
-
--->
-
-<div class="row">
-    <div class="col-lg-3">
-        <div id="accordeon" class="panel-group">
-<!--First panel-->
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a href="#collapse-1" data-parent="#accordeon" data-toggle="collapse">Первый раздел</a>
-                    </h4>
-                </div>
-                <div id="collapse-1" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <a href="#">Продукт</a>
-                        <a href="#">Продукт</a>
-                        <a href="#">Продукт</a>
-                    </div>
-                </div>
-            </div>
-<!--Second panel-->
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a href="#collapse-2" data-parent="#accordeon" data-toggle="collapse">Второй раздел</a>
-                    </h4>
-                </div>
-                <div id="collapse-2" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <a href="#">Продукт</a>
-                        <a href="#">Продукт</a>
-                        <a href="#">Продукт</a>
-                    </div>
-                </div>
-            </div>
-<!--Third panel-->
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a href="#collapse-3" data-parent="#accordeon" data-toggle="collapse">Третий раздел</a>
-                    </h4>
-                </div>
-                <div id="collapse-3" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <h5><a href="#">Ноутбуки</a></h5>
-                        <hr>
-                        <h5><a href="#">Планшеты</a></h5>
-                        <hr>
-                        <h5><a href="#">Десктопы</a></h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-lg-9">
-                <div class="col-xs-6 col-sm-3">
-                    <div class="thumbnail">
-                        <img src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image"/>
-                        <div class="caption">
-                            <a href="#"><h3>Apple</h3></a>
-                            <p>fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                            fmkawnfanwflankafn</p>
-                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-3">
-                    <div class="thumbnail">
-                        <img src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image"/>
-                        <div class="caption">
-                            <a href="#"><h3>Apple</h3></a>
-                            <p>fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                            fmkawnfanwflankafn</p>
-                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-3">
-                    <div class="thumbnail">
-                        <img src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image"/>
-                        <div class="caption">
-                            <a href="#"><h3>Apple</h3></a>
-                            <p>fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                            fmkawnfanwflankafn</p>
-                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-3">
-                    <div class="thumbnail">
-                        <img src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image"/>
-                        <div class="caption">
-                            <a href="#"><h3>Apple</h3></a>
-                            <p>fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                            fmkawnfanwflankafn</p>
-                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
-
-    </div>
-
-<!-- WELLES
-        <div class="well">
-            <div class="media">
-                 <a class="media-left" href="#">
-                 <img class="media-object" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image" style="padding-left: " />
-                 </a>
-                <div class="media-body">
-                    <a href="#"><h4 class="media-heading">Apple</h4></a>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-            </div>
-        </div>
-
-        <div class="well">
-            <div class="media">
-                 <a class="media-left" href="#">
-                 <img class="media-object" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image" style="padding-left: " />
-                 </a>
-                <div class="media-body">
-                    <a href="#"><h4 class="media-heading">Apple</h4></a>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-                    </div>
-        </div>
-
-     </div>
-
-</div>
--->
 
     <!-- BUTTON FOR MODAL
 <div class="col-lg-2">
@@ -297,10 +77,10 @@
 
 
 
-</div>
+
 
 
 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-</body>
-</html>
+
+{% endblock start %}
