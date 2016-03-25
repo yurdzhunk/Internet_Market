@@ -27,7 +27,7 @@ body {
     background-size: 1440px 800px;
 }
 
-.dropdown-menu.brends{
+.dropdown-menu.shop{
     background: rgba(0,0,0,0.4);
 }
 .divider{
@@ -43,8 +43,8 @@ body {
 }*/
 
 
-.dropdown-menu.brends {
-    font-size: 30px;
+.dropdown-menu.shop a:hover{
+    background: #0f0f0f;
   }
 
 .nav.nav-tabs > li.dropdown.active.open > a,

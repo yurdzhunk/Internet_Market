@@ -112,7 +112,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
 
-    ('static', "/home/valera/cours_project/Internet_Market/static"),
+    ('static', "/home/yura/PycharmProjects/InternetMarket/Internet_Market/static"),
 
 )
 
