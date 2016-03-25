@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -112,7 +113,11 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
 
-    ('static', "/home/valera/cours_project//Internet_Market/static"),
+    ('static', "/home/yura/PycharmProjects/InternetMarket/Internet_Market/static"),
 
 )
+
+MEDIA_ROOT = '/home/yura/PycharmProjects/InternetMarket/Internet_Market/media/'
+
+MEDIA_URL = '/media/'
 

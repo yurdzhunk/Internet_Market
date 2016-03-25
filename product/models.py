@@ -7,7 +7,7 @@ class Product(models.Model):
     class Meta():
         db_table = "product"
     product_name = models.CharField(max_length=200)
-    product_image = models.ImageField(default=None)
+    product_image = models.ImageField(upload_to='static')
     product_type = models.CharField(default='notebook', max_length=100)
     product_description = models.TextField(default='')
     product_cost = models.IntegerField(default=0)

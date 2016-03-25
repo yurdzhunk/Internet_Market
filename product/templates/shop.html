@@ -62,6 +62,19 @@
 
 
     <div class="col-lg-9">
+        {% for technik in techniks %}
+                <div class="col-xs-6 col-sm-3">
+                    <div class="thumbnail">
+                        <img class="product-image" src="{% static technik.product_image %}">
+                        <div class="caption">
+                            <a href="#"><h3>{{ technik.product_name }}</h3></a>
+                            <p>{{ technik.product_description }}</p>
+                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+        <!--
                 <div class="col-xs-6 col-sm-3">
                     <div class="thumbnail">
                         <img class="product-image" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image"/>
@@ -110,23 +123,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-3">
-                    <div class="thumbnail">
-                        <img class="product-image" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image"/>
-                        <div class="caption">
-                            <a href="#"><h3>Apple</h3></a>
-                            <p>fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                            fmkawnfanwflankafn</p>
-                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
-
+-->
     </div>
 
 <!-- WELLES

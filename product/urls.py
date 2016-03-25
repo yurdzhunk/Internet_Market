@@ -1,4 +1,6 @@
 from django.conf.urls import include, url
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^1/', 'product.views.basic_one'),
@@ -10,7 +12,7 @@ urlpatterns = [
     url(r'^product/addcomment/(?P<product_id>\d+)/$', 'product.views.addcomment'),
     url(r'^market/$', 'product.views.market'),
     url(r'^shop/notebook/$', 'product.views.notebook'),
-    url(r'^shop/smartphones/$', 'product.views.smartphone'),
+    url(r'^shop/smartphone/$', 'product.views.smartphone'),
     url(r'^shop/tv/$', 'product.views.tv'),
     url(r'^', 'product.views.startpage'),
 
