@@ -102,6 +102,8 @@ def startpage(request):
 def notebook(request):
     args = {}
     args['techniks'] = Product.objects.filter(product_type='notebook')
+    args['img1'] = args['techniks'][0].product_image.url
+    print(args['img1'])
     return render_to_response('shop.html', args)
 
 
