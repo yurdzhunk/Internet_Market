@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'product',
+    'loginsys',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -58,7 +59,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
         '/home/valera/cours_project/Internet_Market/templates',
-        '/home/valera/cours_project/Internet_Market/product/templates'
+        '/home/valera/cours_project/Internet_Market/product/templates',
+        '/home/valera/cours_project/Internet_Market/loginsys/templates'
                  ],
 
         'APP_DIRS': True,

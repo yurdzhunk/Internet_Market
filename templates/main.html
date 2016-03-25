@@ -5,7 +5,20 @@
     <title>Django project main page</title>
 </head>
 <body>
+<div class="top-bar">
+    <section class="top-bar-section">
+        <ul class="'right">
+            {% if username %}
+                <li><a href="http://127.0.0.1:8000/auth/logout/">Log out ({{ username }})</a></li>
+            {% else %}
+                <li><a href="http://127.0.0.1:8000/auth/login/">Log in</a></li>
+            {% endif %}
+        </ul>
+    </section>
+</div>
 {% block product%}
+{% endblock %}
+{% block login %}
 {% endblock %}
 </body>
 </html>
