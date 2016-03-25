@@ -33,6 +33,9 @@ def product(request, product_id=1):
     comments = Comments.objects.filter(comments_product=product_id)
     return render_to_response('product.html', {'product': product_to_get, 'comments': comments})
 
+#def products_apple(request):
+#    products = Product.objects.get()
+
 
 
 

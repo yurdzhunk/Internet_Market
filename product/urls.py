@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^3/', 'product.views.template_three_simple'),
     url(r'^product/get/(?P<product_id>\d+)/$', 'product.views.product'),
     url(r'^product/addlike/(?P<product_id>\d+)/$', 'product.views.product'),
+    url(r'^product/apple/', 'product.views.products_apple'),
     url(r'^', 'product.views.products'),
 
 ]

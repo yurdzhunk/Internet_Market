@@ -2,14 +2,86 @@
    background: rgba(0,0,0,0.4);
 }
 
-/*body {
-    background: url('newyork.jpg');
-    background-size: 1440px 800px;
-}*/
+.nav-tabs {
+    margin-bottom: 0;
+}
 
-.dropdown-menu{
+.nav.nav-tabs a{
+    color: #000000;
+}
+
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #dddddd;
+    padding: 10px;
+    background: #ffffff;
+    width: auto;
+    height: 300px;
+    margin: auto;
+
+}
+
+body {
+    background: url('background.jpg');
+    background-size: 1440px 800px;
+}
+
+.dropdown-menu.brends{
     background: rgba(0,0,0,0.4);
 }
 .divider{
     background-color: #0f0f0f;
 }
+
+/*.navbar-inverse .navbar-nav > li .dropdown-menu{
+   float:none;
+  z-index:100;
+  position:absolute;
+  width:100%;
+  overflow:hidden;
+}*/
+
+
+.dropdown-menu.brends {
+    font-size: 30px;
+  }
+
+.nav.nav-tabs > li.dropdown.active.open > a,
+.nav.nav-tabs > li.dropdown.active.open > ul.dropdown-menu a:hover,
+.nav.nav-tabs > li.dropdown.open > a,
+.nav.nav-tabs > li.dropdown.open > ul.dropdown-menu a:hover
+{
+  color: #0f0f0f;
+  background-color: #b91773;
+  border-color: #0f0f0f;
+}
+
+
+.top-buffer { margin-top:20px; }
+
+
+div.modal div.modal-backdrop {
+    z-index: 0;
+}
+
+img {
+    border-radius: 8px;
+    width: 266px;
+    height: 154px;
+    border: solid #cccccc;
+
+}
+
+.well{
+     width: 1000px;
+}
+div.well{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+h4.media-heading{
+    color: #2b669a;
+}
+
+
