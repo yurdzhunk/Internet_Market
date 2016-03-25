@@ -59,7 +59,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
 
-],
+                 ],
 
 
         'APP_DIRS': True,
@@ -112,7 +112,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
 
-    ('static', "/home/yura/PycharmProjects/InternetMarket/Internet_Market/static"),
+    ('static', "/home/valera/cours_project/Internet_Market/static"),
 
 )
 
