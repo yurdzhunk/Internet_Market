@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'product',
+    'loginsys',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,9 +58,10 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
-        #'/home/yura/PycharmProjects/InternetMarket/Internet_Market/templates',
-        #'/home/yura/PycharmProjects/InternetMarket/Internet_Market/product/templates'],
+
 ],
+
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

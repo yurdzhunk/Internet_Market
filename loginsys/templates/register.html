@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+
+{% block login %}
+    <div>
+        <form action="http://127.0.0.1:8000/auth/register/" method="post">
+            {% csrf_token %}
+            {{ form }}
+
+            <input class="button" type="submit" valur="Register">
+        </form>
+    </div>
+{% endblock %}

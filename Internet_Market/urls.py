@@ -16,10 +16,12 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from product import urls as product_urls
+from loginsys import urls as log_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^basicview/', include(product_urls)),
+    url(r'^auth/', include(log_urls)),
     url(r'^', include('product.urls')),
 
 ]
