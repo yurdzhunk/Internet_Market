@@ -72,6 +72,14 @@ img.product-image {
     border: solid #cccccc;
 }
 
+img.carousel-image {
+    border-radius: 8px;
+    width: 1596px;
+    height: 924px;
+    border: solid #cccccc;
+    margin-top: 50px;
+}
+
 .well{
      width: 1000px;
 }
@@ -83,4 +91,11 @@ h4.media-heading{
     color: #2b669a;
 }
 
+.carousel-caption{
+    top:470px;
+}
+
+.carousel-indicators{
+    top:630px;
+}
 
