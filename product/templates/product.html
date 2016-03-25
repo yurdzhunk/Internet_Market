@@ -1,13 +1,51 @@
 {% extends 'main.html' %}
 {% load staticfiles %}
 {% block product %}
+    {% if path_argument == 1 %}
+        <hr>
+        <hr>
+        <hr>
+    {% endif %}
 <h6>{{ product.product_name }}</h6>
     <p>{{ product.product_description }}</p>
-    <p><a href="http://127.0.0.1:8000/product/addlike/{{ product.id }}/"><img src="{% static "like.png" %}" width="25px" height="25px"></a>{{ product.product_rate }}</p>
+    <p><a href="http://127.0.0.1:8000/product/addlike/{{ path_argument }}/{{ product.id }}/{{ comments.number }}/"><img src="{% static "like.png" %}" width="25px" height="25px"></a>{{ product.product_rate }}</p>
 <h4>{{ product.product_cost }}$</h4>
 <hr>
 {% for comment in comments %}
     <h3>{{ comment.id }}</h3>
-    <h4>{{ comment.comment_text }}</h4>
+    <h4>{{ comment.comments_text }}</h4>
 {% endfor %}
+
+    <div>
+        <div class="row">
+            <ul class="pagination">
+                {% if comments.has_previous %}
+                    <li class="arrow"><a href="http://127.0.0.1:8000/product/get/{{ product.id }}/{{ comments.previous_page_number }}/">&laquo;</a></li>
+                {% else %}
+                    <li class="arrow unavailable"><a href="">&laquo;</a></li>
+                {% endif %}
+                {% for comment in comments.paginator.page_range %}
+                    {% if comment == comments.number %}
+                        <li class="current"><a href="http://127.0.0.1:8000/product/get/{{ product.id }}/{{ comment }}/">{{ comment }}</a></li>
+                    {% else %}
+                        <li><a href="http://127.0.0.1:8000/product/get/{{ product.id }}/{{ comment }}/">{{ comment }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if comments.has_next %}
+                    <li class="arrow"><a href="http://127.0.0.1:8000/product/get/{{ product.id }}/{{ comments.next_page_number }}/">&raquo;</a></li>
+                {% else %}
+                    <li class="arrow unavailable"><a href="">&raquo;</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <hr>
+    {% if username %}
+    <form action="http://127.0.0.1:8000/product/addcomment/{{ product.id }}/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Add comment">
+    </form>
+    {% endif %}
 {% endblock %}

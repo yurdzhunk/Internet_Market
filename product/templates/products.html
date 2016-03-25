@@ -2,9 +2,32 @@
 {% load staticfiles %}
 {% block product %}
 {% for product in products %}
-    <h6><a href="http://127.0.0.1:8000/product/get/{{ product.id }}">{{ product.product_name }}</a></h6>
+    <h6><a href="http://127.0.0.1:8000/product/get/{{ product.id }}/">{{ product.product_name }}</a></h6>
     <p>{{ product.product_description }}</p>
-    <p><a href="http://127.0.0.1:8000/product/addlike/{{ product.id }}/"><img src="{%  static "like.png" %}" width="25px" height="25px"></a>{{ product.product_rate }}</p>
+    <p><a href="http://127.0.0.1:8000/product/addlike/{{ path_argument }}/{{ product.id }}/{{ products.number }}/"><img src="{%  static "like.png" %}" width="25px" height="25px"></a>{{ product.product_rate }}</p>
     <h4>{{ product.product_cost }}$</h4>
 {% endfor %}
+    <div>
+        <div class="row">
+            <ul class="pagination">
+                {% if products.has_previous %}
+                    <li class="arrow"><a href="http://127.0.0.1:8000/page/{{ products.previous_page_number }}/">&laquo;</a></li>
+                {% else %}
+                    <li class="arrow unavailable"><a href="">&laquo;</a></li>
+                {% endif %}
+                {% for page in products.paginator.page_range %}
+                    {% if page == products.number %}
+                        <li class="current"><a href="http://127.0.0.1:8000/page/{{ page }}/">{{ page }}</a></li>
+                    {% else %}
+                        <li><a href="http://127.0.0.1:8000/page/{{ page }}/">{{ page }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if products.has_next %}
+                    <li class="arrow"><a href="http://127.0.0.1:8000/page/{{ products.next_page_number }}/">&raquo;</a></li>
+                {% else %}
+                    <li class="arrow unavailable"><a href="">&raquo;</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}
