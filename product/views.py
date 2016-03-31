@@ -8,6 +8,8 @@ from django.core.context_processors import csrf
 from product.forms import CommentForm
 from django.core.paginator import Paginator
 from django.contrib import auth
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 def basic_one(request):
@@ -54,24 +56,39 @@ def product(request, product_id=1, comment_page_number=1):
 
 
 def addlike(request, path_argument, product_id, comment_page_number):
-    print(path_argument)
-    print(product_id)
-    print(comment_page_number)
+    username = auth.get_user(request).username
+    technik = Product.objects.get(id=product_id)
     if path_argument == '2':
         path = 'http://127.0.0.1:8000/page/%s/' % comment_page_number
     if path_argument == '1':
         path = 'http://127.0.0.1:8000/product/get/%s/%s/' % (product_id, comment_page_number)
     try:
-        if product_id in request.COOKIES:
-                redirect(path)
-        else:
-            product = Product.objects.get(id=product_id)
-            product.product_rate += 1
-            product.save()
-            response = redirect(path)
-
-            response.set_cookie(product_id, 'test')
-            return response
+        user = User.objects.get(username=username)
+        #print('START: user.product_set.all()', user.product_set.all())
+        if username and (technik not in user.product_set.all()):
+            #print('user.product_set.all()', user.product_set.all())
+            technik.product_rate += 1
+            technik.save()
+            user.product_set.add(technik)
+            #print('user.product_set.all()', user.product_set.all())
+            user.save()
+            #print(username)
+            #print('technik not in user.product_set.all()', technik.users_liked)
+            #print(len(technik.users_liked))
+            #technik.save()
+            #print('user.product_set.all()', user.product_set.all())
+        elif username and (technik in user.product_set.all()):
+            technik.product_rate -= 1
+            technik.save()
+            #print('user.product_set.all()', user.product_set.all())
+            user.product_set.remove(technik)
+            user.save()
+            #print('user.product_set.all()', user.product_set.all())
+            #print(username)
+            #print('technik in user.product_set.all()', technik.users_liked)
+            #print(len(technik.users_liked))
+            #technik.save()
+            #print('user.product_set.all()', user.product_set.all())
     except ObjectDoesNotExist:
         raise Http404
     return redirect(path)
