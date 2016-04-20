@@ -30,6 +30,9 @@ def login(request):
         return render_to_response('start_page.html', csrfContext)
 
 
+def login_page(request):
+    return render_to_response('login_page.html', {})
+
 def logout(request):
     auth.logout(request)
     return redirect('http://127.0.0.1:8000/1/')

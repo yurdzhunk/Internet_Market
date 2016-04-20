@@ -38,22 +38,13 @@
                         <li><a href="#">О компании</a> </li>
                         <li><a href="#">Контакты</a> </li>
                     </ul>
-                    <form action="http://127.0.0.1:8000/auth/login/" method="post" class="navbar-form navbar-right" style="margin-right: 2px">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <input name="username" id="username" type="text" class="form-control" placeholder="Login" style="background: #ffffff">
-                        </div>
-                        <div class="form-group">
-                            <input name="password" id="password" type="password" class="form-control" placeholder="Password" >
-                        </div>
-                        <button type="submit" value="Submit" class="btn btn-success">
-                            {% if username %}
-                                <i class="fa fa-sign-in"></i> username
-                            {% else %}
-                                <i class="fa fa-sign-in"></i> Sign in
-                            {% endif %}
-                        </button>
-                            <a href="http://127.0.0.1:8000/auth/register/" class="btn btn-primary"><i class="fa fa-check-square"></i> Sign up</a>
+                    <form class="navbar-form navbar-right">
+                        {% if username %}
+                            <a href="http://127.0.0.1:8000/auth/logout/" class="btn btn-primary sign-button">Log out</a>
+                        {% else %}
+                            <a href="http://127.0.0.1:8000/auth/login_page/" class="btn btn-success sign-button">Sign in</a>
+                            <a href="http://127.0.0.1:8000/auth/register_page/" class="btn btn-primary sign-button">Sign up</a>
+                        {% endif %}
                     </form>
                 </div>
             <!--</div>-->
@@ -66,6 +57,8 @@
 {% block shop %}
 {% endblock %}
 {% block start %}
+{% endblock %}
+{% block log %}
 {% endblock %}
 </body>
 </html>
