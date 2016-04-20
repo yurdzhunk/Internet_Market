@@ -5,28 +5,37 @@ from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
 from django.core.context_processors import csrf
+from django.template import RequestContext
+from django.views.decorators.csrf import csrf_protect
 
-
+@csrf_protect
 def login(request):
+    csrfContext = RequestContext(request)
     args = {}
+    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
     args.update(csrf(request))
+    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+    print(csrf(request))
     if request.POST:
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return redirect('http://127.0.0.1:8000')
+            return render_to_response('start_page.html', csrfContext)
         else:
             args['login_error'] = 'Log in error'
-            return render_to_response('login.html', args)
+            return render_to_response('login.html', csrfContext)
     else:
-        return render_to_response('login.html', args)
+        return render_to_response('start_page.html', csrfContext)
 
+
+def login_page(request):
+    return render_to_response('login_page.html', {})
 
 def logout(request):
     auth.logout(request)
-    return redirect('http://127.0.0.1:8000')
+    return redirect('http://127.0.0.1:8000/1/')
 
 
 def register(request):
