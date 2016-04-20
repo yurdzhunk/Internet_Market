@@ -114,11 +114,11 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
 
-    ('static', "/home/yura/PycharmProjects/Internet_Market/Internet_Market/static"),
+    ('static', "/home/valera/INT_SHOP/Internet_Market/static"),
 
 )
 
-MEDIA_ROOT = '/home/yura/PycharmProjects/Internet_Market/Internet_Market/media'
+MEDIA_ROOT = '/home/valera/INT_SHOP/Internet_Market'
 
 MEDIA_URL = '/media/'
 

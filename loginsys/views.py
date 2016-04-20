@@ -10,28 +10,27 @@ from django.views.decorators.csrf import csrf_protect
 
 @csrf_protect
 def login(request):
-    csrfContext = RequestContext(request)
     args = {}
-    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
     args.update(csrf(request))
-    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-    print(csrf(request))
     if request.POST:
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return render_to_response('start_page.html', csrfContext)
+            args['username'] = username
+            return render_to_response('start_page.html', args)
         else:
             args['login_error'] = 'Log in error'
-            return render_to_response('login.html', csrfContext)
+            return render_to_response('login.html', args)
     else:
-        return render_to_response('start_page.html', csrfContext)
+        return render_to_response('login_page.html', args)
 
 
 def login_page(request):
-    return render_to_response('login_page.html', {})
+    args = {}
+    args.update(csrf(request))
+    return render_to_response('login_page.html', args)
 
 def register_page(request):
     return render_to_response('register_page.html', {})
