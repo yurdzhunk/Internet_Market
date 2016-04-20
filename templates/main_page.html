@@ -22,7 +22,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="http://127.0.0.1:8000">Internet Market LOGO</a>
+                    <a class="navbar-brand" href="http://127.0.0.1:8000/1/">Internet Market LOGO</a>
                 </div>
                 <div class="collapse navbar-collapse" id="responsive-menu">
                     <ul class="nav navbar-nav">
@@ -38,25 +38,30 @@
                         <li><a href="#">О компании</a> </li>
                         <li><a href="#">Контакты</a> </li>
                     </ul>
-                    <form action="http://http://127.0.0.1:8000/register" class="navbar-form navbar-right" style="margin-right: 2px">
+                    <form action="http://127.0.0.1:8000/auth/login/" method="post" class="navbar-form navbar-right" style="margin-right: 2px">
+                        {% csrf_token %}
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Login" value="" style="background: #ffffff">
+                            <input name="username" id="username" type="text" class="form-control" placeholder="Login" style="background: #ffffff">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password" value="">
+                            <input name="password" id="password" type="password" class="form-control" placeholder="Password" >
                         </div>
-                        <button type="submit" class="btn btn-success">
-                            <i class="fa fa-sign-in"></i> Sign in
+                        <button type="submit" value="Submit" class="btn btn-success">
+                            {% if username %}
+                                <i class="fa fa-sign-in"></i> username
+                            {% else %}
+                                <i class="fa fa-sign-in"></i> Sign in
+                            {% endif %}
                         </button>
-                        <button type="button" href="#" class="btn btn-primary">
-                            <i class="fa fa-check-square"></i> Sign up
-                        </button>
+                            <a href="http://127.0.0.1:8000/auth/register/" class="btn btn-primary"><i class="fa fa-check-square"></i> Sign up</a>
                     </form>
                 </div>
             <!--</div>-->
         </div>
     </div>
 </div>
+
+
 
 {% block shop %}
 {% endblock %}

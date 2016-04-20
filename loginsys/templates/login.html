@@ -1,6 +1,7 @@
 {% extends 'main.html' %}
 
 {% block login %}
+
     <div>
         <form action="http://127.0.0.1:8000/auth/login/" method="post">
             {% csrf_token %}

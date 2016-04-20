@@ -113,6 +113,7 @@ def market(request):
 
 def startpage(request):
     args = {}
+    args['username'] = auth.get_user(request).username
     return render_to_response('start_page.html', args)
 
 

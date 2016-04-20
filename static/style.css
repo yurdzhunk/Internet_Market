@@ -1,6 +1,6 @@
-.navbar.navbar-inverse{
+/*.navbar.navbar-inverse{
    background: rgba(0,0,0,0.4);
-}
+}*/
 
 .nav-tabs {
     margin-bottom: 0;
@@ -76,7 +76,7 @@ img.carousel-image {
 
     width: 1596px;
     height: 924px;
-    border: solid #cccccc;
+    /*border: solid #cccccc;*/
     margin-top: 50px;
 }
 
