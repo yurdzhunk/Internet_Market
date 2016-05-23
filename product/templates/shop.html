@@ -63,13 +63,18 @@
 
     <div class="col-lg-9">
         {% for technik in techniks %}
-                <div class="col-xs-6 col-sm-3">
+                <div class="col-xs-6 col-sm-4">
                     <div class="thumbnail">
                         <img class="product-image" src="{% static technik.product_image %}">
                         <div class="caption">
                             <a href="#"><h3>{{ technik.product_name }}</h3></a>
                             <p>{{ technik.product_description }}</p>
-                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
+                            <div class="btn-group">
+                                <a href="#" class="btn btn-primary">Псмотреть <i class="fa fa-arrow-up"></i> </a>
+                                <a href="#" class="btn btn-success">Купить<i style="color: #ffffff" class="fa fa-shopping-cart"></i> </a>
+                                <a href="#" class="btn btn-danger"><i style="color: #ffffff" class="fa fa-heart"></i> </a>
+
+                            </div>
                         </div>
                     </div>
                 </div>
