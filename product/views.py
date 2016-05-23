@@ -17,6 +17,9 @@ def basic_one(request):
     html = "<html><body> This is %s view</html></body>" % first_view
     return render_to_response('start_page.html')
 
+def company(request):
+    return render_to_response('company.html')
+
 
 def template_two(request):
     view = 'template_two'

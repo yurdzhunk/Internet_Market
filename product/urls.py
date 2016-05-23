@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^shop/notebook/$', 'product.views.notebook'),
     url(r'^shop/smartphone/$', 'product.views.smartphone'),
     url(r'^shop/tv/$', 'product.views.tv'),
+    url(r'^company/$', 'product.views.company'),
     url(r'^', 'product.views.products'),
 
 ]
