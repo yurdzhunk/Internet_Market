@@ -13,9 +13,11 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 def basic_one(request):
+    args = {}
+    args['username'] = request.user.username
     first_view = 'basic one'
     html = "<html><body> This is %s view</html></body>" % first_view
-    return render_to_response('start_page.html')
+    return render_to_response('start_page.html', args)
 
 def company(request):
     return render_to_response('company.html')
@@ -97,6 +99,7 @@ def add_to_basket(request, product_id):
     print('add_to_basket')
     username = auth.get_user(request).username
     technik = Product.objects.get(id=product_id)
+    print('username: ', username)
     if username:
         try:
             basket = Basket.objects.get(id=request.user.id)
@@ -106,6 +109,7 @@ def add_to_basket(request, product_id):
         except ObjectDoesNotExist:
             raise Http404
         return redirect('http://127.0.0.1:8000/shop/notebook/')
+
 
 def addcomment(request, product_id):
     if request.POST and ('bla' not in request.session):
@@ -132,6 +136,7 @@ def startpage(request):
 
 def notebook(request):
     args = {}
+    args['username'] = request.user.username
     args['techniks'] = Product.objects.filter(product_type='notebook')
     args['img1'] = args['techniks'][0].product_image.url
     print(args['img1'])
