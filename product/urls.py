@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^shop/smartphone/$', 'product.views.smartphone'),
     url(r'^shop/tv/$', 'product.views.tv'),
     url(r'^company/$', 'product.views.company'),
+    url(r'^add_to_basket/(?P<product_id>\d+)/$', 'product.views.add_to_basket'),
     url(r'^', 'product.views.products'),
 
 ]

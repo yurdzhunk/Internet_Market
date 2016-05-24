@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response, redirect
 from django.http.response import HttpResponse, Http404
 from django.template.loader import get_template
 from django.template import Context
-from product.models import Product, Comments
+from product.models import Product, Comments, Basket
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.context_processors import csrf
 from product.forms import CommentForm
@@ -68,24 +68,20 @@ def addlike(request, path_argument, product_id, comment_page_number):
     try:
         user = User.objects.get(username=username)
         #print('START: user.product_set.all()', user.product_set.all())
-        if username and (technik not in user.product_set.all()):
-            #print('user.product_set.all()', user.product_set.all())
+        if username and user not in technik.users_liked.all():
+            # print('user.product_set.all()', user.product_set.all())
             technik.product_rate += 1
+            technik.users_liked.add(user)
             technik.save()
-            user.product_set.add(technik)
-            #print('user.product_set.all()', user.product_set.all())
-            user.save()
             #print(username)
             #print('technik not in user.product_set.all()', technik.users_liked)
             #print(len(technik.users_liked))
             #technik.save()
             #print('user.product_set.all()', user.product_set.all())
-        elif username and (technik in user.product_set.all()):
+        elif username and user in technik.users_liked.all():
             technik.product_rate -= 1
+            technik.users_liked.remove(user)
             technik.save()
-            #print('user.product_set.all()', user.product_set.all())
-            user.product_set.remove(technik)
-            user.save()
             #print('user.product_set.all()', user.product_set.all())
             #print(username)
             #print('technik in user.product_set.all()', technik.users_liked)
@@ -96,6 +92,20 @@ def addlike(request, path_argument, product_id, comment_page_number):
         raise Http404
     return redirect(path)
 
+
+def add_to_basket(request, product_id):
+    print('add_to_basket')
+    username = auth.get_user(request).username
+    technik = Product.objects.get(id=product_id)
+    if username:
+        try:
+            basket = Basket.objects.get(id=request.user.id)
+            if username and (technik.product_name not in basket.get_list_of_products()):
+                basket.add_product(technik.product_name)
+                basket.save()
+        except ObjectDoesNotExist:
+            raise Http404
+        return redirect('http://127.0.0.1:8000/shop/notebook/')
 
 def addcomment(request, product_id):
     if request.POST and ('bla' not in request.session):

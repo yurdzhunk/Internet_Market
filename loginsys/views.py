@@ -5,6 +5,9 @@ from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
 from django.core.context_processors import csrf
+from product.models import Basket
+from django.core.exceptions import ObjectDoesNotExist
+from django.http.response import Http404
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 
@@ -18,6 +21,13 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
+            if Basket.objects.filter(id=request.user.id).count() == 0:
+                basket = Basket(id=request.user.id)
+                basket.save()
+            else:
+                basket = Basket.objects.get(id=request.user.id)
+                basket.clean_basket()
+                basket.save()
             args['username'] = username
             return render_to_response('start_page.html', args)
         else:
@@ -36,6 +46,9 @@ def register_page(request):
     return render_to_response('register_page.html', {})
 
 def logout(request):
+    basket = Basket.objects.get(id=request.user.id)
+    basket.clean_basket()
+    basket.save()
     auth.logout(request)
     return redirect('http://127.0.0.1:8000/1/')
 
