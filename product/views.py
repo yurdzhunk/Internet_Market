@@ -59,14 +59,14 @@ def product(request, product_id=1, comment_page_number=1):
     args['path_argument'] = 1
     return render_to_response('product.html', args)
 
-
-def addlike(request, path_argument, product_id, comment_page_number):
+#def addlike(request, path_argument, product_id, comment_page_number):
+def addlike(request, product_id):
     username = auth.get_user(request).username
     technik = Product.objects.get(id=product_id)
-    if path_argument == '2':
-        path = 'http://127.0.0.1:8000/page/%s/' % comment_page_number
-    if path_argument == '1':
-        path = 'http://127.0.0.1:8000/product/get/%s/%s/' % (product_id, comment_page_number)
+    #if path_argument == '2':
+    #    path = 'http://127.0.0.1:8000/page/%s/' % comment_page_number
+    #if path_argument == '1':
+    #    path = 'http://127.0.0.1:8000/product/get/%s/%s/' % (product_id, comment_page_number)
     try:
         user = User.objects.get(username=username)
         #print('START: user.product_set.all()', user.product_set.all())
@@ -92,7 +92,7 @@ def addlike(request, path_argument, product_id, comment_page_number):
             #print('user.product_set.all()', user.product_set.all())
     except ObjectDoesNotExist:
         raise Http404
-    return redirect(path)
+    return redirect('http://127.0.0.1:8000/shop/notebook/')
 
 
 def add_to_basket(request, product_id):
