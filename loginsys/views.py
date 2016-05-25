@@ -6,10 +6,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
 from django.core.context_processors import csrf
 from product.models import Basket
+from loginsys.models import User_Email
 from django.core.exceptions import ObjectDoesNotExist
 from django.http.response import Http404
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
+from loginsys.forms import UserCreateForm
+
 
 @csrf_protect
 def login(request):
@@ -43,7 +46,10 @@ def login_page(request):
     return render_to_response('login_page.html', args)
 
 def register_page(request):
-    return render_to_response('register_page.html', {})
+    args = {}
+    args.update(csrf(request))
+    args['form'] = UserCreateForm()
+    return render_to_response('register_page.html', args)
 
 def logout(request):
     basket = Basket.objects.get(id=request.user.id)
@@ -56,17 +62,39 @@ def logout(request):
 def register(request):
     args = {}
     args.update(csrf(request))
-    args['form'] = UserCreationForm()
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    email = request.POST.get('email', '')
+    dict_of_user = {'username': [username], 'password1': [password], 'password2': [password], 'email': [email]}
+    # args['form'] = UserCreationForm()
+
+    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA it is request.POST', request.POST)
     if request.POST:
+        print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB, request is POST')
         newuser_form = UserCreationForm(request.POST)
-        if newuser_form.is_valid():
+        email = request.POST.get('email', '')
+        new_email = User_Email(email=email)
+        # newuser_form = UserCreateForm()
+        # newuser_form.username = username
+        # newuser_form.password1 = password
+        # newuser_form.password2 = password
+        # newuser_form.email = email
+        # newuser_form.is_bound = True
+        print('EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE', newuser_form)
+        if newuser_form.is_valid() and new_email.email_is_valid():
+            print('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC')
             newuser_form.save()
-            newuser = auth.authenticate(username=newuser_form.cleaned_data['username'], password=newuser_form.cleaned_data['password2'])
+            new_email.emails_username = newuser_form.cleaned_data['username']
+            new_email.save()
+            newuser = auth.authenticate(username=newuser_form.cleaned_data['username'],
+                                        password=newuser_form.cleaned_data['password2'])
             auth.login(request, newuser)
-            return redirect('http://127.0.0.1:8000')
+            basket = Basket(id=request.user.id)
+            basket.save()
+            return redirect('http://127.0.0.1:8000/1/')
         else:
-            args['form'] = newuser_form
-    return render_to_response('register.html', args)
+            print('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD')
+    return render_to_response('register_page.html', args)
 
 
 
