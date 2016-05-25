@@ -3,25 +3,33 @@
 
 {% block shop %}
 
+
+
 <br>
 <br>
     <br>
 
 <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-3" style="margin-top: 10px">
         <div id="accordeon" class="panel-group">
 <!--First panel-->
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a href="#collapse-1" data-parent="#accordeon" data-toggle="collapse">Первый раздел</a>
+                        <a href="#collapse-1" data-parent="#accordeon" data-toggle="collapse">Бренд</a>
                     </h4>
                 </div>
                 <div id="collapse-1" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <a href="#">Продукт</a>
-                        <a href="#">Продукт</a>
-                        <a href="#">Продукт</a>
+                        <div class="checkbox">
+                          <label><input type="checkbox" value="">Apple</label>
+                        </div>
+                        <div class="checkbox">
+                          <label><input type="checkbox" value="">Asus</label>
+                        </div>
+                        <div class="checkbox">
+                          <label><input type="checkbox" value="">Acer</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,7 +69,7 @@
     </div>
 
 
-    <div class="col-lg-9">
+    <div class="col-lg-9" style="margin-top: 10px">
         {% for technik in techniks %}
                 <div class="col-xs-6 col-sm-4">
                     <div class="thumbnail">
