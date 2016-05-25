@@ -21,6 +21,7 @@
                 </div>
                 <div id="collapse-1" class="panel-collapse collapse">
                     <div class="panel-body">
+
                         <div class="checkbox">
                           <label><input type="checkbox" value="">Apple</label>
                         </div>
@@ -79,7 +80,12 @@
                             <p>{{ technik.product_description }}</p>
                             <div class="btn-group">
                                 <a href="#" class="btn btn-primary">О товаре</a>
-                                <a href="http://127.0.0.1:8000/add_to_basket/{{ technik.id }}/" class="btn btn-success">Купить <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </a>
+
+                                {% if username %}
+                                    <a href="http://127.0.0.1:8000/add_to_basket/{{ technik.id }}/" class="btn btn-success">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </a>
+                                {% else %}
+                                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal-2">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </button>
+                                {% endif %}
 
                                 {% if username %}
                                     <a href="http://127.0.0.1:8000/addlike/{{ technik.id }}/" class="btn btn-danger"><i style="color: #ffffff" class="fa fa-heart"></i> {{ technik.product_rate }}</a>
@@ -198,6 +204,23 @@
         </div>
 </div>
 
+<div id="modal-2" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal"><i class="fa fa-close"></i> </button>
+                    <h4 class="modal-title">Вы не можете купить наш продукт не залогинившись</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Сделайте это прямо сейчас!)
+                    <a href="http://127.0.0.1:8000/auth/login_page/">Залогиньтесь</a> или же <a href="http://127.0.0.1:8000/auth/register_page/">Зарегистрируйтесь</a></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+</div>
 
 
 </div>
