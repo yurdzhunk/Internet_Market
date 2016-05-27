@@ -199,6 +199,7 @@ def basket(request):
     if username:
         basket = Basket.objects.get(id=request.user.id)
         cost = basket.get_basket_cost(cost)
+    args['username'] = request.user.username
     args['cost'] = cost
     basket = Basket.objects.get(id=request.user.id)
     list_of_products_name = basket.get_list_of_products()
