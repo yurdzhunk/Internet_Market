@@ -178,6 +178,7 @@ def tv(request):
     args['techniks'] = Product.objects.filter(product_type='tv')
     return render_to_response('shop.html', args)
 
+
 def notebook_product_page(request, product_id):
     args = {}
     username = request.user.username
@@ -189,5 +190,22 @@ def notebook_product_page(request, product_id):
     technik = Product.objects.get(id=product_id)
     args['product'] = technik
     return render_to_response('notebook_product_page.html', args)
+
+
+def basket(request):
+    args = {}
+    username = request.user.username
+    cost = 0
+    if username:
+        basket = Basket.objects.get(id=request.user.id)
+        cost = basket.get_basket_cost(cost)
+    args['cost'] = cost
+    basket = Basket.objects.get(id=request.user.id)
+    list_of_products_name = basket.get_list_of_products()
+    list_of_products = []
+    for product_name in list_of_products_name:
+        list_of_products.append(Product.objects.get(product_name=product_name))
+    args['list_of_products'] = list_of_products
+    return render_to_response('basket.html', args)
 
 
