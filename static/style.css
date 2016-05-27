@@ -115,6 +115,16 @@ h4.media-heading{
 	color: #ffffff ;
 }
 
+.fa-dollar{
+	color: #666666 ;
+	margin-right: 10px ;
+	/*padding-top: 5px;*/
+}
+
+.fa-dollar:hover {
+	color: #ffffff ;
+}
+
 .panel-login {
 	border-color: #ccc;
 	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
@@ -201,4 +211,11 @@ h4.media-heading{
 	color: #fff;
 	background-color: #1CA347;
 	border-color: #1CA347;
+}
+
+.navbar .divider-vertical {
+    height: 60px;
+    margin: 0px;
+    border-right: 1px solid #666666;
+    border-left: 1px solid #666666;
 }

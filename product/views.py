@@ -14,7 +14,13 @@ from django.contrib.auth.models import User
 # Create your views here.
 def basic_one(request):
     args = {}
-    args['username'] = request.user.username
+    username = request.user.username
+    cost = 0
+    if username:
+        basket  = Basket.objects.get(id=request.user.id)
+        cost = basket.get_basket_cost(cost)
+    args['cost'] = cost
+    args['username'] = username
     first_view = 'basic one'
     html = "<html><body> This is %s view</html></body>" % first_view
     return render_to_response('start_page.html', args)
@@ -136,7 +142,13 @@ def startpage(request):
 
 def notebook(request):
     args = {}
-    args['username'] = request.user.username
+    username = request.user.username
+    cost = 0
+    if username:
+        basket = Basket.objects.get(id=request.user.id)
+        cost = basket.get_basket_cost(cost)
+    args['cost'] = cost
+    args['username'] = username
     args['techniks'] = Product.objects.filter(product_type='notebook')
     args['img1'] = args['techniks'][0].product_image.url
     print(args['img1'])
@@ -145,17 +157,35 @@ def notebook(request):
 
 def smartphone(request):
     args = {}
+    username = request.user.username
+    cost = 0
+    if username:
+        basket = Basket.objects.get(id=request.user.id)
+        cost = basket.get_basket_cost(cost)
+    args['cost'] = cost
     args['techniks'] = Product.objects.filter(product_type='smartphone')
     return render_to_response('shop.html', args)
 
 
 def tv(request):
     args = {}
+    username = request.user.username
+    cost = 0
+    if username:
+        basket = Basket.objects.get(id=request.user.id)
+        cost = basket.get_basket_cost(cost)
+    args['cost'] = cost
     args['techniks'] = Product.objects.filter(product_type='tv')
     return render_to_response('shop.html', args)
 
 def notebook_product_page(request, product_id):
     args = {}
+    username = request.user.username
+    cost = 0
+    if username:
+        basket = Basket.objects.get(id=request.user.id)
+        cost = basket.get_basket_cost(cost)
+    args['cost'] = cost
     technik = Product.objects.get(id=product_id)
     args['product'] = technik
     return render_to_response('notebook_product_page.html', args)

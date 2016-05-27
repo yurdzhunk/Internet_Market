@@ -37,6 +37,13 @@ class Basket(models.Model):
     def set_list_of_products(self):
         return json.dumps(self.chosen_products)
 
+    def get_basket_cost(self, cost):
+        list_of_products = self.get_list_of_products()
+        for name_of_product in list_of_products:
+            technik = Product.objects.get(product_name=name_of_product)
+            cost += technik.product_cost
+        return cost
+
     def get_list_of_products(self):
         return json.loads(self.chosen_products)
 
