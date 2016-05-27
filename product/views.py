@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response, redirect
 from django.http.response import HttpResponse, Http404
 from django.template.loader import get_template
 from django.template import Context
-from product.models import Product, Comments, Basket
+from product.models import Product, Comments, Basket, Orders
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.context_processors import csrf
 from product.forms import CommentForm
@@ -196,16 +196,28 @@ def basket(request):
     args = {}
     username = request.user.username
     cost = 0
-    if username:
-        basket = Basket.objects.get(id=request.user.id)
-        cost = basket.get_basket_cost(cost)
-    args['cost'] = cost
     basket = Basket.objects.get(id=request.user.id)
+    cost = basket.get_basket_cost(cost)
+    args['cost'] = cost
     list_of_products_name = basket.get_list_of_products()
     list_of_products = []
     for product_name in list_of_products_name:
         list_of_products.append(Product.objects.get(product_name=product_name))
     args['list_of_products'] = list_of_products
     return render_to_response('basket.html', args)
+
+
+def booking(request):
+    username = request.user.username
+    cost = 0
+    order = Orders(orders_name=request.user.username)
+    basket = Basket.objects.get(id=request.user.id)
+    cost = basket.get_basket_cost(cost)
+    order.ordered_products = basket.chosen_products
+    basket = Basket.objects.get(id=request.user.id)
+    list_of_products_name = basket.get_list_of_products()
+    message = 'Heloo ' + username + '\n' + 'You ordered our products' + '\n' + 'You ordered our products'
+    return redirect('')
+
 
 
