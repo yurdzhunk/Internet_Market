@@ -31,6 +31,9 @@ def login(request):
                 basket = Basket.objects.get(id=request.user.id)
                 basket.clean_basket()
                 basket.save()
+            cost = 0
+            cost = basket.get_basket_cost(cost)
+            args['cost'] = cost
             args['username'] = username
             return render_to_response('start_page.html', args)
         else:
@@ -42,12 +45,16 @@ def login(request):
 
 def login_page(request):
     args = {}
+    cost = 0
+    args['cost'] = cost
     args.update(csrf(request))
     return render_to_response('login_page.html', args)
 
 def register_page(request):
     args = {}
+    cost = 0
     args.update(csrf(request))
+    args['cost'] = cost
     args['form'] = UserCreateForm()
     return render_to_response('register_page.html', args)
 

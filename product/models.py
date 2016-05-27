@@ -57,6 +57,12 @@ class Basket(models.Model):
         list_of_product = []
         self.chosen_products = json.dumps(list_of_product)
 
+#class Orders(models.Model):
+#    class Meta():
+#        db_table = 'orders'
+
+#    list_
+
 class Comments(models.Model):
     class Meta():
         db_table = 'comments'
