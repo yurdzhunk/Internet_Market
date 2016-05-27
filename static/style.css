@@ -1,6 +1,7 @@
-/*.navbar.navbar-inverse{
-   background: rgba(0,0,0,0.4);
-}*/
+.navbar.navbar-inverse{
+	height: 60px;
+   /*background: rgba(0,0,0,0.4);*/
+}
 
 .nav-tabs {
     margin-bottom: 0;
