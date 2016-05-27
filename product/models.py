@@ -57,11 +57,16 @@ class Basket(models.Model):
         list_of_product = []
         self.chosen_products = json.dumps(list_of_product)
 
-#class Orders(models.Model):
-#    class Meta():
-#        db_table = 'orders'
 
-#    list_
+class Orders(models.Model):
+    class Meta():
+        db_table = 'orders'
+
+    ordered_products = models.CharField(max_length=200)
+    orders_cost = models.IntegerField(default=0)
+    adress_of_orderer = models.CharField(max_length=200)
+    orders_name = models.CharField(max_length=200)
+
 
 class Comments(models.Model):
     class Meta():
