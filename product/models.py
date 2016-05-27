@@ -19,6 +19,7 @@ class Product(models.Model):
     product_cost = models.IntegerField(default=0)
     product_rate = models.IntegerField(default=0)
     product_brand = models.TextField(default='')
+    product_screen_resolution = models.FloatField(default=0)
     product_memory = models.IntegerField(default=0)
     product_orm = models.IntegerField(default=0)
     users_liked = models.ManyToManyField(User)
