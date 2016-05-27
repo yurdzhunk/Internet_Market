@@ -76,10 +76,10 @@
                     <div class="thumbnail">
                         <img class="product-image" src="{% static technik.product_image %}">
                         <div class="caption">
-                            <a href="#"><h3>{{ technik.product_name }}</h3></a>
+                            <a href="http://127.0.0.1:8000/notebook/prod/{{ technik.id }}/"><h3>{{ technik.product_name }}</h3></a>
                             <p>{{ technik.product_description }}</p>
                             <div class="btn-group">
-                                <a href="#" class="btn btn-primary">О товаре</a>
+                                <a href="http://127.0.0.1:8000/notebook/prod/{{ technik.id }}/" class="btn btn-primary">О товаре</a>
 
                                 {% if username %}
                                     <a href="http://127.0.0.1:8000/add_to_basket/{{ technik.id }}/" class="btn btn-success">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </a>
