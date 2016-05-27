@@ -5,7 +5,7 @@
 
 <div class="container" style="margin-top: 100px">
     	<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-9" style="margin-left: 150px">
 				<div class="panel panel-login">
 					<div class="panel-heading">
 						<div class="row">
@@ -21,12 +21,24 @@
                                 <div class="col-lg-6">
                                     <img class="product-image" src="{% static product.product_image %}">
                                 </div>
-                                <div class="col-lg-6">
-                                    {{ product.product_description }}
+                                <div class="col-lg-4">
+                                    <h3 style="margin-top: 0px">{{ product.product_name }}</h3>
+                                    <p>{{ product.product_description }}</p>
+                                </div>
+                                <div class="col-lg-2">
+                                    <a href="#" class="active" id="login-form-link">{{ product.product_cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
                                 </div>
                             </div>
+                            <hr>
                         {% endfor %}
-					</div>
+                        <div class="row">
+                            <a href="#" class="actives" id="login-form-link" style="margin-left: 650px">Итого : {{ cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
+					        <hr>
+                        </div>
+                        <div class="row">
+                            <a href="#" class="btn btn-lg btn-success" style="margin-left: 350px ; margin-top: 10px">Оформить заказ</a>
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>

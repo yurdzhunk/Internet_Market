@@ -151,6 +151,17 @@ h4.media-heading{
 	color: #029f5b;
 	font-size: 18px;
 }
+
+.panel-login>.panel-body a.active{
+	color: #d58512;
+	font-size: 18px;
+}
+
+.panel-login>.panel-body a.actives{
+	color: #d58512;
+	font-size: 20px;
+}
+
 .panel-login>.panel-heading hr{
 	margin-top: 10px;
 	margin-bottom: 0px;
