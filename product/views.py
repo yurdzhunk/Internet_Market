@@ -9,6 +9,7 @@ from product.forms import CommentForm
 from django.core.paginator import Paginator
 from django.contrib import auth
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 
 # Create your views here.
@@ -194,6 +195,7 @@ def notebook_product_page(request, product_id):
 
 def basket(request):
     args = {}
+    args.update(csrf(request))
     username = request.user.username
     cost = 0
     basket = Basket.objects.get(id=request.user.id)
@@ -210,14 +212,17 @@ def basket(request):
 def booking(request):
     username = request.user.username
     cost = 0
-    order = Orders(orders_name=request.user.username)
+    adress = request.POST.get('adress', '')
+    phone_number = request.POST.get('phone', '')
     basket = Basket.objects.get(id=request.user.id)
     cost = basket.get_basket_cost(cost)
+    order = Orders(orders_name=username)
     order.ordered_products = basket.chosen_products
-    basket = Basket.objects.get(id=request.user.id)
-    list_of_products_name = basket.get_list_of_products()
-    message = 'Heloo ' + username + '\n' + 'You ordered our products' + '\n' + 'You ordered our products'
-    return redirect('')
+    order.adress_of_orderer = adress
+    order.orders_phone_number = phone_number
+    order.orders_cost = cost
+    order.save()
+    return redirect('http://127.0.0.1:8000/1/')
 
 
 

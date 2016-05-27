@@ -122,3 +122,8 @@ MEDIA_ROOT = '/home/valera/project_3/Internet_Market/static'
 
 MEDIA_URL = '/media/'
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'yurdzhunk@gmail.com'
+EMAIL_HOST_PASSWORD = '3991yura9021'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

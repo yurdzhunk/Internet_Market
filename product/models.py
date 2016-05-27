@@ -66,6 +66,7 @@ class Orders(models.Model):
     orders_cost = models.IntegerField(default=0)
     adress_of_orderer = models.CharField(max_length=200)
     orders_name = models.CharField(max_length=200)
+    orders_phone_number = models.CharField(max_length=100, default=3254362364)
 
 
 class Comments(models.Model):
