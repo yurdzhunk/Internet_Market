@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^company/$', 'product.views.company'),
     url(r'^add_to_basket/(?P<product_id>\d+)/$', 'product.views.add_to_basket'),
     url(r'^addlike/(?P<product_id>\d+)/$', 'product.views.addlike'),
+    url(r'^proddesc/(?P<product_id>\d+)/$', 'product.views.product_page'),
     url(r'^', 'product.views.products'),
 
 ]

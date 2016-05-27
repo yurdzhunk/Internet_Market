@@ -154,5 +154,10 @@ def tv(request):
     args['techniks'] = Product.objects.filter(product_type='tv')
     return render_to_response('shop.html', args)
 
+def product_page(request, product_id):
+    args = {}
+    technik = Product.objects.get(id=product_id)
+    args['product'] = technik
+    return render_to_response('product_page.html', args)
 
 
