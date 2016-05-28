@@ -205,6 +205,7 @@ def basket(request):
     list_of_products = []
     for product_name in list_of_products_name:
         list_of_products.append(Product.objects.get(product_name=product_name))
+    args['length'] = len(list_of_products)
     args['list_of_products'] = list_of_products
     return render_to_response('basket.html', args)
 

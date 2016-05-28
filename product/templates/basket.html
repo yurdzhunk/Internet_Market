@@ -16,24 +16,28 @@
 						<hr>
 					</div>
 					<div class="panel-body">
-                        {% for product in list_of_products %}
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <img class="product-image" src="{% static product.product_image %}">
+                        {% if  length != 0 %}
+                            {% for product in list_of_products %}
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <img class="product-image" src="{% static product.product_image %}">
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <h3 style="margin-top: 0px">{{ product.product_name }}</h3>
+                                        <p>{{ product.product_description }}</p>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <a href="#" class="active" id="login-form-link">{{ product.product_cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <a href="#"  type="button" style="color: #ac2925"><i class="fa fa-2x fa-close"></i> </a>
+                                    </div>
                                 </div>
-                                <div class="col-lg-5">
-                                    <h3 style="margin-top: 0px">{{ product.product_name }}</h3>
-                                    <p>{{ product.product_description }}</p>
-                                </div>
-                                <div class="col-lg-2">
-                                    <a href="#" class="active" id="login-form-link">{{ product.product_cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
-                                </div>
-                                <div class="col-lg-1">
-                                    <a href="http://127.0.0.1:8000/delete/{{ product.id }}/"  type="button" style="color: #ac2925"><i class="fa fa-2x fa-close"></i> </a>
-                                </div>
-                            </div>
-                            <hr>
-                        {% endfor %}
+                                <hr>
+                            {% endfor %}
+                        {% else %}
+                            <h3 id="login-form-link" style="margin-left: 300px ; color: #029f5b">В корзине пока пусто</h3>
+                        {% endif %}
                         <div class="row">
                             <a href="#" class="actives" id="login-form-link" style="margin-left: 500px">Итого : {{ cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
 					        <hr>
