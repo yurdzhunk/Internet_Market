@@ -220,6 +220,8 @@ def booking(request):
     phone_number = request.POST.get('phone', '')
     basket = Basket.objects.get(id=request.user.id)
     cost = basket.get_basket_cost(cost)
+    basket.clean_basket()
+    basket.save()
     order = Orders(orders_name=username)
     order.ordered_products = basket.chosen_products
     order.adress_of_orderer = adress
