@@ -39,7 +39,11 @@
                         <li><a href="http://127.0.0.1:8000/company/">О компании</a> </li>
                         <li><a href="#">Контакты</a> </li>
                         <li class="navbar divider-vertical"></li>
-                        <li><a href="http://127.0.0.1:8000/basket/"><i class="fa fa-2x fa-shopping-cart"></i></a></li>
+                        {% if username %}
+                            <li><a href="http://127.0.0.1:8000/basket/"><i class="fa fa-2x fa-shopping-cart"></i></a></li>
+                        {% else %}
+                            <li><a data-toggle="modal" data-target="#modal-3"><i class="fa fa-2x fa-shopping-cart"></i> </a></li>
+                        {% endif %}
                         <li><h5 href="#" style="color:#666666; margin-top: 20px">{{ cost }} <i class="fa fa-dollar" ></i></h5></li>
                     </ul>
                     <form class="navbar-form navbar-right">
@@ -54,6 +58,24 @@
             <!--</div>-->
         </div>
     </div>
+</div>
+
+<div id="modal-3" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal"><i class="fa fa-close"></i> </button>
+                    <h4 class="modal-title">Вы не можете посмотреть корзину поскольку вы не залогинены!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Сделайте это прямо сейчас!)
+                    <a href="http://127.0.0.1:8000/auth/login_page/">Залогиньтесь</a> или же <a href="http://127.0.0.1:8000/auth/register_page/">Зарегистрируйтесь</a></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
 </div>
 
 
