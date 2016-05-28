@@ -27,7 +27,7 @@
                                         <p>{{ product.product_description }}</p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <a href="#" class="active" id="login-form-link">{{ product.product_cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
+                                        <a id="login-form-link" style="color: #d58512 ; font-size: 2ch">{{ product.product_cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
                                     </div>
                                     <div class="col-lg-1">
                                         <a href="http://127.0.0.1:8000/delete/{{ product.id }}/"  type="button" style="color: #ac2925"><i class="fa fa-2x fa-close"></i> </a>
@@ -39,7 +39,7 @@
                             <h3 id="login-form-link" style="margin-left: 300px ; color: #029f5b">В корзине пока пусто</h3>
                         {% endif %}
                         <div class="row">
-                            <a href="#" class="actives" id="login-form-link" style="margin-left: 500px">Итого : {{ cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
+                            <a class="actives" id="login-form-link" style="margin-left: 500px">Итого : {{ cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
 					        <hr>
                         </div>
                         <div class="row">
