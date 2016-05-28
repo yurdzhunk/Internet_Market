@@ -38,28 +38,30 @@
                         {% else %}
                             <h3 id="login-form-link" style="margin-left: 300px ; color: #029f5b">В корзине пока пусто</h3>
                         {% endif %}
-                        <div class="row">
-                            <a class="actives" id="login-form-link" style="margin-left: 500px">Итого : {{ cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
-					        <hr>
-                        </div>
-                        <div class="row">
-                            <form id="login-form" action="http://127.0.0.1:8000/booking/" method="post" role="form" style="display: block;">
-                                {% csrf_token %}
-                                <div class="col-lg-9">
-                                    <input type="text" name="adress" id="adress" tabindex="1" class="form-control" placeholder="Your adress" value="">
-                                </div>
-                                <div class="col-lg-9" style="margin-top: 5px">
-                                    <input type="text" name="phone" id="phone" tabindex="2" class="form-control" placeholder="Phone-number">
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-sm-offset-3" style="margin-top: 5px">
-                                            <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn btn-lg btn-success" style="margin-left: 130px" value="Оформить заказ">
+                        {% if length != 0 %}
+                            <div class="row">
+                                <a class="actives" id="login-form-link" style="margin-left: 500px">Итого : {{ cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
+					            <hr>
+                            </div>
+                            <div class="row">
+                                <form id="login-form" action="http://127.0.0.1:8000/booking/" method="post" role="form" style="display: block;">
+                                    {% csrf_token %}
+                                    <div class="col-lg-9">
+                                        <input type="text" name="adress" id="adress" tabindex="1" class="form-control" placeholder="Your adress" value="">
+                                    </div>
+                                    <div class="col-lg-9" style="margin-top: 5px">
+                                        <input type="text" name="phone" id="phone" tabindex="2" class="form-control" placeholder="Phone-number">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3" style="margin-top: 5px">
+                                                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn btn-lg btn-success" style="margin-left: 130px" value="Оформить заказ">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
+                                </form>
+                            </div>
+                        {% endif %}
                     </div>
 				</div>
 			</div>
