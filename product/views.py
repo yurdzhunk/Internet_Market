@@ -28,7 +28,13 @@ def basic_one(request):
 
 def company(request):
     args = {}
-    args['username'] = request.user.username
+    username = request.user.username
+    cost = 0
+    if username:
+        basket = Basket.objects.get(id=request.user.id)
+        cost = basket.get_basket_cost(cost)
+    args['cost'] = cost
+    args['username'] = username
     return render_to_response('company.html', args)
 
 
