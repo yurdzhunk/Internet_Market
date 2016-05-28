@@ -52,6 +52,11 @@ class Basket(models.Model):
         list_of_product.append(product_name)
         self.chosen_products = json.dumps(list_of_product)
 
+    def delete_product(self, product_name):
+        list_of_product = json.loads(self.chosen_products)
+        list_of_product.remove(product_name)
+        self.chosen_products = json.dumps(list_of_product)
+
     def clean_basket(self):
         list_of_product = json.loads(self.chosen_products)
         list_of_product = []

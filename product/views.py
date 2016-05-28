@@ -225,4 +225,16 @@ def booking(request):
     return redirect('http://127.0.0.1:8000/1/')
 
 
+def delete_product(request, product_id):
+    user_id = request.user.id
+    product = Product.objects.get(id=product_id)
+    basket = Basket.objects.get(id=user_id)
+    list_of_product = basket.get_list_of_products()
+    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', list_of_product)
+    print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', product.product_name)
+    basket.delete_product(product.product_name)
+    basket.save()
+    return redirect('http://127.0.0.1:8000/basket/')
+
+
 
