@@ -27,7 +27,9 @@ def basic_one(request):
     return render_to_response('start_page.html', args)
 
 def company(request):
-    return render_to_response('company.html')
+    args = {}
+    args['username'] = request.user.username
+    return render_to_response('company.html', args)
 
 
 def template_two(request):
@@ -207,6 +209,7 @@ def basket(request):
         list_of_products.append(Product.objects.get(product_name=product_name))
     args['length'] = len(list_of_products)
     args['list_of_products'] = list_of_products
+    args['username'] = request.user.username
     return render_to_response('basket.html', args)
 
 
