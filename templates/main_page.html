@@ -23,7 +23,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="http://127.0.0.1:8000/1/">Internet Market "KLIK"</a>
+                    <a class="navbar-brand" href="http://127.0.0.1:8000/1/"">Market <i class="fa fa-mouse-pointer"></i>Click</a>
                 </div>
                 <div class="collapse navbar-collapse" id="responsive-menu">
                     <ul class="nav navbar-nav">
@@ -48,7 +48,8 @@
                     </ul>
                     <form class="navbar-form navbar-right">
                         {% if username %}
-                            <a href="http://127.0.0.1:8000/auth/logout/" class="btn btn-primary sign-button">Log out</a>
+                            <a href="http://127.0.0.1:8000/auth/cabinet/" class="btn btn-warning sign-button">Cabinet</a>
+                            <a href="http://127.0.0.1:8000/auth/logout/" class="btn btn-primary sign-button">( {{ username }} ) Log out</a>
                         {% else %}
                             <a href="http://127.0.0.1:8000/auth/login_page/" class="btn btn-success sign-button">Sign in</a>
                             <a href="http://127.0.0.1:8000/auth/register_page/" class="btn btn-primary sign-button">Sign up</a>

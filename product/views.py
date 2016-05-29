@@ -240,7 +240,10 @@ def booking(request):
         basket1.clean_basket()
         basket1.save()
         order.save()
-        return redirect('http://127.0.0.1:8000/1/')
+        args = {}
+        args['username'] = username
+        args['cost'] = 0
+        return render_to_response('readyorder.html', args)
     elif adress != '' and phone_number == '':
         flag_adress = True
         flag_phone = False
@@ -265,6 +268,11 @@ def delete_product(request, product_id):
     basket.delete_product(product.product_name)
     basket.save()
     return redirect('http://127.0.0.1:8000/basket/')
+
+def ready_order(request):
+    args = {}
+    args['username'] = request.user.username
+    return render_to_response('readyorder.html', args)
 
 
 
