@@ -198,11 +198,16 @@ def notebook_product_page(request, product_id):
     args['cost'] = cost
     technik = Product.objects.get(id=product_id)
     args['product'] = technik
+    args['username'] = username
     return render_to_response('notebook_product_page.html', args)
 
 
-def basket(request):
+def basket(request, flag_adress=True, flag_phone=True, adress='', phone=''):
     args = {}
+    args['flag_adress'] = flag_adress
+    args['flag_phone'] = flag_phone
+    args['adress_default'] = adress
+    args['phone_default'] = phone
     args.update(csrf(request))
     username = request.user.username
     cost = 0
@@ -224,17 +229,30 @@ def booking(request):
     cost = 0
     adress = request.POST.get('adress', '')
     phone_number = request.POST.get('phone', '')
-    basket = Basket.objects.get(id=request.user.id)
-    cost = basket.get_basket_cost(cost)
-    basket.clean_basket()
-    basket.save()
-    order = Orders(orders_name=username)
-    order.ordered_products = basket.chosen_products
-    order.adress_of_orderer = adress
-    order.orders_phone_number = phone_number
-    order.orders_cost = cost
-    order.save()
-    return redirect('http://127.0.0.1:8000/1/')
+    if adress != '' and phone_number != '':
+        basket1 = Basket.objects.get(id=request.user.id)
+        cost = basket1.get_basket_cost(cost)
+        order = Orders(orders_name=username)
+        order.ordered_products = basket1.chosen_products
+        order.adress_of_orderer = adress
+        order.orders_phone_number = phone_number
+        order.orders_cost = cost
+        basket1.clean_basket()
+        basket1.save()
+        order.save()
+        return redirect('http://127.0.0.1:8000/1/')
+    elif adress != '' and phone_number == '':
+        flag_adress = True
+        flag_phone = False
+        return basket(request, flag_adress=flag_adress, flag_phone=flag_phone, adress=adress)
+    elif adress == '' and phone_number != '':
+        flag_adress = False
+        flag_phone = True
+        return basket(request, flag_adress=flag_adress, flag_phone=flag_phone, phone=phone_number)
+    elif adress == '' and phone_number == '':
+        flag_adress = False
+        flag_phone = False
+        return basket(request, flag_adress=flag_adress, flag_phone=flag_phone)
 
 
 def delete_product(request, product_id):
