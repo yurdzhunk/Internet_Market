@@ -47,11 +47,21 @@
                                 <form id="login-form" action="http://127.0.0.1:8000/booking/" method="post" role="form" style="display: block;">
                                     {% csrf_token %}
                                     <div class="col-lg-9">
-                                        <input type="text" name="adress" id="adress" tabindex="1" class="form-control" placeholder="Your adress" value="">
+                                        <input type="text" name="adress" id="adress" tabindex="1" class="form-control" placeholder="Your adress" value={{ adress_default }}>
                                     </div>
+                                    {% if not flag_adress %}
+                                        <div class="col-lg-9" style="margin-top: 5px">
+                                            <h4 style="color: #029f5b; margin-top: 2px"><i class="fa fa-warning"></i> Введите адрес доставки</h4>
+                                        </div>
+                                    {% endif %}
                                     <div class="col-lg-9" style="margin-top: 5px">
-                                        <input type="text" name="phone" id="phone" tabindex="2" class="form-control" placeholder="Phone-number">
+                                        <input type="text" name="phone" id="phone" tabindex="2" class="form-control" placeholder="Phone-number" value={{ phone_default }}>
                                     </div>
+                                    {% if not flag_phone %}
+                                        <div class="col-lg-9" style="margin-top: 5px">
+                                            <h4 style="color: #029f5b; margin-top: 2px"><i class="fa fa-warning"></i> Введите контактный телефон</h4>
+                                        </div>
+                                    {% endif %}
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3" style="margin-top: 5px">

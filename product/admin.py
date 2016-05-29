@@ -1,5 +1,5 @@
 from django.contrib import admin
-from product.models import Product, Comments
+from product.models import Product, Comments, Orders
 
 # Register your models here.
 class ArticleInline(admin.StackedInline):
@@ -14,3 +14,11 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
+
+
+class OrderAdmin(admin.ModelAdmin):
+    fields = ['ordered_products', 'orders_cost', 'adress_of_orderer', 'orders_name', 'orders_phone_number']
+    list_filter = ['orders_name']
+
+
+admin.site.register(Orders, OrderAdmin)
