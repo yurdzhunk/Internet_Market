@@ -214,6 +214,7 @@ def basket(request, flag_adress=True, flag_phone=True, adress='', phone=''):
     basket = Basket.objects.get(id=request.user.id)
     cost = basket.get_basket_cost(cost)
     args['cost'] = cost
+    print('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC', basket.chosen_products)
     list_of_products_name = basket.get_list_of_products()
     list_of_products = []
     for product_name in list_of_products_name:

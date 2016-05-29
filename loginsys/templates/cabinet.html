@@ -10,23 +10,26 @@
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-6 col-xs-offset-3">
-								<a href="#" class="active" id="login-form-link">Кабинет {{ username }}</a>
+								<a href="#" class="active" id="login-form-link">Кабинет ({{ username }})</a>
 							</div>
 						</div>
 						<hr>
 					</div>
 					<div class="panel-body">
-                        {% if len(list_of_list_of_product) == 0 %}
+                        {% if len_of_list == 0 %}
                             <h3 id="login-form-link" style="margin-left: 300px ; color: #029f5b">У вас пока что нету заказов</h3>
                         {% else %}
                             {% for order in list_of_list_of_product %}
                                 {% for product in order %}
                                     <div class="row">
-                                        <div class="col-lg-6">
-                                            <img class="product-image" src="{% static product.product_image %}">
+                                        <div class="col-lg-4">
+                                            <img class="product-image"  style="width: 50% ; height: 50%" src="{% static product.product_image %}">
                                         </div>
-                                        <div class="col-lg-6">
-                                            <h4 style="color: #0f0f0f">{{ product.product_name }}</h4>
+                                        <div class="col-lg-4">
+                                            <h6 style="color: #0f0f0f">{{ product.product_name }}</h6>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <h6 style="color: #0f0f0f">{{ product.product_cost }}<i class="fa fa-dollar"></i></h6>
                                         </div>
                                     </div>
                                 {% endfor %}
