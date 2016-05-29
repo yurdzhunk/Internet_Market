@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^login/', 'loginsys.views.login'),
     url(r'^login_page/', 'loginsys.views.login_page'),
     url(r'^register/', 'loginsys.views.register'),
+    url(r'^cabinet/', 'loginsys.views.cabinet'),
     url(r'^register_page/', 'loginsys.views.register_page'),
 
 
