@@ -73,6 +73,9 @@ class Orders(models.Model):
     orders_name = models.CharField(max_length=200)
     orders_phone_number = models.CharField(max_length=100, default=3254362364)
 
+    def get_oredered_products(self):
+        return json.loads(self.ordered_products)
+
 
 class Comments(models.Model):
     class Meta():

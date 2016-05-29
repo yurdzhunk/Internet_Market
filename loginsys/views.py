@@ -12,6 +12,7 @@ from django.http.response import Http404
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from loginsys.forms import UserCreateForm
+from product.models import Orders, Product
 
 
 @csrf_protect
@@ -102,6 +103,28 @@ def register(request):
         else:
             print('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD')
     return render_to_response('register_page.html', args)
+
+
+def cabinet(request):
+    args = {}
+    username = request.user.username
+    list_of_orders = Orders.objects.filter(orders_name=request.user.username)
+    list_of_list_of_product_name = []
+    list_of_list_of_product = []
+
+    for orders in list_of_orders:
+        list_of_list_of_product_name.append(orders.get_oredered_products())
+
+    for order in list_of_list_of_product_name:
+        for name_of_product in order:
+            list_of_list_of_product.append(Product.objects.get(product_name=name_of_product))
+
+    args['username'] = username
+    args['list_of_list_of_product'] = list_of_list_of_product
+    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', list_of_list_of_product)
+
+    render_to_response('cabinet.html', args)
+
 
 
 
