@@ -3,7 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^1/', 'product.views.basic_one'),
+    url(r'^market/', 'product.views.basic_one'),
     url(r'^2/', 'product.views.template_two'),
     url(r'^3/', 'product.views.template_three_simple'),
     url(r'^basket/', 'product.views.basket'),
@@ -18,6 +18,8 @@ urlpatterns = [
     url(r'^shop/smartphone/$', 'product.views.smartphone'),
     url(r'^shop/tv/$', 'product.views.tv'),
     url(r'^company/$', 'product.views.company'),
+    url(r'^akcii/$', 'product.views.akcii'),
+    url(r'^contacts/$', 'product.views.contacts'),
     url(r'^add_to_basket/(?P<product_id>\d+)/$', 'product.views.add_to_basket'),
     url(r'^addlike/(?P<product_id>\d+)/$', 'product.views.addlike'),
     url(r'^notebook/prod/(?P<product_id>\d+)/$', 'product.views.notebook_product_page'),

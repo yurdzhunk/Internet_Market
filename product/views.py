@@ -275,5 +275,15 @@ def ready_order(request):
     args['username'] = request.user.username
     return render_to_response('readyorder.html', args)
 
+def akcii(request):
+    args = {}
+    args['username'] = request.user.username
+    return render_to_response('akcii.html', args)
+
+def contacts(request):
+    args = {}
+    args['username'] = request.user.username
+    return render_to_response('contacts.html', args)
+
 
 

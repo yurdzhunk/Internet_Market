@@ -19,6 +19,8 @@
                         {% if len_of_list == 0 %}
                             <h3 id="login-form-link" style="margin-left: 300px ; color: #029f5b">У вас пока что нету заказов</h3>
                         {% else %}
+                            <h3 id="login-form-link" style="color: #000000 ; margin-top: 0px">Ваши заказы</h3>
+                            <hr>
                             {% for order in list_of_list_of_product %}
                                 {% for product in order %}
                                     <div class="row">

@@ -39,7 +39,7 @@ def login(request):
             return render_to_response('start_page.html', args)
         else:
             args['login_error'] = 'Log in error'
-            return render_to_response('login.html', args)
+            return render_to_response('login_page.html', args)
     else:
         return render_to_response('login_page.html', args)
 
@@ -64,7 +64,7 @@ def logout(request):
     basket.clean_basket()
     basket.save()
     auth.logout(request)
-    return redirect('http://127.0.0.1:8000/1/')
+    return redirect('http://127.0.0.1:8000/market/')
 
 
 def register(request):
@@ -112,6 +112,7 @@ def cabinet(request):
     list_of_list_of_product_name = []
     list_of_list_of_product = []
     list_of_product = []
+
     for orders in list_of_orders:
         list_of_list_of_product_name.append(orders.get_ordered_products())
 
@@ -124,6 +125,7 @@ def cabinet(request):
     args['username'] = username
     args['list_of_list_of_product'] = list_of_list_of_product
     args['len_of_list'] = len(list_of_list_of_product)
+
 
     return render_to_response('cabinet.html', args)
 
