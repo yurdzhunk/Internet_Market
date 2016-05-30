@@ -74,7 +74,6 @@ class Orders(models.Model):
     orders_phone_number = models.CharField(max_length=100, default=3254362364)
 
     def get_ordered_products(self):
-        print('IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII ', self.ordered_products)
         return json.loads(self.ordered_products)
 
 

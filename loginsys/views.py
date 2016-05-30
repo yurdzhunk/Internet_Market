@@ -114,8 +114,7 @@ def cabinet(request):
     list_of_product = []
     print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', list_of_orders[0].ordered_products)
     for orders in list_of_orders:
-        if orders.ordered_products != '':
-            list_of_list_of_product_name.append(orders.get_ordered_products())
+        list_of_list_of_product_name.append(orders.get_ordered_products())
 
     for order in list_of_list_of_product_name:
         for name_of_product in order:
