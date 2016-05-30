@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from validate_email import validate_email
 from django.db import models
 
+
 # Create your models here.
 
 class User_Email(models.Model):
