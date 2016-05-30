@@ -117,6 +117,7 @@ def cabinet(request):
         list_of_list_of_product_name.append(orders.get_ordered_products())
 
     for order in list_of_list_of_product_name:
+        print('IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII', order)
         for name_of_product in order:
             list_of_product.append(Product.objects.get(product_name=name_of_product))
         list_of_list_of_product.append(list_of_product)
