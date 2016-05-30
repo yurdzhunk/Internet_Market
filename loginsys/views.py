@@ -113,7 +113,7 @@ def cabinet(request):
     list_of_list_of_product = []
 
     for orders in list_of_orders:
-        list_of_list_of_product_name.append(orders.get_oredered_products())
+        list_of_list_of_product_name.append(orders.get_ordered_products())
 
     for order in list_of_list_of_product_name:
         for name_of_product in order:
