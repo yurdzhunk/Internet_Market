@@ -73,6 +73,13 @@ img.product-image {
     border: solid #cccccc;
 }
 
+img.product-image1 {
+    border-radius: 8px;
+    width: 50%;
+    height: 50%;
+    border: solid #cccccc;
+}
+
 img.carousel-image {
 
     width: 1596px;

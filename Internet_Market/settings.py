@@ -118,7 +118,7 @@ STATICFILES_DIRS = (
 
 )
 
-MEDIA_ROOT = '/home/valera/project_3/Internet_Market/static'
+MEDIA_ROOT = '/home/valera/project_3/Internet_Market/'
 
 MEDIA_URL = '/media/'
 

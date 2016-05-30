@@ -75,7 +75,11 @@
         {% for technik in techniks %}
                 <div class="col-xs-6 col-sm-4" style="height: 400px">
                     <div class="thumbnail">
+                    {% if technik.product_type == 'notebook' %}
                         <img class="product-image" src="{% static technik.product_image %}">
+                    {% else %}
+                        <img class="product-image1" src="{% static technik.product_image %}">
+                    {% endif %}
                         <div class="caption">
                             <a href="http://127.0.0.1:8000/notebook/prod/{{ technik.id }}/"><h4>{{ technik.product_name }}</h4></a>
                             <p>{{ technik.product_description }}</p>
