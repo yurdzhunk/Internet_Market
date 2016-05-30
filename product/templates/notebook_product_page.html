@@ -26,7 +26,38 @@
                                 </p>
                             </div>
                         </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <a id="login-form-link" style="color: #d58512 ; font-size: 2ch"> Цена {{ product.product_cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
+                            </div>
+                            <div class="col-lg-2">
+                                {% if username %}
+                                    <a href="http://127.0.0.1:8000/add_to_basket/{{ product.id }}/" class="btn btn-success">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </a>
+                                {% else %}
+                                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal-2">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </button>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div id="modal-2" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal"><i class="fa fa-close"></i> </button>
+                    <h4 class="modal-title">Вы не можете купить наш продукт не залогинившись</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Сделайте это прямо сейчас!)
+                    <a href="http://127.0.0.1:8000/auth/login_page/">Залогиньтесь</a> или же <a href="http://127.0.0.1:8000/auth/register_page/">Зарегистрируйтесь</a></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
         </div>
