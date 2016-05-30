@@ -17,14 +17,25 @@
 					</div>
                     <div class="panel-body">
 						<div class="row">
-							<div class="col-lg-6">
+                            {% if product.product_type == 'notebook' or product.product_type == 'tv' %}
+							<div class="col-lg-4">
                                 <img class="product-image" src="{% static product.product_image %}">
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-8">
                                 <p style="font-size: large ; color: #0f0f0f">
                                     {{ product.product_description }}
                                 </p>
                             </div>
+                            {% elif product.product_type == 'smartphone' %}
+                            <div class="col-lg-4">
+                                <img class="product-image1" src="{% static product.product_image %}">
+                            </div>
+                            <div class="col-lg-8">
+                                <p style="font-size: large ; color: #0f0f0f">
+                                    {{ product.product_description }}
+                                </p>
+                            </div>
+                            {% endif %}
                         </div>
                         <hr>
                         <div class="row">

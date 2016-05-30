@@ -73,13 +73,10 @@
 
     <div class="col-lg-9" style="margin-top: 10px">
         {% for technik in techniks %}
+            {% if technik.product_type == 'notebook' or technik.product_type == 'tv' %}
                 <div class="col-xs-6 col-sm-4" style="height: 400px">
                     <div class="thumbnail">
-                    {% if technik.product_type == 'notebook' %}
                         <img class="product-image" src="{% static technik.product_image %}">
-                    {% else %}
-                        <img class="product-image1" src="{% static technik.product_image %}">
-                    {% endif %}
                         <div class="caption">
                             <a href="http://127.0.0.1:8000/notebook/prod/{{ technik.id }}/"><h4>{{ technik.product_name }}</h4></a>
                             <p>{{ technik.product_description }}</p>
@@ -102,6 +99,33 @@
                         </div>
                     </div>
                 </div>
+                {% elif technik.product_type == 'smartphone' %}
+                <div class="col-xs-6 col-sm-4" style="height: 470px">
+                    <div class="thumbnail">
+                        <img class="product-image1" src="{% static technik.product_image %}">
+                        <div class="caption">
+                            <a href="http://127.0.0.1:8000/notebook/prod/{{ technik.id }}/"><h4>{{ technik.product_name }}</h4></a>
+                            <p>{{ technik.product_description }}</p>
+                            <div class="btn-group">
+                                <a href="http://127.0.0.1:8000/notebook/prod/{{ technik.id }}/" class="btn btn-primary">О товаре</a>
+
+                                {% if username %}
+                                    <a href="http://127.0.0.1:8000/add_to_basket/{{ technik.id }}/" class="btn btn-success">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </a>
+                                {% else %}
+                                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal-2">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </button>
+                                {% endif %}
+
+                                {% if username %}
+                                    <a href="http://127.0.0.1:8000/addlike/{{ technik.id }}/" class="btn btn-danger"><i style="color: #ffffff" class="fa fa-heart"></i> {{ technik.product_rate }}</a>
+                                {% else %}
+                                    <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-1"><i style="color: #ffffff" class="fa fa-heart"></i> {{ technik.product_rate }}</button>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         {% endfor %}
         <!--
                 <div class="col-xs-6 col-sm-3">
