@@ -3,7 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^1/', 'product.views.basic_one'),
+    url(r'^market/', 'product.views.basic_one'),
     url(r'^2/', 'product.views.template_two'),
     url(r'^3/', 'product.views.template_three_simple'),
     url(r'^basket/', 'product.views.basket'),

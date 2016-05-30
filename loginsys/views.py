@@ -64,7 +64,7 @@ def logout(request):
     basket.clean_basket()
     basket.save()
     auth.logout(request)
-    return redirect('http://127.0.0.1:8000/1/')
+    return redirect('http://127.0.0.1:8000/market/')
 
 
 def register(request):
