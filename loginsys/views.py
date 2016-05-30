@@ -39,7 +39,7 @@ def login(request):
             return render_to_response('start_page.html', args)
         else:
             args['login_error'] = 'Log in error'
-            return render_to_response('login.html', args)
+            return render_to_response('login_page.html', args)
     else:
         return render_to_response('login_page.html', args)
 

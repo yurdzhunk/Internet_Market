@@ -18,7 +18,10 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<form id="login-form" action="http://127.0.0.1:8000/auth/login/" method="post" role="form" style="display: block;">
+                                {% if login_error %}
+                                    <h4 style="color: #029f5b; margin-top: 2px"><i class="fa fa-warning"></i> Введите корректные данные!</h4>
+								{% endif %}
+                                <form id="login-form" action="http://127.0.0.1:8000/auth/login/" method="post" role="form" style="display: block;">
 									{% csrf_token %}
                                     <div class="form-group">
 										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
