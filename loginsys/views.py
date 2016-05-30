@@ -112,21 +112,18 @@ def cabinet(request):
     list_of_list_of_product_name = []
     list_of_list_of_product = []
     list_of_product = []
-    print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB', list_of_orders[0].ordered_products)
     for orders in list_of_orders:
         list_of_list_of_product_name.append(orders.get_ordered_products())
 
     for order in list_of_list_of_product_name:
         for name_of_product in order:
             list_of_product.append(Product.objects.get(product_name=name_of_product))
-        print('IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII      IIIIIIIIIIIIIIII', list_of_product)
         list_of_list_of_product.append(list_of_product)
         list_of_product = []
 
     args['username'] = username
     args['list_of_list_of_product'] = list_of_list_of_product
     args['len_of_list'] = len(list_of_list_of_product)
-    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', list_of_list_of_product)
 
     return render_to_response('cabinet.html', args)
 

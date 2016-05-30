@@ -19,9 +19,9 @@ class Product(models.Model):
     product_cost = models.IntegerField(default=0)
     product_rate = models.IntegerField(default=0)
     product_brand = models.TextField(default='')
-    product_screen_resolution = models.FloatField(default=0)
-    product_memory = models.IntegerField(default=0)
-    product_orm = models.IntegerField(default=0)
+    product_screen_resolution = models.CharField(max_length=20)
+    product_memory = models.CharField(max_length=20)
+    product_orm = models.CharField(max_length=20)
     users_liked = models.ManyToManyField(User)
 
     def __str__(self):              # __unicode__ on Python 2
