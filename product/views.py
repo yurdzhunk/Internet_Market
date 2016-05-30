@@ -9,7 +9,7 @@ from product.forms import CommentForm
 from django.core.paginator import Paginator
 from django.contrib import auth
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
+from datetime import datetime
 
 
 # Create your views here.
@@ -238,6 +238,7 @@ def booking(request):
         order.adress_of_orderer = adress
         order.orders_phone_number = phone_number
         order.orders_cost = cost
+        order.date_of_order = datetime.now()
         basket1.clean_basket()
         basket1.save()
         order.save()

@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -67,6 +67,8 @@ class Orders(models.Model):
     class Meta():
         db_table = 'orders'
 
+    #date_of_order = models.TimeField(default=datetime.datetime(2016, 1, 1, 00, 00, 00))
+    date_of_order = models.DateTimeField(default=datetime.datetime(2016, 1, 1, 00, 00, 00))
     ordered_products = models.CharField(max_length=200)
     orders_cost = models.IntegerField(default=0)
     adress_of_orderer = models.CharField(max_length=200)

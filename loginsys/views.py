@@ -13,6 +13,7 @@ from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from loginsys.forms import UserCreateForm
 from product.models import Orders, Product
+from datetime import datetime
 import json
 
 @csrf_protect
@@ -107,14 +108,26 @@ def register(request):
 
 def cabinet(request):
     args = {}
+    cost = 0
     username = request.user.username
     list_of_orders = Orders.objects.filter(orders_name=request.user.username)
     list_of_list_of_product_name = []
     list_of_list_of_product = []
     list_of_product = []
+    list_of_date = []
+    first_date = datetime.now()
+    i = 0
 
     for orders in list_of_orders:
+        print('IIIIIIIIIIII IIIIIIIIIIIIIIII IIIIIIIIIIIIIIIII')
         list_of_list_of_product_name.append(orders.get_ordered_products())
+        if i == 1:
+            print('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', orders.date_of_order)
+            list_of_date.append(orders.date_of_order)
+        elif i == 0:
+            print('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', orders.date_of_order)
+            first_date = orders.date_of_order
+            i = 1
 
     for order in list_of_list_of_product_name:
         print('IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII', order)
@@ -126,6 +139,11 @@ def cabinet(request):
     args['username'] = username
     args['list_of_list_of_product'] = list_of_list_of_product
     args['len_of_list'] = len(list_of_list_of_product)
+    args['list_of_date'] = list_of_date
+    basket = Basket.objects.get(id=request.user.id)
+    cost = basket.get_basket_cost(cost)
+    args['cost'] = cost
+    args['first_date'] = first_date
 
 
     return render_to_response('cabinet.html', args)

@@ -17,26 +17,37 @@
 					</div>
 					<div class="panel-body">
                         {% if len_of_list == 0 %}
-                            <h3 id="login-form-link" style="margin-left: 300px ; color: #029f5b">У вас пока что нету заказов</h3>
+                            <h3 id="login-form-link" style="margin-left: 250px ; color: #029f5b">У вас пока что нету заказов</h3>
                         {% else %}
                             <h3 id="login-form-link" style="color: #000000 ; margin-top: 0px">Ваши заказы</h3>
                             <hr>
-                            {% for order in list_of_list_of_product %}
-                                {% for product in order %}
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <img class="product-image"  style="width: 50% ; height: 50%" src="{% static product.product_image %}">
+                            <div class="container">
+                                <div class="col-lg-6">
+                                    {% for order in list_of_list_of_product %}
+                                        <div class="well well-md pre-scrollable" style="height: 200px ; width: 530px">
+                                        {% for product in order %}
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <img class="product-image"  style="width: 50% ; height: 50%" src="{% static product.product_image %}">
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <h6 style="color: #0f0f0f">{{ product.product_name }}</h6>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <h6 style="color: #0f0f0f">{{ product.product_cost }}<i class="fa fa-dollar"></i></h6>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
                                         </div>
-                                        <div class="col-lg-4">
-                                            <h6 style="color: #0f0f0f">{{ product.product_name }}</h6>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <h6 style="color: #0f0f0f">{{ product.product_cost }}<i class="fa fa-dollar"></i></h6>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                                <hr>
-                            {% endfor %}
+                                    {% endfor %}
+                                </div>
+                                <div class="col-lg-6">
+                                    <h4 style="color: #000000">{{ first_date }}</h4>
+                                    {% for date in list_of_date %}
+                                        <h4 style="color: #000000 ; margin-top: 200px">{{ date }}</h4>
+                                    {% endfor %}
+                                </div>
+                            </div>
                         {% endif %}
                     </div>
 				</div>
