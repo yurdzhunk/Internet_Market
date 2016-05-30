@@ -35,9 +35,9 @@
                                 <li><a href="http://127.0.0.1:8000/shop/tv/" style="color: #ffffff">ТВ</a> </li>
                             </ul>
                         </li>
-                        <li><a href="#">Акции</a> </li>
+                        <li><a href="http://127.0.0.1:8000/akcii/">Акции</a> </li>
                         <li><a href="http://127.0.0.1:8000/company/">О компании</a> </li>
-                        <li><a href="#">Контакты</a> </li>
+                        <li><a href="http://127.0.0.1:8000/contacts/">Контакты</a> </li>
                         <li class="navbar divider-vertical"></li>
                         {% if username %}
                             <li><a href="http://127.0.0.1:8000/basket/"><i class="fa fa-2x fa-shopping-cart"></i></a></li>
@@ -48,11 +48,11 @@
                     </ul>
                     <form class="navbar-form navbar-right">
                         {% if username %}
-                            <a href="http://127.0.0.1:8000/auth/cabinet/" class="btn btn-warning sign-button">Cabinet</a>
-                            <a href="http://127.0.0.1:8000/auth/logout/" class="btn btn-primary sign-button">( {{ username }} ) Log out</a>
+                            <a href="http://127.0.0.1:8000/auth/cabinet/" class="btn btn-warning sign-button">Кабинет</a>
+                            <a href="http://127.0.0.1:8000/auth/logout/" class="btn btn-primary sign-button">( {{ username }} ) Выйти</a>
                         {% else %}
-                            <a href="http://127.0.0.1:8000/auth/login_page/" class="btn btn-success sign-button">Sign in</a>
-                            <a href="http://127.0.0.1:8000/auth/register_page/" class="btn btn-primary sign-button">Sign up</a>
+                            <a href="http://127.0.0.1:8000/auth/login_page/" class="btn btn-success sign-button">Войти</a>
+                            <a href="http://127.0.0.1:8000/auth/register_page/" class="btn btn-primary sign-button">Регистрация</a>
                         {% endif %}
                     </form>
                 </div>
