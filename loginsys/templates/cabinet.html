@@ -26,9 +26,13 @@
                                     {% for order in list_of_list_of_product %}
                                         <div class="well well-md pre-scrollable" style="height: 200px ; width: 530px">
                                         {% for product in order %}
-                                            <div class="row">
+                                            <div class="row" style="margin-top: 5px">
                                                 <div class="col-lg-4">
+                                                    {% if product.product_type == 'smartphone' %}
                                                     <img class="product-image"  style="width: 50% ; height: 50%" src="{% static product.product_image %}">
+                                                    {% else %}
+                                                    <img class="product-image"  style="width: 75% ; height: 75%" src="{% static product.product_image %}">
+                                                    {% endif %}
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <h6 style="color: #0f0f0f">{{ product.product_name }}</h6>

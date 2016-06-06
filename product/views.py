@@ -123,8 +123,12 @@ def add_to_basket(request, product_id):
                 basket.save()
         except ObjectDoesNotExist:
             raise Http404
-        return redirect('http://127.0.0.1:8000/shop/notebook/')
-
+        if technik.product_type == 'notebook':
+            return redirect('http://127.0.0.1:8000/shop/notebook/')
+        elif technik.product_type == 'smartphone':
+            return redirect('http://127.0.0.1:8000/shop/smartphone/')
+        elif technik.product_type == 'tv':
+            return redirect('http://127.0.0.1:8000/shop/tv/')
 
 def addcomment(request, product_id):
     if request.POST and ('bla' not in request.session):
@@ -168,6 +172,7 @@ def smartphone(request):
     args = {}
     username = request.user.username
     cost = 0
+    args['username'] = request.user.username
     if username:
         basket = Basket.objects.get(id=request.user.id)
         cost = basket.get_basket_cost(cost)
@@ -180,6 +185,7 @@ def tv(request):
     args = {}
     username = request.user.username
     cost = 0
+    args['username'] = request.user.username
     if username:
         basket = Basket.objects.get(id=request.user.id)
         cost = basket.get_basket_cost(cost)

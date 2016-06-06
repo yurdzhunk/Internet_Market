@@ -20,7 +20,11 @@
                             {% for product in list_of_products %}
                                 <div class="row">
                                     <div class="col-lg-4">
+                                        {% if product.product_type != 'smartphone' %}
                                         <img class="product-image" src="{% static product.product_image %}">
+                                        {% else %}
+                                        <img class="product-image1" src="{% static product.product_image %}">
+                                        {% endif %}
                                     </div>
                                     <div class="col-lg-5">
                                         <h3 style="margin-top: 0px">{{ product.product_name }}</h3>
