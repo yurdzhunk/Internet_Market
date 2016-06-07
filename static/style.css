@@ -74,6 +74,20 @@ img.product-image {
     border: solid #cccccc;
 }
 
+img.product-image1 {
+    border-radius: 8px;
+    width: 190px;
+    height: 250px;
+    border: solid #cccccc;
+}
+
+img.product-image2 {
+    border-radius: 8px;
+    width: 120px;
+    height: 154px;
+    border: solid #cccccc;
+}
+
 
 .well{
      width: 1000px;
@@ -233,6 +247,18 @@ h4.media-heading{
 
 .row.no-gutter [class*='col-']:not(:first-child),
 .row.no-gutter [class*='col-']:not(:last-child) {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.row.no-gutter1 {
+  margin-left: 0;
+  margin-right: 0;
+	background: url("background1.jpg");
+}
+
+.row.no-gutter1 [class*='col-']:not(:first-child),
+.row.no-gutter1 [class*='col-']:not(:last-child) {
   padding-right: 0;
   padding-left: 0;
 }

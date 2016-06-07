@@ -22,9 +22,39 @@ def basic_one(request):
         cost = basket.get_basket_cost(cost)
     args['cost'] = cost
     args['username'] = username
-    first_view = 'basic one'
-    html = "<html><body> This is %s view</html></body>" % first_view
+    list1 = []
+    list2 = []
+    ip_object = IP_adress()
+    ip = ip_object.get_client_ip(request)
+    if username:
+        user_object = Product_watched.objects.get(name_of_user=username)
+        list_of_products = user_object.get_list_of_products()
+        args['len'] = len(list_of_products)
+    else:
+        ip_object = IP_adress.objects.get(ip=ip)
+        list_of_products = ip_object.get_list_of_products()
+        args['len'] = len(list_of_products)
+    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', len(list_of_products))
+    if 4 <= args['len'] < 8:
+        print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB')
+        for i in range(len(list_of_products)-4, len(list_of_products)):
+            prod = Product.objects.get(product_name=list_of_products[i])
+            list1.append(prod)
+        args['list1'] = list1
+        return render_to_response('start_page.html', args)
+    elif args['len'] == 8:
+        print('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC')
+        for i in range(4):
+            prod = Product.objects.get(product_name=list_of_products[i])
+            list1.append(prod)
+        for i in range(4, 8):
+            prod = Product.objects.get(product_name=list_of_products[i])
+            list2.append(prod)
+        args['list1'] = list1
+        args['list2'] = list2
+        return render_to_response('start_page.html', args)
     return render_to_response('start_page.html', args)
+
 
 def company(request):
     args = {}
@@ -149,7 +179,18 @@ def market(request):
 
 def startpage(request):
     args = {}
-    args['username'] = auth.get_user(request).username
+    username = auth.get_user(request).username
+    args['username'] = username
+    ip_object = IP_adress()
+    ip = IP_adress.get_client_ip(request)
+    if username:
+        user_object = Product_watched.objects.get(name_of_user=username)
+        list_products_of_user = user_object.list_of_watched_products
+        args['list_products_of_user'] = list_products_of_user
+    else:
+        ip_object = IP_adress.objects.get(ip=ip)
+        list_products_of_ip = ip_object.list_of_products
+        args['list_products_of_ip'] = list_products_of_ip
     return render_to_response('start_page.html', args)
 
 
@@ -202,16 +243,20 @@ def notebook_product_page(request, product_id):
     if username:
         basket = Basket.objects.get(id=request.user.id)
         cost = basket.get_basket_cost(cost)
-        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   ', len(Product_watched.objects.filter(name_of_user=username)))
+        #bla = Product_watched.objects.get(name_of_user=username)
+        #print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   ', len(bla.get_list_of_products()))
         if len(Product_watched.objects.filter(name_of_user=username)) == 0:
             print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   ', username)
             print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   ', Product_watched.objects.filter(name_of_user=username))
             watched_prod = Product_watched(name_of_user=username)
-            watched_prod.save()
         else:
             watched_prod = Product_watched.objects.get(name_of_user=username)
-        print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB   ', watched_prod.list_of_watched_products.all())
-        watched_prod.list_of_watched_products.add(prod)
+            print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   ', Product_watched.objects.filter(name_of_user=username))
+            print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB   ', watched_prod.list_of_watched_products)
+        #list_of_watched_products = watched_prod.get_list_of_products()
+        #list_of_watched_products.append(prod.product_name)
+        #watched_prod.list_of_watched_products = list_of_watched_products
+        watched_prod.add_product(prod.product_name)
         watched_prod.save()
     else:
         current_ip_object = IP_adress()
@@ -221,7 +266,7 @@ def notebook_product_page(request, product_id):
             current_ip_object.save()
         else:
             current_ip_object = IP_adress.objects.get(ip=ip)
-        current_ip_object.list_of_products.add(prod)
+        current_ip_object.add_product(prod.product_name)
         current_ip_object.save()
     args['cost'] = cost
     technik = Product.objects.get(id=product_id)
