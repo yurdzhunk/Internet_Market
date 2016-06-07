@@ -78,6 +78,9 @@ class Orders(models.Model):
     def get_ordered_products(self):
         return json.loads(self.ordered_products)
 
+    def __str__(self):  # __unicode__ on Python 2
+        return self.date_of_order
+
 
 class Comments(models.Model):
     class Meta():
@@ -85,3 +88,5 @@ class Comments(models.Model):
 
     comments_text = models.TextField()
     comments_product = models.ForeignKey(Product)
+
+

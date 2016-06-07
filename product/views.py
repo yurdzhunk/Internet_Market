@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 from django.contrib import auth
 from django.contrib.auth.models import User
 from datetime import datetime
-
+from loginsys.models import Product_watched, IP_adress
 
 # Create your views here.
 def basic_one(request):
@@ -198,9 +198,31 @@ def notebook_product_page(request, product_id):
     args = {}
     username = request.user.username
     cost = 0
+    prod = Product.objects.get(id=product_id)
     if username:
         basket = Basket.objects.get(id=request.user.id)
         cost = basket.get_basket_cost(cost)
+        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   ', len(Product_watched.objects.filter(name_of_user=username)))
+        if len(Product_watched.objects.filter(name_of_user=username)) == 0:
+            print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   ', username)
+            print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   ', Product_watched.objects.filter(name_of_user=username))
+            watched_prod = Product_watched(name_of_user=username)
+            watched_prod.save()
+        else:
+            watched_prod = Product_watched.objects.get(name_of_user=username)
+        print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB   ', watched_prod.list_of_watched_products.all())
+        watched_prod.list_of_watched_products.add(prod)
+        watched_prod.save()
+    else:
+        current_ip_object = IP_adress()
+        ip = current_ip_object.get_client_ip(request)
+        if len(IP_adress.objects.filter(ip=ip)) == 0:
+            current_ip_object.ip = ip
+            current_ip_object.save()
+        else:
+            current_ip_object = IP_adress.objects.get(ip=ip)
+        current_ip_object.list_of_products.add(prod)
+        current_ip_object.save()
     args['cost'] = cost
     technik = Product.objects.get(id=product_id)
     args['product'] = technik
