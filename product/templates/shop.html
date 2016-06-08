@@ -127,93 +127,37 @@
                 </div>
             {% endif %}
         {% endfor %}
-        <!--
-                <div class="col-xs-6 col-sm-3">
-                    <div class="thumbnail">
-                        <img class="product-image" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image"/>
-                        <div class="caption">
-                            <a href="#"><h3>Apple</h3></a>
-                            <p>fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                            fmkawnfanwflankafn</p>
-                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-3">
-                    <div class="thumbnail">
-                        <img class="product-image" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image"/>
-                        <div class="caption">
-                            <a href="#"><h3>Apple</h3></a>
-                            <p>fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                            fmkawnfanwflankafn</p>
-                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-3">
-                    <div class="thumbnail">
-                        <img class="product-image" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image"/>
-                        <div class="caption">
-                            <a href="#"><h3>Apple</h3></a>
-                            <p>fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                                fjlajflnaflnafklafn
-                            fakwnflaflnafl
-                            fmkawnfanwflankafn</p>
-                            <a href="#" class="btn btn-success">Псмотреть <i class="fa fa-arrow-right"></i> </a>
-                        </div>
-                    </div>
-                </div>
--->
+
     </div>
 
-<!-- WELLES
-        <div class="well">
-            <div class="media">
-                 <a class="media-left" href="#">
-                 <img class="media-object" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image" style="padding-left: " />
-                 </a>
-                <div class="media-body">
-                    <a href="#"><h4 class="media-heading">Apple</h4></a>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-7">
+            <ul class="pagination">
+                {% if techniks.has_previous %}
+                    <li class="arrow"><a href="http://127.0.0.1:8000/shop/{{ type }}/{{ techniks.previous_page_number }}/">&laquo;</a></li>
+                {% else %}
+                    <li class="arrow unavailable"><a href="">&laquo;</a></li>
+                {% endif %}
+                {% for page in techniks.paginator.page_range %}
+                    {% if page == techniks.number %}
+                        <li class="active"><a href="http://127.0.0.1:8000/shop/{{ type }}/{{ page }}/">{{ page }}</a></li>
+                    {% else %}
+                        <li><a href="http://127.0.0.1:8000/shop/{{ type }}/{{ page }}/">{{ page }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if techniks.has_next %}
+                    <li class="arrow"><a href="http://127.0.0.1:8000/shop/{{ type }}/{{ techniks.next_page_number }}/">&raquo;</a></li>
+                {% else %}
+                    <li class="arrow unavailable"><a href="">&raquo;</a></li>
+                {% endif %}
+            </ul>
             </div>
         </div>
 
-        <div class="well">
-            <div class="media">
-                 <a class="media-left" href="#">
-                 <img class="media-object" src="{% static "product_images/Apple_McBook_ProRetina_13'.jpg" %}" alt="My image" style="padding-left: " />
-                 </a>
-                <div class="media-body">
-                    <a href="#"><h4 class="media-heading">Apple</h4></a>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-                    </div>
-        </div>
 
-     </div>
 
-</div>
--->
 
-    <!-- BUTTON FOR MODAL
-<div class="col-lg-2">
-        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal-1">открыть модал окно</button>
-</div>
--->
+
 
 <div id="modal-1" class="modal fade">
         <div class="modal-dialog modal-lg">

@@ -194,22 +194,25 @@ def startpage(request):
     return render_to_response('start_page.html', args)
 
 
-def notebook(request):
+def notebook(request, page_number=1):
     args = {}
     username = request.user.username
     cost = 0
     if username:
         basket = Basket.objects.get(id=request.user.id)
         cost = basket.get_basket_cost(cost)
+    all_products = Product.objects.filter(product_type='notebook')
+    current_products = Paginator(all_products, 6)
     args['cost'] = cost
     args['username'] = username
-    args['techniks'] = Product.objects.filter(product_type='notebook')
-    args['img1'] = args['techniks'][0].product_image.url
-    print(args['img1'])
+    args['techniks'] = current_products.page(page_number)
+    args['type'] = 'notebook'
+    #args['img1'] = args['techniks'][0].product_image.url
+    #print(args['img1'])
     return render_to_response('shop.html', args)
 
 
-def smartphone(request):
+def smartphone(request, page_number=1):
     args = {}
     username = request.user.username
     cost = 0
@@ -217,12 +220,15 @@ def smartphone(request):
     if username:
         basket = Basket.objects.get(id=request.user.id)
         cost = basket.get_basket_cost(cost)
+    all_products = Product.objects.filter(product_type='smartphone')
+    current_products = Paginator(all_products, 6)
     args['cost'] = cost
-    args['techniks'] = Product.objects.filter(product_type='smartphone')
+    args['techniks'] = current_products.page(page_number)
+    args['type'] = 'smartphone'
     return render_to_response('shop.html', args)
 
 
-def tv(request):
+def tv(request, page_number):
     args = {}
     username = request.user.username
     cost = 0
@@ -230,8 +236,11 @@ def tv(request):
     if username:
         basket = Basket.objects.get(id=request.user.id)
         cost = basket.get_basket_cost(cost)
+    all_products = Product.objects.filter(product_type='tv')
+    current_products = Paginator(all_products, 6)
     args['cost'] = cost
-    args['techniks'] = Product.objects.filter(product_type='tv')
+    args['techniks'] = current_products.page(page_number)
+    args['type'] = 'tv'
     return render_to_response('shop.html', args)
 
 
