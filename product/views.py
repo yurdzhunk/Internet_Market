@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 from django.contrib import auth
 from django.contrib.auth.models import User
 from datetime import datetime
+from django.views.decorators.csrf import csrf_protect
 from loginsys.models import Product_watched, IP_adress
 
 # Create your views here.
@@ -194,10 +195,16 @@ def startpage(request):
     return render_to_response('start_page.html', args)
 
 
+@csrf_protect
 def notebook(request, page_number=1):
     args = {}
+    args.update(csrf(request))
     username = request.user.username
     cost = 0
+    if request.POST:
+        apple = request.POST.get('apple', '')
+        print('AAAAAAAAAAAAAAAAAAAAAAA APLEAPLEAPLE = ', apple)
+        return render_to_response('shop.html', args)
     if username:
         basket = Basket.objects.get(id=request.user.id)
         cost = basket.get_basket_cost(cost)

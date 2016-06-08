@@ -11,67 +11,50 @@
 
 <div class="row">
     <div class="col-lg-3" style="margin-top: 10px">
-        <div id="accordeon" class="panel-group">
 <!--First panel-->
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a href="#collapse-1" data-parent="#accordeon" data-toggle="collapse">Бренд</a>
+                        Choose your product features
                     </h4>
                 </div>
-                <div id="collapse-1" class="panel-collapse collapse">
                     <div class="panel-body">
+                        {% if type == 'notebook' %}
+                        <form action="http://127.0.0.1:8000/shop/notebook/1/" method="post">
+                            {% csrf_token %}
+                            <h5>Company</h5>
+                            <input type="checkbox" name="apple" value="Apple"> Apple<br>
+                            <input type="checkbox" name="vehicle" value="Asus"> Asus<br>
+                            <input type="checkbox" name="vehicle" value="Samsung"> Samsung<br>
+                            <input type="checkbox" name="vehicle" value="Acer"> Acer<br>
+                            <hr>
+                            <h5>Screen size</h5>
+                            <input type="checkbox" name="vehicle" value="15-2"> 15.2"<br>
+                            <input type="checkbox" name="vehicle" value="15-6"> 15.6"<br>
+                            <hr>
+                            <h5>RAM</h5>
+                            <input type="checkbox" name="vehicle" value="4"> 4 Гб<br>
+                            <input type="checkbox" name="vehicle" value="16"> 16 Гб<br>
+                            <input type="checkbox" name="vehicle" value="Asus"> Asus<br>
+                            <input type="checkbox" name="vehicle" value="Asus"> Asus<br>
+                            <hr>
+                            <h5>Company</h5>
+                            <input type="checkbox" name="vehicle" value="Asus"> Asus<br>
+                            <input type="checkbox" name="vehicle" value="Asus"> Asus<br>
+                            <input type="checkbox" name="vehicle" value="Asus"> Asus<br>
+                            <hr>
+                            <input class="btn btn-success" type="submit" value="Filter" style="width: 250px">
+                        </form>
+                        {% endif %}
+                    </div>
 
-                        <div class="checkbox">
-                          <label><input type="checkbox" value="">Apple</label>
-                        </div>
-                        <div class="checkbox">
-                          <label><input type="checkbox" value="">Asus</label>
-                        </div>
-                        <div class="checkbox">
-                          <label><input type="checkbox" value="">Acer</label>
-                        </div>
-                        <div class="checkbox">
-                          <label><input type="checkbox" value="">HP</label>
-                        </div>
-                        <div class="checkbox">
-                          <label><input type="checkbox" value="">Lenovo</label>
-                        </div>
-                        <div class="checkbox">
-                          <label><input type="checkbox" value="">Dell</label>
-                        </div>
-                    </div>
-                </div>
             </div>
-<!--Second panel-->
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a href="#collapse-2" data-parent="#accordeon" data-toggle="collapse">Диагональ</a>
-                    </h4>
-                </div>
-                <div id="collapse-2" class="panel-collapse collapse">
-                    <div class="panel-body">
-                    </div>
-                </div>
-            </div>
-<!--Third panel-->
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a href="#collapse-3" data-parent="#accordeon" data-toggle="collapse">Процессор</a>
-                    </h4>
-                </div>
-                <div id="collapse-3" class="panel-collapse collapse">
-                    <div class="panel-body">
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
 
+
     <div class="col-lg-9" style="margin-top: 10px">
+    <div class="row">
         {% for technik in techniks %}
             {% if technik.product_type == 'notebook' or technik.product_type == 'tv' %}
                 <div class="col-xs-6 col-sm-4" style="height: 400px">
@@ -127,11 +110,9 @@
                 </div>
             {% endif %}
         {% endfor %}
-
     </div>
-
-        <div class="row">
-            <div class="col-lg-4 col-lg-offset-7">
+    <div class="row">
+            <div class="col-lg-4 col-lg-offset-5">
             <ul class="pagination">
                 {% if techniks.has_previous %}
                     <li class="arrow"><a href="http://127.0.0.1:8000/shop/{{ type }}/{{ techniks.previous_page_number }}/">&laquo;</a></li>
@@ -153,6 +134,8 @@
             </ul>
             </div>
         </div>
+    </div>
+
 
 
 
