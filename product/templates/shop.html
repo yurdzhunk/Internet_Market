@@ -22,26 +22,28 @@
                         {% if type == 'notebook' %}
                         <form action="http://127.0.0.1:8000/shop/notebook/1/" method="post">
                             {% csrf_token %}
-                            <h5>Company</h5>
+                            <h5 style="color: #2aabd2">Компания</h5>
                             <input type="checkbox" name="apple" value="Apple"> Apple<br>
-                            <input type="checkbox" name="vehicle" value="Asus"> Asus<br>
-                            <input type="checkbox" name="vehicle" value="Samsung"> Samsung<br>
-                            <input type="checkbox" name="vehicle" value="Acer"> Acer<br>
+                            <input type="checkbox" name="asus" value="Asus"> Asus<br>
+                            <input type="checkbox" name="samsung" value="Samsung"> Samsung<br>
+                            <input type="checkbox" name="acer" value="Acer"> Acer<br>
+                            <input type="checkbox" name="lenovo" value="Lenovo"> Lenovo<br>
+                            <input type="checkbox" name="dell" value="Dell"> Dell<br>
+                            <input type="checkbox" name="hp" value="HP"> HP<br>
                             <hr>
-                            <h5>Screen size</h5>
+                            <h5 style="color: #2aabd2">Размер экрана</h5>
                             <input type="checkbox" name="vehicle" value="15-2"> 15.2"<br>
+                            <input type="checkbox" name="vehicle" value="15-2"> 15.4"<br>
                             <input type="checkbox" name="vehicle" value="15-6"> 15.6"<br>
                             <hr>
-                            <h5>RAM</h5>
+                            <h5 style="color: #2aabd2">RAM</h5>
                             <input type="checkbox" name="vehicle" value="4"> 4 Гб<br>
                             <input type="checkbox" name="vehicle" value="16"> 16 Гб<br>
-                            <input type="checkbox" name="vehicle" value="Asus"> Asus<br>
-                            <input type="checkbox" name="vehicle" value="Asus"> Asus<br>
                             <hr>
-                            <h5>Company</h5>
-                            <input type="checkbox" name="vehicle" value="Asus"> Asus<br>
-                            <input type="checkbox" name="vehicle" value="Asus"> Asus<br>
-                            <input type="checkbox" name="vehicle" value="Asus"> Asus<br>
+                            <h5 style="color: #2aabd2">Память</h5>
+                            <input type="checkbox" name="512-HDD" value="512-HDD"> 512 Гб-HDD<br>
+                            <input type="checkbox" name="512-SSD" value="512-SSD"> 512 Гб-SSD<br>
+                            <input type="checkbox" name="1ТB" value="1ТB"> 1ТБ<br>
                             <hr>
                             <input class="btn btn-success" type="submit" value="Filter" style="width: 250px">
                         </form>

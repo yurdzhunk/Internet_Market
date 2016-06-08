@@ -201,10 +201,6 @@ def notebook(request, page_number=1):
     args.update(csrf(request))
     username = request.user.username
     cost = 0
-    if request.POST:
-        apple = request.POST.get('apple', '')
-        print('AAAAAAAAAAAAAAAAAAAAAAA APLEAPLEAPLE = ', apple)
-        return render_to_response('shop.html', args)
     if username:
         basket = Basket.objects.get(id=request.user.id)
         cost = basket.get_basket_cost(cost)
@@ -212,8 +208,15 @@ def notebook(request, page_number=1):
     current_products = Paginator(all_products, 6)
     args['cost'] = cost
     args['username'] = username
-    args['techniks'] = current_products.page(page_number)
     args['type'] = 'notebook'
+    if request.POST:
+        apple = request.POST.get('apple', '')
+        filter_products = Product.objects.filter(product_type='notebook', product_brand='ASUS')
+        #filter_products.objects.filter(product_brand=apple)
+        print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB_FILTER ', filter_products)
+        print('AAAAAAAAAAAAAAAAAAAAAAA APLEAPLEAPLE = ', apple)
+        return render_to_response('shop.html', args)
+    args['techniks'] = current_products.page(page_number)
     #args['img1'] = args['techniks'][0].product_image.url
     #print(args['img1'])
     return render_to_response('shop.html', args)

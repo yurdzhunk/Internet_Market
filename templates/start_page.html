@@ -18,10 +18,6 @@
                 <div class="item active">
                     <img class="carousel-image" src="{% static "product_images/carousel-1.png" %}" alt=""/>
                 </div>
-
-                <div class="item">
-                    <img class="carousel-image" src="{% static "product_images/carousel-2.jpg" %}" alt=""/>
-                </div>
                 <div class="item">
                     <img class="carousel-image" src="{% static "product_images/carousel-4.jpg" %}" alt=""/>
                 </div>
@@ -60,9 +56,6 @@
                     <img class="carousel-image" src="{% static "product_images/carousel-1.png" %}" alt=""/>
                 </div>
 
-                <div class="item">
-                    <img class="carousel-image" src="{% static "product_images/carousel-2.jpg" %}" alt=""/>
-                </div>
                 <div class="item">
                     <img class="carousel-image" src="{% static "product_images/carousel-4.jpg" %}" alt=""/>
                 </div>
@@ -129,11 +122,14 @@
                         <div class="col-lg-3"></div>
                         <ul class="thumbnails">
                             {% for prod in list1 %}
-                                <li class="col-lg-2">
+                                <li class="col-lg-2" style="margin-left: 20px">
                                     <div class="fff">
                                         <div class="thumbnail">
-                                            <img class="product-image" src="{% static prod.product_image %}">
-                                        </div>
+                                            {% if prod.product_type == 'notebook' or prod.product_type == 'tv' %}
+                                                <img class="product-image" src="{% static prod.product_image %}">
+                                            {% else %}
+                                                <img class="product-image2" src="{% static prod.product_image %}">
+                                            {% endif %}                                        </div>
                                         <div class="caption">
                                             <a href="http://127.0.0.1:8000/notebook/prod/{{ prod.id }}/"><h4>{{ prod.product_name }}</h4></a>
                                         </div>
@@ -143,15 +139,17 @@
                         </ul>
                     </div>
                     <div class="item">
+                        <div class="col-lg-3"></div>
                         <ul class="thumbnails">
                             {% for prod in list2 %}
-                                <li class="col-lg-2">
-                                </li>
-                                <li class="col-lg-2">
+                                <li class="col-lg-2" style="margin-left: 20px">
                                     <div class="fff">
                                         <div class="thumbnail">
-                                            <img class="product-image" src="{% static prod.product_image %}">
-                                        </div>
+                                            {% if prod.product_type == 'notebook' or prod.product_type == 'tv' %}
+                                                <img class="product-image" src="{% static prod.product_image %}">
+                                            {% else %}
+                                                <img class="product-image2" src="{% static prod.product_image %}">
+                                            {% endif %}                                        </div>
                                         <div class="caption">
                                             <a href="http://127.0.0.1:8000/notebook/prod/{{ prod.id }}/"><h4>{{ prod.product_name }}</h4></a>
                                         </div>
