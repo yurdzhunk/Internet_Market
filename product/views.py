@@ -1,3 +1,4 @@
+#coding=<encoding name>
 from django.shortcuts import render, render_to_response, redirect
 from django.http.response import HttpResponse, Http404
 from django.template.loader import get_template
@@ -12,6 +13,7 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from django.views.decorators.csrf import csrf_protect
 from loginsys.models import Product_watched, IP_adress
+from django.db.models import Q
 
 # Create your views here.
 def basic_one(request):
@@ -211,10 +213,52 @@ def notebook(request, page_number=1):
     args['type'] = 'notebook'
     if request.POST:
         apple = request.POST.get('apple', '')
-        filter_products = Product.objects.filter(product_type='notebook', product_brand='ASUS')
-        #filter_products.objects.filter(product_brand=apple)
-        print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB_FILTER ', filter_products)
-        print('AAAAAAAAAAAAAAAAAAAAAAA APLEAPLEAPLE = ', apple)
+        asus = request.POST.get('asus', '')
+        samsung = request.POST.get('samsung', '')
+        acer = request.POST.get('acer', '')
+        lenovo = request.POST.get('lenovo', '')
+        dell = request.POST.get('dell', '')
+        hp = request.POST.get('hp', '')
+        if (apple=='') and (asus=='') and (samsung=='') and (acer=='') and (lenovo=='') and (dell=='') and (hp==''):
+            apple='Apple' 
+            asus='ASUS' 
+            samsung='Samsung' 
+            acer='ACER' 
+            lenovo='Lenovo' 
+            dell='Dell' 
+            hp='HP'
+        res1 = request.POST.get('screen_resol_1', '')
+        res2 = request.POST.get('screen_resol_2', '')
+        res3 = request.POST.get('screen_resol_3', '')
+        if res1=='' and res2=='' and res3=='':
+            res1="15.2''" 
+            res2="15.4''" 
+            res3="15.6''"
+        some_prod = Product.objects.get(id=1)
+        print('APPLE MEMORYYYYYYYYYYYYYYYYY ', some_prod.product_orm)
+        orm_size1 = request.POST.get('orm_size1', '')
+        orm_size2 = request.POST.get('orm_size2', '')
+        print('MEMORY SIZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE', orm_size1)
+        print('MEMORY SIZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE', orm_size2)
+        if orm_size1=='' and orm_size2=='':
+            orm_size1 = '4 GB'
+            orm_size2 = '16 GB'
+        memory_size1 = request.POST.get('512-HDD', '')
+        memory_size2 = request.POST.get('512-SSD', '')
+        memory_size3 = request.POST.get('1TB', '')
+        if memory_size1=='' and memory_size2=='' and memory_size3=='':
+            memory_size1 = '512 GB SSD'
+            memory_size2 = '512 GB HDD'
+            memory_size3 = '1 TB'
+        filtered_products = list(Product.objects.filter(Q(product_brand=apple) | Q(product_brand=asus) | Q(product_brand=samsung) |
+                                                        Q(product_brand=acer) | Q(product_brand=lenovo) | Q(product_brand=dell)  |
+                                                        Q(product_brand=hp), Q(product_screen_resolution=res1) | Q(product_screen_resolution=res2) |
+                                                        Q(product_screen_resolution=res3), Q(product_orm=orm_size1) | Q(product_orm=orm_size2),
+                                                        Q(product_memory=memory_size1) | Q(product_memory=memory_size2) |
+                                                        Q(product_memory=memory_size3),
+                                                         product_type='notebook'))
+        print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB_FILTER ', filtered_products)
+        args['techniks'] = filtered_products
         return render_to_response('shop.html', args)
     args['techniks'] = current_products.page(page_number)
     #args['img1'] = args['techniks'][0].product_image.url
