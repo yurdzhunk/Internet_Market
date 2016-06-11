@@ -90,3 +90,26 @@ class Comments(models.Model):
     comments_product = models.ForeignKey(Product)
 
 
+class FilteredProducts(models.Model):
+    class Meta:
+        db_table = 'filtered_products'
+
+    list_of_filtered_products = models.CharField(default='[]', max_length=1000)
+
+    def set_list_of_products(self):
+        return json.dumps(self.list_of_filtered_products)
+
+    def get_list_of_products(self):
+        return json.loads(self.list_of_filtered_products)
+
+    def add_product(self, product_name):
+        list_of_product = json.loads(self.list_of_filtered_products)
+        list_of_product.append(product_name)
+        self.list_of_filtered_products = json.dumps(list_of_product)
+
+    def clean_list_of_filtered_products(self):
+        list_of_product = json.loads(self.list_of_filtered_products)
+        list_of_product = []
+        self.list_of_filtered_products = json.dumps(list_of_product)
+
+

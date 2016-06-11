@@ -12,7 +12,7 @@ from django.http.response import Http404
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from loginsys.forms import UserCreateForm
-from product.models import Orders, Product
+from product.models import Orders, Product, FilteredProducts
 from datetime import datetime
 import json
 
@@ -33,6 +33,13 @@ def login(request):
                 basket = Basket.objects.get(id=request.user.id)
                 basket.clean_basket()
                 basket.save()
+            if FilteredProducts.objects.filter(id=request.user.id).count() == 0:
+                list_of_filtered_products = FilteredProducts(id=request.user.id)
+                list_of_filtered_products.save()
+            else:
+                list_of_filtered_products = FilteredProducts.objects.get(id=request.user.id)
+                list_of_filtered_products.clean_list_of_filtered_products()
+                list_of_filtered_products.save()
             cost = 0
             cost = basket.get_basket_cost(cost)
             args['cost'] = cost

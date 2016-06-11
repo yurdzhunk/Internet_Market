@@ -20,7 +20,7 @@
                 </div>
                     <div class="panel-body">
                         {% if type == 'notebook' %}
-                        <form action="http://127.0.0.1:8000/shop/notebook/1/" method="post">
+                        <form action="http://127.0.0.1:8000/shop/notebook/1/1/" method="post">
                             {% csrf_token %}
                             <h5 style="color: #2aabd2">Компания</h5>
                             <input type="checkbox" name="apple" value="Apple"> Apple<br>
@@ -38,6 +38,7 @@
                             <hr>
                             <h5 style="color: #2aabd2">RAM</h5>
                             <input type="checkbox" name="orm_size1" value="4 GB"> 4 Гб<br>
+                            <input type="checkbox" name="orm_size3" value="8 GB"> 8 Гб<br>
                             <input type="checkbox" name="orm_size2" value="16 GB"> 16 Гб<br>
                             <hr>
                             <h5 style="color: #2aabd2">Память</h5>
@@ -117,19 +118,19 @@
             <div class="col-lg-4 col-lg-offset-5">
             <ul class="pagination">
                 {% if techniks.has_previous %}
-                    <li class="arrow"><a href="http://127.0.0.1:8000/shop/{{ type }}/{{ techniks.previous_page_number }}/">&laquo;</a></li>
+                    <li class="arrow"><a href="http://127.0.0.1:8000/shop/{{ type }}/{{ techniks.previous_page_number }}/{{ filtring }}/">&laquo;</a></li>
                 {% else %}
                     <li class="arrow unavailable"><a href="">&laquo;</a></li>
                 {% endif %}
                 {% for page in techniks.paginator.page_range %}
                     {% if page == techniks.number %}
-                        <li class="active"><a href="http://127.0.0.1:8000/shop/{{ type }}/{{ page }}/">{{ page }}</a></li>
+                        <li class="active"><a href="http://127.0.0.1:8000/shop/{{ type }}/{{ page }}/{{ filtring }}/">{{ page }}</a></li>
                     {% else %}
-                        <li><a href="http://127.0.0.1:8000/shop/{{ type }}/{{ page }}/">{{ page }}</a></li>
+                        <li><a href="http://127.0.0.1:8000/shop/{{ type }}/{{ page }}/{{ filtring }}/">{{ page }}</a></li>
                     {% endif %}
                 {% endfor %}
                 {% if techniks.has_next %}
-                    <li class="arrow"><a href="http://127.0.0.1:8000/shop/{{ type }}/{{ techniks.next_page_number }}/">&raquo;</a></li>
+                    <li class="arrow"><a href="http://127.0.0.1:8000/shop/{{ type }}/{{ techniks.next_page_number }}/{{ filtring }}/">&raquo;</a></li>
                 {% else %}
                     <li class="arrow unavailable"><a href="">&raquo;</a></li>
                 {% endif %}

@@ -3,7 +3,7 @@ from django.shortcuts import render, render_to_response, redirect
 from django.http.response import HttpResponse, Http404
 from django.template.loader import get_template
 from django.template import Context
-from product.models import Product, Comments, Basket, Orders
+from product.models import Product, Comments, Basket, Orders, FilteredProducts
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.context_processors import csrf
 from product.forms import CommentForm
@@ -140,7 +140,7 @@ def addlike(request, product_id):
             #print('user.product_set.all()', user.product_set.all())
     except ObjectDoesNotExist:
         raise Http404
-    return redirect('http://127.0.0.1:8000/shop/notebook/')
+    return redirect('http://127.0.0.1:8000/shop/notebook/1/0/')
 
 
 def add_to_basket(request, product_id):
@@ -198,7 +198,9 @@ def startpage(request):
 
 
 @csrf_protect
-def notebook(request, page_number=1):
+def notebook(request, page_number=1, filtring=0):
+    filtring = filtring
+    old_filter = True
     args = {}
     args.update(csrf(request))
     username = request.user.username
@@ -211,7 +213,12 @@ def notebook(request, page_number=1):
     args['cost'] = cost
     args['username'] = username
     args['type'] = 'notebook'
-    if request.POST:
+    print('FILTRING ===========================================', filtring)
+    print('PAGE NUMBER ===========================================', page_number)
+    if request.POST or filtring == '1':
+        print('WORKING IN if request.POST or filtring == 1')
+        if filtring != '1':
+            page_number = 1
         apple = request.POST.get('apple', '')
         asus = request.POST.get('asus', '')
         samsung = request.POST.get('samsung', '')
@@ -219,7 +226,7 @@ def notebook(request, page_number=1):
         lenovo = request.POST.get('lenovo', '')
         dell = request.POST.get('dell', '')
         hp = request.POST.get('hp', '')
-        if (apple=='') and (asus=='') and (samsung=='') and (acer=='') and (lenovo=='') and (dell=='') and (hp==''):
+        if (apple=='') and (asus=='') and (samsung=='') and (acer=='') and (lenovo=='') and (dell=='') and (hp=='') and request.POST:
             apple='Apple' 
             asus='ASUS' 
             samsung='Samsung' 
@@ -227,39 +234,68 @@ def notebook(request, page_number=1):
             lenovo='Lenovo' 
             dell='Dell' 
             hp='HP'
+            old_filter = False
         res1 = request.POST.get('screen_resol_1', '')
         res2 = request.POST.get('screen_resol_2', '')
         res3 = request.POST.get('screen_resol_3', '')
-        if res1=='' and res2=='' and res3=='':
+        if res1=='' and res2=='' and res3=='' and request.POST:
             res1="15.2''" 
             res2="15.4''" 
             res3="15.6''"
+            old_filter = False
         some_prod = Product.objects.get(id=1)
         print('APPLE MEMORYYYYYYYYYYYYYYYYY ', some_prod.product_orm)
         orm_size1 = request.POST.get('orm_size1', '')
         orm_size2 = request.POST.get('orm_size2', '')
+        orm_size3 = request.POST.get('orm_size3', '') 
         print('MEMORY SIZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE', orm_size1)
         print('MEMORY SIZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE', orm_size2)
-        if orm_size1=='' and orm_size2=='':
+        if orm_size1=='' and orm_size2=='' and orm_size3=='' and request.POST:
             orm_size1 = '4 GB'
             orm_size2 = '16 GB'
+            orm_size3 = '8 GB'
+            old_filter = False
         memory_size1 = request.POST.get('512-HDD', '')
         memory_size2 = request.POST.get('512-SSD', '')
         memory_size3 = request.POST.get('1TB', '')
-        if memory_size1=='' and memory_size2=='' and memory_size3=='':
+        if memory_size1=='' and memory_size2=='' and memory_size3=='' and request.POST:
             memory_size1 = '512 GB SSD'
             memory_size2 = '512 GB HDD'
             memory_size3 = '1 TB'
+            old_filter = False
+
         filtered_products = list(Product.objects.filter(Q(product_brand=apple) | Q(product_brand=asus) | Q(product_brand=samsung) |
                                                         Q(product_brand=acer) | Q(product_brand=lenovo) | Q(product_brand=dell)  |
                                                         Q(product_brand=hp), Q(product_screen_resolution=res1) | Q(product_screen_resolution=res2) |
-                                                        Q(product_screen_resolution=res3), Q(product_orm=orm_size1) | Q(product_orm=orm_size2),
+                                                        Q(product_screen_resolution=res3), Q(product_orm=orm_size1) | Q(product_orm=orm_size2) | Q(product_orm=orm_size3),
                                                         Q(product_memory=memory_size1) | Q(product_memory=memory_size2) |
                                                         Q(product_memory=memory_size3),
                                                          product_type='notebook'))
-        print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB_FILTER ', filtered_products)
-        args['techniks'] = filtered_products
+        print('_FILTER_FILTER_FILTER_FILTER_FILTER_FILTER_FILTER ', filtered_products)
+        print('OLD FILTER =============================================', old_filter)
+        if not old_filter:
+            print('CREATING LIST OF FILTERED PRODUCTS!!!!!!!!!!!!!!!!!!!!!!!!!')
+            list_of_filtered_products = FilteredProducts(id=request.user.id)
+            list_of_filtered_products.save()
+        #if not old_filter:
+            for product in filtered_products:
+                list_of_filtered_products.add_product(product.product_name)
+            list_of_filtered_products.save()
+            #####
+        paginator_filtered_products = Paginator(filtered_products, 6)
+        filtring = 1
+        args['filtring'] = filtring
+        if old_filter:
+            print('WE USE OLD FILTER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+            list_of_filtered_products_name = FilteredProducts.objects.get(id=request.user.id).get_list_of_products()
+            list_of_filtered_products = []
+            for product_name in list_of_filtered_products_name:
+                list_of_filtered_products.append(Product.objects.get(product_name=product_name))
+            paginator_filtered_products = Paginator(list_of_filtered_products, 6)
+        print('PAGE NUMBER ===========================================', page_number)
+        args['techniks'] = paginator_filtered_products.page(page_number)
         return render_to_response('shop.html', args)
+    args['filtring'] = filtring
     args['techniks'] = current_products.page(page_number)
     #args['img1'] = args['techniks'][0].product_image.url
     #print(args['img1'])
