@@ -275,9 +275,20 @@ def notebook(request, page_number=1, filtring=0):
         print('OLD FILTER =============================================', old_filter)
         if not old_filter:
             print('CREATING LIST OF FILTERED PRODUCTS!!!!!!!!!!!!!!!!!!!!!!!!!')
-            list_of_filtered_products = FilteredProducts(id=request.user.id)
-            list_of_filtered_products.save()
+            if username:
+                list_of_filtered_products = FilteredProducts(id=request.user.id)
+                list_of_filtered_products.save()
+            else:
+                filtered_products_object = FilteredProducts()
+                ip_of_user = filtered_products_object.get_client_ip(request)
+                if FilteredProducts.objects.filter(ip_of_user=ip_of_user).count() == 0:
+                    list_of_filtered_products = FilteredProducts(ip_of_user=ip_of_user)
+                    list_of_filtered_products.save()
+                else:
+                    list_of_filtered_products = FilteredProducts.objects.get(ip_of_user=ip_of_user)
+
         #if not old_filter:
+            list_of_filtered_products.clean_list_of_filtered_products()
             for product in filtered_products:
                 list_of_filtered_products.add_product(product.product_name)
             list_of_filtered_products.save()
@@ -287,7 +298,12 @@ def notebook(request, page_number=1, filtring=0):
         args['filtring'] = filtring
         if old_filter:
             print('WE USE OLD FILTER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-            list_of_filtered_products_name = FilteredProducts.objects.get(id=request.user.id).get_list_of_products()
+            if username:
+                list_of_filtered_products_name = FilteredProducts.objects.get(id=request.user.id).get_list_of_products()
+            else:
+                filtered_products_object = FilteredProducts()
+                ip_of_user = filtered_products_object.get_client_ip(request)
+                list_of_filtered_products_name = FilteredProducts.objects.get(ip_of_user=ip_of_user).get_list_of_products()
             list_of_filtered_products = []
             for product_name in list_of_filtered_products_name:
                 list_of_filtered_products.append(Product.objects.get(product_name=product_name))

@@ -95,6 +95,7 @@ class FilteredProducts(models.Model):
         db_table = 'filtered_products'
 
     list_of_filtered_products = models.CharField(default='[]', max_length=1000)
+    ip_of_user = models.CharField(default='', max_length=100)
 
     def set_list_of_products(self):
         return json.dumps(self.list_of_filtered_products)
@@ -111,5 +112,13 @@ class FilteredProducts(models.Model):
         list_of_product = json.loads(self.list_of_filtered_products)
         list_of_product = []
         self.list_of_filtered_products = json.dumps(list_of_product)
+
+    def get_client_ip(self, request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip
 
 
