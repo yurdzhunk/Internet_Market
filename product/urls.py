@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^company/$', 'product.views.company'),
     url(r'^akcii/$', 'product.views.akcii'),
     url(r'^contacts/$', 'product.views.contacts'),
-    url(r'^add_to_basket/(?P<product_id>\d+)/$', 'product.views.add_to_basket'),
+    url(r'^add_to_basket/(?P<product_id>\d+)/(?P<page_number>\d+)/(?P<filtring>\d+)/$', 'product.views.add_to_basket'),
     url(r'^addlike/(?P<product_id>\d+)/$', 'product.views.addlike'),
     url(r'^notebook/prod/(?P<product_id>\d+)/$', 'product.views.notebook_product_page'),
     url(r'^', 'product.views.products'),

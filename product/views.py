@@ -152,7 +152,7 @@ def addlike(request, product_id):
     return redirect('http://127.0.0.1:8000/shop/notebook/1/0/')
 
 
-def add_to_basket(request, product_id):
+def add_to_basket(request, product_id, page_number=1, filtring=0):
     print('add_to_basket')
     username = auth.get_user(request).username
     technik = Product.objects.get(id=product_id)
@@ -166,11 +166,14 @@ def add_to_basket(request, product_id):
         except ObjectDoesNotExist:
             raise Http404
         if technik.product_type == 'notebook':
-            return redirect('http://127.0.0.1:8000/shop/notebook/')
+            http_adress = 'http://127.0.0.1:8000/shop/notebook/' + str(page_number)+ '/' + str(filtring) + '/'
+            return redirect(http_adress)
         elif technik.product_type == 'smartphone':
-            return redirect('http://127.0.0.1:8000/shop/smartphone/')
+            http_adress = 'http://127.0.0.1:8000/shop/smartphone/' + str(page_number)+ '/' + str(filtring) + '/'
+            return redirect(http_adress)
         elif technik.product_type == 'tv':
-            return redirect('http://127.0.0.1:8000/shop/tv/')
+            http_adress = 'http://127.0.0.1:8000/shop/tv/' + str(page_number)+ '/' + str(filtring) + '/'
+            return redirect(http_adress)
 
 def addcomment(request, product_id):
     if request.POST and ('bla' not in request.session):

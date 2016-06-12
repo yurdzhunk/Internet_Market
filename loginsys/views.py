@@ -47,7 +47,8 @@ def login(request):
             cost = basket.get_basket_cost(cost)
             args['cost'] = cost
             args['username'] = username
-            return render_to_response('start_page.html', args)
+            #return render_to_response('start_page.html', args)
+            return redirect('http://127.0.0.1:8000/market/')
         else:
             args['login_error'] = 'Log in error'
             return render_to_response('login_page.html', args)
@@ -84,6 +85,7 @@ def register(request):
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
     email = request.POST.get('email', '')
+    adress = request.POST.get('adress', '')
     dict_of_user = {'username': [username], 'password1': [password], 'password2': [password], 'email': [email]}
     # args['form'] = UserCreationForm()
 
@@ -104,13 +106,16 @@ def register(request):
             print('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC')
             newuser_form.save()
             new_email.emails_username = newuser_form.cleaned_data['username']
+            new_email.adress_of_user = adress
             new_email.save()
             newuser = auth.authenticate(username=newuser_form.cleaned_data['username'],
                                         password=newuser_form.cleaned_data['password2'])
             auth.login(request, newuser)
             basket = Basket(id=request.user.id)
             basket.save()
-            return redirect('http://127.0.0.1:8000/1/')
+            watched_products_object = Product_watched(name_of_user=username)
+            watched_products_object.save()
+            return redirect('http://127.0.0.1:8000/market/')
         else:
             print('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD')
     return render_to_response('register_page.html', args)
