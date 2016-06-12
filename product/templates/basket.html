@@ -17,18 +17,23 @@
 					</div>
 					<div class="panel-body">
                         {% if  length != 0 %}
-                            {% for product in list_of_products %}
+                            {% for product, count in list_of_products %}
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-2">
                                         {% if product.product_type != 'smartphone' %}
-                                        <img class="product-image" src="{% static product.product_image %}">
+                                        <img style="width: 40% ; height: 40%" src="{% static product.product_image %}">
                                         {% else %}
-                                        <img class="product-image1" src="{% static product.product_image %}">
+                                        <img style="width: 30% ; height: 30%" src="{% static product.product_image %}">
                                         {% endif %}
                                     </div>
-                                    <div class="col-lg-5">
-                                        <h3 style="margin-top: 0px">{{ product.product_name }}</h3>
-                                        <p>{{ product.product_description }}</p>
+                                    <div class="col-lg-4">
+                                        <h4 style="margin-top: 0px">{{ product.product_name }}</h4>
+
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <a href="http://127.0.0.1:8000/minus_count/{{ product.id }}/"><i class="fa fa-minus"></i></a>
+                                        <input style="width: 40px ; text-align: center" name="count" value={{count}}>
+                                        <a href="http://127.0.0.1:8000/plus_count/{{ product.id }}/"><i class="fa fa-plus"></i></a>
                                     </div>
                                     <div class="col-lg-2">
                                         <a id="login-form-link" style="color: #d58512 ; font-size: 2ch">{{ product.product_cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>

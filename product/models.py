@@ -32,34 +32,35 @@ class Basket(models.Model):
     class Meta:
         db_table = 'basket'
 
-    chosen_products = models.CharField(default='[]', max_length=200)
+    chosen_products = models.CharField(default='{}', max_length=200)
 
     def set_list_of_products(self):
         return json.dumps(self.chosen_products)
 
     def get_basket_cost(self, cost):
         list_of_products = self.get_list_of_products()
-        for name_of_product in list_of_products:
+        for name_of_product in list_of_products.keys():
             technik = Product.objects.get(product_name=name_of_product)
-            cost += technik.product_cost
+            cost += technik.product_cost * list_of_products[name_of_product]
         return cost
 
     def get_list_of_products(self):
+        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', self.chosen_products)
         return json.loads(self.chosen_products)
 
     def add_product(self, product_name):
         list_of_product = json.loads(self.chosen_products)
-        list_of_product.append(product_name)
+        list_of_product[product_name] = 1
         self.chosen_products = json.dumps(list_of_product)
 
     def delete_product(self, product_name):
         list_of_product = json.loads(self.chosen_products)
-        list_of_product.remove(product_name)
+        del list_of_product[product_name]
         self.chosen_products = json.dumps(list_of_product)
 
     def clean_basket(self):
         list_of_product = json.loads(self.chosen_products)
-        list_of_product = []
+        list_of_product = {}
         self.chosen_products = json.dumps(list_of_product)
 
 

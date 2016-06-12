@@ -1,5 +1,5 @@
 from django.contrib import admin
-from product.models import Product, Comments, Orders
+from product.models import Product, Comments, Orders, Basket
 
 # Register your models here.
 class ArticleInline(admin.StackedInline):
@@ -23,3 +23,8 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Orders, OrderAdmin)
+
+class BasketAdmin(admin.ModelAdmin):
+	fields = ['chosen_products']
+
+admin.site.register(Basket, BasketAdmin)

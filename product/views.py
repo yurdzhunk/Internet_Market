@@ -600,13 +600,44 @@ def basket(request, flag_adress=True, flag_phone=True, adress='', phone=''):
     print('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC', basket.chosen_products)
     list_of_products_name = basket.get_list_of_products()
     list_of_products = []
-    for product_name in list_of_products_name:
+    list_of_count = []
+    for product_name in list_of_products_name.keys():
         list_of_products.append(Product.objects.get(product_name=product_name))
+        list_of_count.append(list_of_products_name[product_name])
+    finale_list = zip(list_of_products, list_of_count)
     args['length'] = len(list_of_products)
-    args['list_of_products'] = list_of_products
+    args['list_of_products'] = finale_list
     args['username'] = request.user.username
     return render_to_response('basket.html', args)
 
+def minus_count(request, product_id):
+    print('MINUSMINUSMINUSMINUSMINUSMINUSMINUSMINUSMINUSMINUSMINUS')
+    product = Product.objects.get(id=product_id)
+    product_name = product.product_name
+    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', product_name)
+    basket = Basket.objects.get(id=request.user.id)
+    list_of_product = basket.get_list_of_products()
+    if list_of_product[product_name] == 1:
+        pass
+    else:
+        list_of_product[product_name] -= 1
+    basket.chosen_products = list_of_product
+    basket.chosen_products = basket.set_list_of_products()
+    basket.save()
+    return redirect('http://127.0.0.1:8000/basket/')
+
+def plus_count(request, product_id):
+    print('PLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUS')
+    product = Product.objects.get(id=product_id)
+    product_name = product.product_name
+    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', product_name)
+    basket = Basket.objects.get(id=request.user.id)
+    list_of_product = basket.get_list_of_products()
+    list_of_product[product_name] += 1
+    basket.chosen_products = list_of_product
+    basket.chosen_products = basket.set_list_of_products()
+    basket.save()
+    return redirect('http://127.0.0.1:8000/basket/')
 
 def booking(request):
     username = request.user.username
