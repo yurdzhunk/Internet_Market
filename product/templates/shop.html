@@ -53,12 +53,11 @@
                             {% csrf_token %}
                             <h5 style="color: #2aabd2">Компания</h5>
                             <input type="checkbox" name="apple" value="Apple"> Apple<br>
-                            <input type="checkbox" name="asus" value="ASUS"> Asus<br>
+                            <input type="checkbox" name="motorola" value="Motorola"> Motorola<br>
                             <input type="checkbox" name="samsung" value="Samsung"> Samsung<br>
-                            <input type="checkbox" name="acer" value="ACER"> Acer<br>
+                            <input type="checkbox" name="microsoft" value="Microsoft"> Microsoft<br>
                             <input type="checkbox" name="lenovo" value="Lenovo"> Lenovo<br>
-                            <input type="checkbox" name="dell" value="Dell"> Dell<br>
-                            <input type="checkbox" name="hp" value="HP"> HP<br>
+                            <input type="checkbox" name="lg" value="LG"> LG<br>
                             <hr>
                             <h5 style="color: #2aabd2">Размер экрана</h5>
                             <input type="checkbox" name="screen_resol_1" value="4.7''"> 4.7"<br>
@@ -72,6 +71,28 @@
                             <input type="checkbox" name="orm_size2" value="2 GB"> 2 Гб<br>
                             <input type="checkbox" name="orm_size3" value="3 GB"> 3 Гб<br>
                             <input type="checkbox" name="orm_size4" value="4 GB"> 4 Гб<br>
+                            <hr>
+                            <h5 style="color: #2aabd2">Память</h5>
+                            <input type="checkbox" name="16 GB" value="16 GB"> 16 Гб<br>
+                            <input type="checkbox" name="32 GB" value="32 GB"> 32 Гб<br>
+                            <input type="checkbox" name="2ТB" value="2 TB"> 2ТБ<br>
+                            <hr>
+                            <input class="btn btn-success" type="submit" value="Filter" style="width: 250px">
+                        </form>
+                        {% elif type == 'tv' %}
+                        <form action="http://127.0.0.1:8000/shop/tv/1/1/" method="post">
+                            {% csrf_token %}
+                            <h5 style="color: #2aabd2">Компания</h5>
+                            <input type="checkbox" name="sony" value="Sony"> Sony<br>
+                            <input type="checkbox" name="samsung" value="Samsung"> Samsung<br>
+                            <input type="checkbox" name="lg" value="LG"> LG<br>
+                            <input type="checkbox" name="philips" value="Philips"> Philips<br>
+                            <hr>
+                            <h5 style="color: #2aabd2">Размер экрана</h5>
+                            <input type="checkbox" name="screen_resol_1" value="40''"> 40"<br>
+                            <input type="checkbox" name="screen_resol_2" value="43''"> 43"<br>
+                            <input type="checkbox" name="screen_resol_3" value="50''"> 50"<br>
+                            <input type="checkbox" name="screen_resol_4" value="84''"> 84"<br>
                             <hr>
                             <h5 style="color: #2aabd2">Память</h5>
                             <input type="checkbox" name="16 GB" value="16 GB"> 16 Гб<br>

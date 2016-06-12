@@ -323,20 +323,6 @@ def smartphone(request, page_number=1, filtring=0):
     args.update(csrf(request))
     old_filter = True
     username = request.user.username
-    #if username:
-    #    filtered_products_object = FilteredProducts.objects.get(id=request.user.id)
-    #    filtered_products_object.clean_list_of_filtered_products()
-    #    filtered_products_object.save()
-    #else:
-    #    filtered_products_object = FilteredProducts()
-    #    ip_of_user = filtered_products_object.get_client_ip(request)
-    #    if FilteredProducts.objects.filter(ip_of_user=ip_of_user).count() == 0:
-    #        list_of_filtered_products = FilteredProducts(ip_of_user=ip_of_user)
-    #        list_of_filtered_products.save()
-    #    else:
-    #        list_of_filtered_products = FilteredProducts.objects.get(ip_of_user=ip_of_user)
-    #        list_of_filtered_products.clean_list_of_filtered_products()
-    #        list_of_filtered_products.save()
     cost = 0
     args['username'] = request.user.username
     if username:
@@ -354,27 +340,25 @@ def smartphone(request, page_number=1, filtring=0):
         if filtring != '1':
             page_number = 1
         apple = request.POST.get('apple', '')
-        asus = request.POST.get('asus', '')
         samsung = request.POST.get('samsung', '')
-        acer = request.POST.get('acer', '')
+        motorola = request.POST.get('motorola', '')
+        microsoft = request.POST.get('microsoft', '')
         lenovo = request.POST.get('lenovo', '')
-        dell = request.POST.get('dell', '')
-        hp = request.POST.get('hp', '')
-        if (apple=='') and (asus=='') and (samsung=='') and (acer=='') and (lenovo=='') and (dell=='') and (hp=='') and request.POST:
-            apple='Apple' 
-            asus='ASUS' 
+        lg = request.POST.get('lg', '')
+        if (samsung=='') and (microsoft=='') and (apple=='') and (motorola=='') and (lenovo=='') and (lg=='') and request.POST:
             samsung='Samsung' 
-            acer='ACER' 
+            microsoft='Microsoft' 
+            lg='LG' 
             lenovo='Lenovo' 
-            dell='Dell' 
-            hp='HP'
+            apple='Apple' 
+            motorola='Motorola' 
             old_filter = False
         res1 = request.POST.get('screen_resol_1', '')
         res2 = request.POST.get('screen_resol_2', '')
         res3 = request.POST.get('screen_resol_3', '')
         res4 = request.POST.get('screen_resol_4', '')
         res5 = request.POST.get('screen_resol_5', '')
-        if res1=='' and res2=='' and res3=='' and request.POST:
+        if res1=='' and res2=='' and res3=='' and res4=='' and res5=='' and request.POST:
             res1="4.7''" 
             res2="5.2''" 
             res3="5.4''"
@@ -389,7 +373,7 @@ def smartphone(request, page_number=1, filtring=0):
         orm_size4 = request.POST.get('orm_size4', '') 
         print('MEMORY SIZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE', orm_size1)
         print('MEMORY SIZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE', orm_size2)
-        if orm_size1=='' and orm_size2=='' and orm_size3=='' and request.POST:
+        if orm_size1=='' and orm_size2=='' and orm_size3=='' and orm_size4=='' and request.POST:
             orm_size1 = '1 GB'
             orm_size2 = '2 GB'
             orm_size3 = '3 GB'
@@ -404,9 +388,8 @@ def smartphone(request, page_number=1, filtring=0):
             memory_size3 = '2 TB'
             old_filter = False
 
-        filtered_products = list(Product.objects.filter(Q(product_brand=apple) | Q(product_brand=asus) | Q(product_brand=samsung) |
-                                                        Q(product_brand=acer) | Q(product_brand=lenovo) | Q(product_brand=dell)  |
-                                                        Q(product_brand=hp), Q(product_screen_resolution=res1) | Q(product_screen_resolution=res2) |
+        filtered_products = list(Product.objects.filter(Q(product_brand=samsung) | Q(product_brand=motorola) | Q(product_brand=lg) |
+                                                        Q(product_brand=apple) | Q(product_brand=microsoft) | Q(product_brand=lenovo), Q(product_screen_resolution=res1) | Q(product_screen_resolution=res2) |
                                                         Q(product_screen_resolution=res3) | Q(product_screen_resolution=res4) | Q(product_screen_resolution=res5),
                                                         Q(product_orm=orm_size1) | Q(product_orm=orm_size2) | Q(product_orm=orm_size3) | Q(product_orm=orm_size4),
                                                         Q(product_memory=memory_size1) | Q(product_memory=memory_size2) |
@@ -459,8 +442,10 @@ def smartphone(request, page_number=1, filtring=0):
     return render_to_response('shop.html', args)
 
 
-def tv(request, page_number):
+def tv(request, page_number=1, filtring=0):
     args = {}
+    args.update(csrf(request))
+    old_filter = True
     username = request.user.username
     cost = 0
     args['username'] = request.user.username
@@ -472,6 +457,79 @@ def tv(request, page_number):
     args['cost'] = cost
     args['techniks'] = current_products.page(page_number)
     args['type'] = 'tv'
+    print('FILTRING ===========================================', filtring)
+    print('PAGE NUMBER ===========================================', page_number)
+    if request.POST or filtring == '1':
+        print('WORKING IN if request.POST or filtring == 1')
+        if filtring != '1':
+            page_number = 1
+        sony = request.POST.get('sony', '')
+        samsung = request.POST.get('samsung', '')
+        lg = request.POST.get('lg', '')
+        philips = request.POST.get('philips', '')
+        if (sony=='') and (samsung=='') and (lg=='') and (philips=='') and request.POST:
+            sony='Sony' 
+            samsung='Samsung' 
+            lg='LG' 
+            philips='Philips' 
+            old_filter = False
+        res1 = request.POST.get('screen_resol_1', '')
+        res2 = request.POST.get('screen_resol_2', '')
+        res3 = request.POST.get('screen_resol_3', '')
+        res4 = request.POST.get('screen_resol_4', '')
+        if res1=='' and res2=='' and res3=='' and res4=='' and request.POST:
+            res1="40''" 
+            res2="43''" 
+            res3="50''"
+            res4="84''"
+            old_filter = False
+        some_prod = Product.objects.get(id=1)
+
+        filtered_products = list(Product.objects.filter(Q(product_brand=sony) | Q(product_brand=samsung) | Q(product_brand=lg) |
+                                                        Q(product_brand=philips), Q(product_screen_resolution=res1) | Q(product_screen_resolution=res2) |
+                                                        Q(product_screen_resolution=res3) | Q(product_screen_resolution=res4),
+                                                         product_type='tv'))
+        print('_FILTER_FILTER_FILTER_FILTER_FILTER_FILTER_FILTER ', filtered_products)
+        print('OLD FILTER =============================================', old_filter)
+        if not old_filter:
+            print('CREATING LIST OF FILTERED PRODUCTS!!!!!!!!!!!!!!!!!!!!!!!!!')
+            if username:
+                list_of_filtered_products = FilteredProducts(id=request.user.id)
+                list_of_filtered_products.save()
+            else:
+                filtered_products_object = FilteredProducts()
+                ip_of_user = filtered_products_object.get_client_ip(request)
+                if FilteredProducts.objects.filter(ip_of_user=ip_of_user).count() == 0:
+                    list_of_filtered_products = FilteredProducts(ip_of_user=ip_of_user)
+                    list_of_filtered_products.save()
+                else:
+                    list_of_filtered_products = FilteredProducts.objects.get(ip_of_user=ip_of_user)
+
+        #if not old_filter:
+            list_of_filtered_products.clean_list_of_filtered_products()
+            for product in filtered_products:
+                list_of_filtered_products.add_product(product.product_name)
+            list_of_filtered_products.save()
+            #####
+        paginator_filtered_products = Paginator(filtered_products, 6)
+        filtring = 1
+        args['filtring'] = filtring
+        if old_filter:
+            print('WE USE OLD FILTER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+            if username:
+                list_of_filtered_products_name = FilteredProducts.objects.get(id=request.user.id).get_list_of_products()
+            else:
+                filtered_products_object = FilteredProducts()
+                ip_of_user = filtered_products_object.get_client_ip(request)
+                list_of_filtered_products_name = FilteredProducts.objects.get(ip_of_user=ip_of_user).get_list_of_products()
+            list_of_filtered_products = []
+            for product_name in list_of_filtered_products_name:
+                list_of_filtered_products.append(Product.objects.get(product_name=product_name))
+            paginator_filtered_products = Paginator(list_of_filtered_products, 6)
+        print('PAGE NUMBER ===========================================', page_number)
+        args['techniks'] = paginator_filtered_products.page(page_number)
+        return render_to_response('shop.html', args)
+    args['filtring'] = filtring
     return render_to_response('shop.html', args)
 
 
