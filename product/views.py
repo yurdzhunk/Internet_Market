@@ -34,9 +34,18 @@ def basic_one(request):
         list_of_products = user_object.get_list_of_products()
         args['len'] = len(list_of_products)
     else:
-        ip_object = IP_adress.objects.get(ip=ip)
-        list_of_products = ip_object.get_list_of_products()
-        args['len'] = len(list_of_products)
+        print('ELSLELSLEELSLELSLEELSLELSLEELSLELSLEELSLELSLEELSLELSLE')
+        print('ELSLELSLEELSLELSLEELSLELSLEELSLELSLEELSLELSLEELSLELSLE')
+        if IP_adress.objects.filter(ip=ip).count() == 0:
+            print('IP_adress.objects.get(ip=ip) == 0 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+            ip_object = IP_adress(ip=ip)
+            ip_object.save()
+            list_of_products = ip_object.get_list_of_products()
+            args['len'] = len(list_of_products)
+        else:
+            ip_object = IP_adress.objects.get(ip=ip)
+            list_of_products = ip_object.get_list_of_products()
+            args['len'] = len(list_of_products)
     print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', len(list_of_products))
     if 4 <= args['len'] < 8:
         print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB')

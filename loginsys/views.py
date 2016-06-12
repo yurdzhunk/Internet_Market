@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
 from django.core.context_processors import csrf
 from product.models import Basket
-from loginsys.models import User_Email
+from loginsys.models import User_Email, Product_watched
 from django.core.exceptions import ObjectDoesNotExist
 from django.http.response import Http404
 from django.template import RequestContext
@@ -40,6 +40,9 @@ def login(request):
                 list_of_filtered_products = FilteredProducts.objects.get(id=request.user.id)
                 list_of_filtered_products.clean_list_of_filtered_products()
                 list_of_filtered_products.save()
+            if Product_watched.objects.filter(name_of_user=username).count() == 0:
+                obj = Product_watched(name_of_user=username)
+                obj.save()
             cost = 0
             cost = basket.get_basket_cost(cost)
             args['cost'] = cost
