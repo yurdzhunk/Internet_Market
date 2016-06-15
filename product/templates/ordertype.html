@@ -1,0 +1,80 @@
+{% extends "main_page.html" %}
+{% load staticfiles %}
+
+{% block basket %}
+
+<div class="container" style="margin-top: 100px">
+    	<div class="row">
+			<div class="col-md-9" style="margin-left: 150px">
+				<div class="panel panel-login">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-6 col-xs-offset-3">
+								<a href="#" class="active" id="login-form-link">Информация о доставке</a>
+							</div>
+						</div>
+						<hr>
+					</div>
+					<div class="panel-body">
+                            <div class="row">
+                                <form id="login-form" action="http://127.0.0.1:8000/booking/{{ flag_order2 }}/" method="post" role="form" style="display: block;">
+                                    {% csrf_token %}
+                                    {% if flag_order2 == '1' %}
+                                            <div class="col-lg-9">
+                                                <input type="checkbox" name="myadress" value="myadress"> Доставить по моему адресу
+                                            </div>
+                                        <div class="col-lg-9">
+                                            <h4>или же введите Адрес доставки</h4>
+                                        </div>
+                                            <div class="col-lg-9">
+                                                <input type="text" name="adress" id="adress" tabindex="1" class="form-control" placeholder="Адрес доставки" value={{ adress_default }}>
+                                            </div>
+                                            {% if not flag_adress %}
+                                                <div class="col-lg-9" style="margin-top: 5px">
+                                                    <h4 style="color: #ac2925; margin-top: 2px"><i class="fa fa-warning"></i> Введите адрес доставки</h4>
+                                                </div>
+                                            {% endif %}
+                                    {% endif %}
+
+                                    <div class="col-lg-9">
+                                        <h4>Выберите способ оплаты</h4>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <input type="checkbox" name="pay_type1" value="nalich"> Наличными
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <input type="checkbox" name="pay_type2" value="karta"> Банковской картой
+                                    </div>
+                                    {% if flag_cash %}
+                                        <div class="col-lg-9" style="margin-top: 5px">
+                                            <h4 style="color: #ac2925; margin-top: 2px"><i class="fa fa-warning"></i> Выберите один способ доставки</h4>
+                                        </div>
+                                    {% endif %}
+                                    {% if flag_card %}
+                                        <div class="col-lg-9" style="margin-top: 5px">
+                                            <h4 style="color: #ac2925; margin-top: 2px"><i class="fa fa-warning"></i> Выберите способ доставки</h4>
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3" style="margin-top: 5px">
+                                                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn btn-lg btn-success" style="margin-left: 130px" value="Оформить заказ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                    
+
+
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+{% endblock %}

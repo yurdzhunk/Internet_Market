@@ -12,7 +12,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from datetime import datetime
 from django.views.decorators.csrf import csrf_protect
-from loginsys.models import Product_watched, IP_adress
+from loginsys.models import Product_watched, IP_adress, User_Email
 from django.db.models import Q
 
 # Create your views here.
@@ -602,13 +602,9 @@ def notebook_product_page(request, product_id):
     args['username'] = username
     return render_to_response('notebook_product_page.html', args)
 
-
-def basket(request, flag_adress=True, flag_phone=True, adress='', phone=''):
+@csrf_protect
+def basket(request, flag_order_full=False, flag_order_empty=False):
     args = {}
-    args['flag_adress'] = flag_adress
-    args['flag_phone'] = flag_phone
-    args['adress_default'] = adress
-    args['phone_default'] = phone
     args.update(csrf(request))
     username = request.user.username
     cost = 0
@@ -625,8 +621,11 @@ def basket(request, flag_adress=True, flag_phone=True, adress='', phone=''):
     finale_list = zip(list_of_products, list_of_count)
     args['length'] = len(list_of_products)
     args['list_of_products'] = finale_list
+    args['flag_order_full'] = flag_order_full
+    args['flag_order_empty'] = flag_order_empty
     args['username'] = request.user.username
     return render_to_response('basket.html', args)
+
 
 def minus_count(request, product_id):
     print('MINUSMINUSMINUSMINUSMINUSMINUSMINUSMINUSMINUSMINUSMINUS')
@@ -644,6 +643,7 @@ def minus_count(request, product_id):
     basket.save()
     return redirect('http://127.0.0.1:8000/basket/')
 
+
 def plus_count(request, product_id):
     print('PLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUSPLUS')
     product = Product.objects.get(id=product_id)
@@ -657,39 +657,135 @@ def plus_count(request, product_id):
     basket.save()
     return redirect('http://127.0.0.1:8000/basket/')
 
-def booking(request):
+
+@csrf_protect
+def ordertype(request, flag_adress=True):
+    args = {}
     username = request.user.username
+    args['username'] = username
+    args.update(csrf(request))
+    flag_order_empty = False
+    flag_order_full = False
+    basket = Basket.objects.get(id=request.user.id)
+    print('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC', basket.chosen_products)
+    list_of_products_name = basket.get_list_of_products()
+    list_of_products = []
+    list_of_count = []
+    for product_name in list_of_products_name.keys():
+        list_of_products.append(Product.objects.get(product_name=product_name))
+        list_of_count.append(list_of_products_name[product_name])
+    finale_list = zip(list_of_products, list_of_count)
+    args['length'] = len(list_of_products)
+    args['list_of_products'] = finale_list
     cost = 0
-    adress = request.POST.get('adress', '')
-    phone_number = request.POST.get('phone', '')
-    if adress != '' and phone_number != '':
+    cost = basket.get_basket_cost(cost)
+    ord_type1 = request.POST.get('ordertype1', '')
+    ord_type2 = request.POST.get('ordertype2', '')
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   1111', ord_type1)
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   2222', ord_type2)
+    if ord_type1 != '' and ord_type2 != '':
+        flag_order_full = True
+        args['flag_order_full'] = flag_order_full
+        args['flag_order_empty'] = flag_order_empty
+        args['cost'] = cost
+        args['flag_adress'] = flag_adress
+        return render_to_response('basket.html', args)
+    elif ord_type1 == '' and ord_type2 == '':
+        flag_order_empty = True
+        args['flag_order_full'] = flag_order_full
+        args['flag_order_empty'] = flag_order_empty
+        args['cost'] = cost
+        args['flag_adress'] = flag_adress 
+        return render_to_response('basket.html', args)
+    elif ord_type1 != '' and ord_type2 == '':
+        args1 = {}
+        args1['username'] = username
+        args1['cost'] = cost
+        flag_order2 = '0'
+        args1['flag_order2'] = flag_order2
+        args1['flag_adress'] = flag_adress
+        args1.update(csrf(request))
+        return render_to_response('ordertype.html', args1)
+    elif ord_type2 != '' and ord_type1 == '':
+        args1 = {}
+        args1['username'] = username
+        args1['cost'] = cost
+        flag_order2 = '1'
+        args1['flag_order2'] = flag_order2
+        args1['flag_adress'] = flag_adress
+        args1.update(csrf(request))
+        return render_to_response('ordertype.html', args1)
+
+
+@csrf_protect
+def booking(request, flag_order2=0):
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', flag_order2)
+    args = {}
+    username = request.user.username
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', username)
+    cost = 0
+    args.update(csrf(request))
+    pay_type1 = request.POST.get('pay_type1', '')
+    pay_type2 = request.POST.get('pay_type2', '')
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', pay_type1)
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', pay_type2)
+    if flag_order2 == '1':
+        adress = request.POST.get('adress', '')
+        my_adress = request.POST.get('myadress', '')
+        if adress != '' and my_adress == '':
+            basket1 = Basket.objects.get(id=request.user.id)
+            cost = basket1.get_basket_cost(cost)
+            order = Orders(orders_name=username)
+            order.ordered_products = basket1.chosen_products
+            order.adress_of_orderer = adress
+            user_email_obj = User_Email.objects.get(emails_username=username)
+            order.orders_phone_number = user_email_obj.telephone_of_user
+            order.orders_cost = cost
+            order.order_pay_type = pay_type1+ ' ' + pay_type2
+            order.date_of_order = datetime.now()
+            basket1.clean_basket()
+            basket1.save()
+            order.save()
+            args = {}
+            args['username'] = username
+            args['cost'] = 0
+            return render_to_response('readyorder.html', args)
+        elif adress == '' and my_adress == '':
+            flag_adress = False
+            return ordertype(request, flag_adress=flag_adress)
+        elif adress == '' and my_adress != '':
+            basket1 = Basket.objects.get(id=request.user.id)
+            cost = basket1.get_basket_cost(cost)
+            order = Orders(orders_name=username)
+            order.ordered_products = basket1.chosen_products
+            user_email_obj = User_Email.objects.get(emails_username=username)
+            order.orders_phone_number = user_email_obj.telephone_of_user
+            order.adress_of_orderer = user_email_obj.adress_of_user
+            order.orders_cost = cost
+            order.order_pay_type = pay_type1+ ' ' + pay_type2
+            order.date_of_order = datetime.now()
+            basket1.clean_basket()
+            basket1.save()
+            order.save()
+            args['username'] = username
+            args['cost'] = 0
+            return render_to_response('readyorder.html', args)       
+    if flag_order2 == '0':
         basket1 = Basket.objects.get(id=request.user.id)
         cost = basket1.get_basket_cost(cost)
         order = Orders(orders_name=username)
         order.ordered_products = basket1.chosen_products
-        order.adress_of_orderer = adress
-        order.orders_phone_number = phone_number
+        order.orders_phone_number = User_Email.objects.get(emails_username=username).telephone_of_user
         order.orders_cost = cost
+        order.order_pay_type = pay_type1+ ' ' + pay_type2
         order.date_of_order = datetime.now()
         basket1.clean_basket()
         basket1.save()
         order.save()
-        args = {}
         args['username'] = username
         args['cost'] = 0
         return render_to_response('readyorder.html', args)
-    elif adress != '' and phone_number == '':
-        flag_adress = True
-        flag_phone = False
-        return basket(request, flag_adress=flag_adress, flag_phone=flag_phone, adress=adress)
-    elif adress == '' and phone_number != '':
-        flag_adress = False
-        flag_phone = True
-        return basket(request, flag_adress=flag_adress, flag_phone=flag_phone, phone=phone_number)
-    elif adress == '' and phone_number == '':
-        flag_adress = False
-        flag_phone = False
-        return basket(request, flag_adress=flag_adress, flag_phone=flag_phone)
+
 
 
 def delete_product(request, product_id):

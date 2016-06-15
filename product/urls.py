@@ -7,7 +7,7 @@ urlpatterns = [
     url(r'^2/', 'product.views.template_two'),
     url(r'^3/', 'product.views.template_three_simple'),
     url(r'^basket/', 'product.views.basket'),
-    url(r'^booking/', 'product.views.booking'),
+    url(r'^booking/(?P<flag_order2>\d+)/$', 'product.views.booking'),
     url(r'^delete/(?P<product_id>\d+)/$', 'product.views.delete_product'),
     url(r'^product/get/(?P<product_id>\d+)/$', 'product.views.product'),
     url(r'^product/get/(?P<product_id>\d+)/(?P<comment_page_number>\d+)/$', 'product.views.product'),
@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^minus_count/(?P<product_id>\d+)/$', 'product.views.minus_count'),
     url(r'^plus_count/(?P<product_id>\d+)/$', 'product.views.plus_count'),
     url(r'^one_click/(?P<product_id>\d+)/$', 'product.views.one_click'),
+    url(r'^ordertype/$', 'product.views.ordertype'),
     url(r'^', 'product.views.products'),
 
 ]
