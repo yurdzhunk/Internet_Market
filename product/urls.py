@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^notebook/prod/(?P<product_id>\d+)/$', 'product.views.notebook_product_page'),
     url(r'^minus_count/(?P<product_id>\d+)/$', 'product.views.minus_count'),
     url(r'^plus_count/(?P<product_id>\d+)/$', 'product.views.plus_count'),
+    url(r'^one_click/(?P<product_id>\d+)/$', 'product.views.one_click'),
     url(r'^', 'product.views.products'),
 
 ]

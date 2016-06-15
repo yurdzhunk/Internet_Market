@@ -175,6 +175,18 @@ def add_to_basket(request, product_id, page_number=1, filtring=0):
             http_adress = 'http://127.0.0.1:8000/shop/tv/' + str(page_number)+ '/' + str(filtring) + '/'
             return redirect(http_adress)
 
+
+def one_click(request, product_id):
+    args = {}
+    print('one_click')
+    username = auth.get_user(request).username
+    technik = Product.objects.get(id=product_id)
+    print('username: ', username)
+    args['product'] = technik
+    if username:
+        return render_to_response('some.html', args)
+
+
 def addcomment(request, product_id):
     if request.POST and ('bla' not in request.session):
         form = CommentForm(request.POST)
@@ -393,19 +405,21 @@ def smartphone(request, page_number=1, filtring=0):
             old_filter = False
         memory_size1 = request.POST.get('16 GB', '')
         memory_size2 = request.POST.get('32 GB', '')
-        memory_size3 = request.POST.get('2TB', '')
-        if memory_size1=='' and memory_size2=='' and memory_size3=='' and request.POST:
+        memory_size3 = request.POST.get('2 TB', '')
+        memory_size4 = request.POST.get('64 GB', '')
+        if memory_size1=='' and memory_size2=='' and memory_size3=='' and memory_size4=='' and request.POST:
             memory_size1 = '16 GB'
             memory_size2 = '32 GB'
             memory_size3 = '2 TB'
+            memory_size4 = '64 GB'
             old_filter = False
 
         filtered_products = list(Product.objects.filter(Q(product_brand=samsung) | Q(product_brand=motorola) | Q(product_brand=lg) |
                                                         Q(product_brand=apple) | Q(product_brand=microsoft) | Q(product_brand=lenovo), Q(product_screen_resolution=res1) | Q(product_screen_resolution=res2) |
                                                         Q(product_screen_resolution=res3) | Q(product_screen_resolution=res4) | Q(product_screen_resolution=res5),
                                                         Q(product_orm=orm_size1) | Q(product_orm=orm_size2) | Q(product_orm=orm_size3) | Q(product_orm=orm_size4),
-                                                        Q(product_memory=memory_size1) | Q(product_memory=memory_size2) |
-                                                        Q(product_memory=memory_size3),
+                                                        Q(product_memory=memory_size1) | Q(product_memory=memory_size2) | Q(product_memory=memory_size3) |
+                                                        Q(product_memory=memory_size4),
                                                          product_type='smartphone'))
         print('_FILTER_FILTER_FILTER_FILTER_FILTER_FILTER_FILTER ', filtered_products)
         print('OLD FILTER =============================================', old_filter)
