@@ -14,6 +14,7 @@ class User_Email(models.Model):
 
     email = models.EmailField(default='test@gmail.com')
     adress_of_user = models.CharField(default='', max_length=200)
+    telephone_of_user = models.CharField(default='', max_length=100)
     emails_username = models.CharField(max_length=200)
 
     def email_is_valid(self):

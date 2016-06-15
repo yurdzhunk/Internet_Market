@@ -4,7 +4,7 @@ from loginsys.models import User_Email
 # Register your models here.
 
 class EmailAdmin(admin.ModelAdmin):
-    fields = ['emails_username', 'email', 'adress_of_user']
+    fields = ['emails_username', 'email', 'adress_of_user', 'telephone_of_user']
     list_filter = ['email']
 
 

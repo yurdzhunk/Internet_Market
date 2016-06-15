@@ -282,6 +282,10 @@ def notebook(request, page_number=1, filtring=0):
         memory_size1 = request.POST.get('512-HDD', '')
         memory_size2 = request.POST.get('512-SSD', '')
         memory_size3 = request.POST.get('1TB', '')
+        print(request.POST)
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ', memory_size1)
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ', memory_size2)
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ', memory_size3)
         if memory_size1=='' and memory_size2=='' and memory_size3=='' and request.POST:
             memory_size1 = '512 GB SSD'
             memory_size2 = '512 GB HDD'

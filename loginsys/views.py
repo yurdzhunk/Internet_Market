@@ -86,6 +86,7 @@ def register(request):
     password = request.POST.get('password', '')
     email = request.POST.get('email', '')
     adress = request.POST.get('adress', '')
+    telephone = request.POST.get('telephone', '')
     dict_of_user = {'username': [username], 'password1': [password], 'password2': [password], 'email': [email]}
     # args['form'] = UserCreationForm()
 
@@ -107,6 +108,7 @@ def register(request):
             newuser_form.save()
             new_email.emails_username = newuser_form.cleaned_data['username']
             new_email.adress_of_user = adress
+            new_email.telephone_of_user = telephone
             new_email.save()
             newuser = auth.authenticate(username=newuser_form.cleaned_data['username'],
                                         password=newuser_form.cleaned_data['password2'])
