@@ -37,6 +37,56 @@
                             </div>
                             {% endif %}
                         </div>
+
+                        <div class="row">
+                        <div class="col-lg-3 col-lg-offset-2">
+                            <h4 style="margin-left: 60px">Оцените товар :</h4>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="btn-group">
+                                <a href="#"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i class="fa fa-star" style="color: yellow"></i></button></a>
+                                <a href="#"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i style="color: yellow" class="fa fa-star"></i><i style="color: yellow" class="fa fa-star"></i></button></a>
+                                <a href="#"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i></button></a>
+                                <a href="#"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i></button></a>
+                                <a href="#"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i></button></a>
+                            </div>
+                        </div>
+                    </div>
+
+                        <hr>
+                        
+                        <h4 class="active">Отзывы о товаре</h4>
+                        {% for comment in comments %}
+                        <div class="row">
+                            <div class="panel panel-login col-lg-6">
+                                <div class="panel-heading">
+                                    {{ comment.name_of_user}}
+                                    <hr>
+                                </div>
+                                <div class="panel-body">
+                                    <p>{{ comment.comments_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    
+                        <hr>
+                        <div class="row">
+                            <form action="http://127.0.0.1:8000/add_comment/{{ product.id }}/" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        
+                                            <input style="width: 800px ; height: 150px ; margin-left: 15px" type="text" name="comment" id="comment" tabindex="1" >
+                                        
+                                    </div>
+                                    <div class="row">
+                                            <div class="col-sm-6" style="margin-top: 5px">
+                                                <input type="submit"  class="btn btn-lg btn-success" style="margin-left: 0px"  value="Оставить комментарий">
+                                            </div>
+                                    </div>
+                                    
+                            </form>
+                        </div>
                         <hr>
                         <div class="row">
                             <div class="col-lg-10">
@@ -44,7 +94,7 @@
                             </div>
                             <div class="col-lg-2">
                                 {% if username %}
-                                    <a href="http://127.0.0.1:8000/add_to_basket/{{ product.id }}/" class="btn btn-success">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </a>
+                                    <a href="http://127.0.0.1:8000/add_to_basket_from_card/{{ product.id }}/" class="btn btn-success">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </a>
                                 {% else %}
                                     <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal-2">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </button>
                                 {% endif %}

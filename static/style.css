@@ -271,3 +271,7 @@ h4.media-heading{
 .carousel-control.left.noshadow, .carousel-control.right.noshadow {
     background-image: none
 }
+
+.btnrate:hover{
+	background-color: #ffffff !important;
+}

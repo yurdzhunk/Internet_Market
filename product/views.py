@@ -567,6 +567,7 @@ def notebook_product_page(request, product_id):
     args = {}
     username = request.user.username
     cost = 0
+    args.update(csrf(request))
     prod = Product.objects.get(id=product_id)
     if username:
         basket = Basket.objects.get(id=request.user.id)
@@ -600,7 +601,49 @@ def notebook_product_page(request, product_id):
     technik = Product.objects.get(id=product_id)
     args['product'] = technik
     args['username'] = username
+    product_comments = Comments.objects.filter(comments_product=technik)
+    args['comments'] = product_comments
     return render_to_response('notebook_product_page.html', args)
+
+
+@csrf_protect
+def add_comment(request, product_id):
+    args = {}
+    cost = 0
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!~~~~~~~~~~~~~~~~~~~~~~~', request.POST)
+    username = request.user.username
+    args.update(csrf(request))
+    basket = Basket.objects.get(id=request.user.id)
+    cost = basket.get_basket_cost(cost)
+    args['cost'] = cost
+    technik = Product.objects.get(id=product_id)
+    args['product'] = technik
+    args['username'] = username
+    product_comments = Comments.objects.filter(comments_product=technik)
+    args['comments'] = product_comments
+    if request.POST:
+        new_comment = Comments(name_of_user=username)
+        new_comment.comments_text = request.POST.get('comment', '')
+        new_comment.comments_product = technik
+        new_comment.save()
+        return render_to_response('notebook_product_page.html', args)
+
+
+def add_to_basket_from_card(request, product_id):
+    print('add_to_basket_from_card')
+    username = auth.get_user(request).username
+    technik = Product.objects.get(id=product_id)
+    print('username: ', username)
+    if username:
+        try:
+            basket = Basket.objects.get(id=request.user.id)
+            if username and (technik.product_name not in basket.get_list_of_products()):
+                basket.add_product(technik.product_name)
+                basket.save()
+        except ObjectDoesNotExist:
+            raise Http404
+        return redirect('http://127.0.0.1:8000/notebook/prod/' + product_id + '/')
+
 
 @csrf_protect
 def basket(request, flag_order_full=False, flag_order_empty=False):

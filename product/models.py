@@ -90,6 +90,7 @@ class Comments(models.Model):
 
     comments_text = models.TextField()
     comments_product = models.ForeignKey(Product)
+    name_of_user = models.CharField(default='', max_length=100)
 
 
 class FilteredProducts(models.Model):
