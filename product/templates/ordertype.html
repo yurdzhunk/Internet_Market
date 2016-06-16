@@ -17,7 +17,7 @@
 					</div>
 					<div class="panel-body">
                             <div class="row">
-                                <form id="login-form" action="http://127.0.0.1:8000/booking/{{ flag_order2 }}/" method="post" role="form" style="display: block;">
+                                <form id="login-form" action="http://127.0.0.1:8000/booking/{{ flag_order2 }}/{{ flag_one_click }}/" method="post" role="form" style="display: block;">
                                     {% csrf_token %}
                                     {% if flag_order2 == '1' %}
                                             <div class="col-lg-9">

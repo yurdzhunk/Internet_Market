@@ -30,11 +30,13 @@
                                         <h4 style="margin-top: 0px">{{ product.product_name }}</h4>
 
                                     </div>
+                                    {% if flag_one_click == '0' %}
                                     <div class="col-lg-2">
                                         <a href="http://127.0.0.1:8000/minus_count/{{ product.id }}/"><i class="fa fa-minus"></i></a>
                                         <input style="width: 40px ; text-align: center" name="count" value={{count}}>
                                         <a href="http://127.0.0.1:8000/plus_count/{{ product.id }}/"><i class="fa fa-plus"></i></a>
                                     </div>
+                                    {% endif %}
                                     <div class="col-lg-2">
                                         <a id="login-form-link" style="color: #d58512 ; font-size: 2ch">{{ product.product_cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
                                     </div>
@@ -48,12 +50,19 @@
                             <h3 id="login-form-link" style="margin-left: 300px ; color: #029f5b">В корзине пока пусто</h3>
                         {% endif %}
                         {% if length != 0 %}
+                            {% if flag_one_click == '0' %}
                             <div class="row">
                                 <a class="actives" id="login-form-link" style="margin-left: 424px">Итого к оплате : {{ cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
 					            <hr>
                             </div>
+                            {% elif flag_one_click == '1' %}
                             <div class="row">
-                                <form id="login-form" action="http://127.0.0.1:8000/ordertype/" method="post" role="form" style="display: block;">
+                                <a class="actives" id="login-form-link" style="margin-left: 424px">Итого к оплате : {{ cost_one_click }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
+                                <hr>
+                            </div>
+                            {% endif %}
+                            <div class="row">
+                                <form id="login-form" action="http://127.0.0.1:8000/ordertype/{{ flag_one_click }}/" method="post" role="form" style="display: block;">
                                     {% csrf_token %}
                                     <div class="col-lg-9">
                                         <a href="#" class="active" id="login-form-link">Выберите способ доставки</a>

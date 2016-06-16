@@ -37,22 +37,22 @@
                             </div>
                             {% endif %}
                         </div>
-
+                        {% if flag_he_voted %}
                         <div class="row">
                         <div class="col-lg-3 col-lg-offset-2">
                             <h4 style="margin-left: 60px">Оцените товар :</h4>
                         </div>
                         <div class="col-lg-7">
                             <div class="btn-group">
-                                <a href="#"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i class="fa fa-star" style="color: yellow"></i></button></a>
-                                <a href="#"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i style="color: yellow" class="fa fa-star"></i><i style="color: yellow" class="fa fa-star"></i></button></a>
-                                <a href="#"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i></button></a>
-                                <a href="#"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i></button></a>
-                                <a href="#"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i></button></a>
+                                <a href="http://127.0.0.1:8000/add_stars/{{ product.id }}/1/"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i class="fa fa-star" style="color: yellow"></i></button></a>
+                                <a href="http://127.0.0.1:8000/add_stars/{{ product.id }}/2/"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i style="color: yellow" class="fa fa-star"></i><i style="color: yellow" class="fa fa-star"></i></button></a>
+                                <a href="http://127.0.0.1:8000/add_stars/{{ product.id }}/3/"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i></button></a>
+                                <a href="http://127.0.0.1:8000/add_stars/{{ product.id }}/4/"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i></button></a>
+                                <a href="http://127.0.0.1:8000/add_stars/{{ product.id }}/5/"><button type="button" class="btn btn-default btnrate" style="width: 100px ; background-color: #3c3c3c"><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i><i class="fa fa-star" style="color: yellow"></i></button></a>
                             </div>
                         </div>
                     </div>
-
+                        {% endif %}
                         <hr>
                         
                         <h4 class="active">Отзывы о товаре</h4>

@@ -18,11 +18,12 @@ class Product(models.Model):
     product_description = models.TextField(default='')
     product_cost = models.IntegerField(default=0)
     product_rate = models.IntegerField(default=0)
+    product_stars = models.CharField(default='', max_length=5)
     product_brand = models.TextField(default='')
     product_screen_resolution = models.CharField(max_length=20)
     product_memory = models.CharField(max_length=20)
     product_orm = models.CharField(max_length=20)
-    users_liked = models.ManyToManyField(User)
+    users_voted = models.ManyToManyField(User)
 
     def __str__(self):              # __unicode__ on Python 2
         return self.product_name
@@ -31,6 +32,42 @@ class Product(models.Model):
 class Basket(models.Model):
     class Meta:
         db_table = 'basket'
+
+    chosen_products = models.CharField(default='{}', max_length=200)
+
+    def set_list_of_products(self):
+        return json.dumps(self.chosen_products)
+
+    def get_basket_cost(self, cost):
+        list_of_products = self.get_list_of_products()
+        for name_of_product in list_of_products.keys():
+            technik = Product.objects.get(product_name=name_of_product)
+            cost += technik.product_cost * list_of_products[name_of_product]
+        return cost
+
+    def get_list_of_products(self):
+        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', self.chosen_products)
+        return json.loads(self.chosen_products)
+
+    def add_product(self, product_name):
+        list_of_product = json.loads(self.chosen_products)
+        list_of_product[product_name] = 1
+        self.chosen_products = json.dumps(list_of_product)
+
+    def delete_product(self, product_name):
+        list_of_product = json.loads(self.chosen_products)
+        del list_of_product[product_name]
+        self.chosen_products = json.dumps(list_of_product)
+
+    def clean_basket(self):
+        list_of_product = json.loads(self.chosen_products)
+        list_of_product = {}
+        self.chosen_products = json.dumps(list_of_product)
+
+
+class BasketOneClick(models.Model):
+    class Meta:
+        db_table = 'basket_one_click'
 
     chosen_products = models.CharField(default='{}', max_length=200)
 

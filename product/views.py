@@ -3,7 +3,7 @@ from django.shortcuts import render, render_to_response, redirect
 from django.http.response import HttpResponse, Http404
 from django.template.loader import get_template
 from django.template import Context
-from product.models import Product, Comments, Basket, Orders, FilteredProducts
+from product.models import Product, Comments, Basket, BasketOneClick, Orders, FilteredProducts
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.context_processors import csrf
 from product.forms import CommentForm
@@ -152,6 +152,25 @@ def addlike(request, product_id):
     return redirect('http://127.0.0.1:8000/shop/notebook/1/0/')
 
 
+def add_stars(request, product_id, number_of_stars):
+    username = request.user.username
+    technik = Product.objects.get(id=product_id)
+    try:
+        user = User.objects.get(username=username)
+        if username and user not in technik.users_voted.all():
+            number_of_voted = len(technik.users_voted.all())
+            print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~number_of_voted', number_of_voted)
+            print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~technik.product_stars', technik.product_stars)
+            technik.product_stars = str((float(technik.product_stars)*number_of_voted + int(number_of_stars))/(number_of_voted + 1.))
+            technik.product_stars = str("%.1f" %float(technik.product_stars))
+            print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!technik.product_stars AFTER', technik.product_stars)
+            technik.users_voted.add(user)
+            technik.save()
+    except ObjectDoesNotExist:
+        raise Http404
+    return redirect('http://127.0.0.1:8000/notebook/prod/' + product_id + '/')
+
+
 def add_to_basket(request, product_id, page_number=1, filtring=0):
     print('add_to_basket')
     username = auth.get_user(request).username
@@ -176,15 +195,37 @@ def add_to_basket(request, product_id, page_number=1, filtring=0):
             return redirect(http_adress)
 
 
-def one_click(request, product_id):
+def one_click(request, product_id, flag_order_full=False, flag_order_empty=False):
     args = {}
-    print('one_click')
-    username = auth.get_user(request).username
+    username = request.user.username
     technik = Product.objects.get(id=product_id)
+    args.update(csrf(request))
+    flag_one_click = '1'
+    cost = 0
+    cost_one_click = 0
+    basket = Basket.objects.get(id=request.user.id)
+    cost = basket.get_basket_cost(cost)
+    args['cost'] = cost
+    basket_one_click = BasketOneClick(id=request.user.id)
+    basket_one_click.add_product(technik.product_name)
+    basket_one_click.save()
+    list_of_products_name = basket_one_click.get_list_of_products()
+    list_of_products = []
+    list_of_count = []
+    for product_name in list_of_products_name.keys():
+        list_of_products.append(Product.objects.get(product_name=product_name))
+        list_of_count.append(list_of_products_name[product_name])
+    finale_list = zip(list_of_products, list_of_count)
+    args['length'] = len(list_of_products)
+    args['list_of_products'] = finale_list
+    args['flag_order_full'] = flag_order_full
+    args['flag_order_empty'] = flag_order_empty
+    print('one_click')
     print('username: ', username)
-    args['product'] = technik
+    args['flag_one_click'] = flag_one_click
+    args['cost_one_click'] = basket_one_click.get_basket_cost(cost_one_click)
     if username:
-        return render_to_response('some.html', args)
+        return render_to_response('basket.html', args)
 
 
 def addcomment(request, product_id):
@@ -565,10 +606,15 @@ def tv(request, page_number=1, filtring=0):
 
 def notebook_product_page(request, product_id):
     args = {}
+    flag_he_voted = False
     username = request.user.username
     cost = 0
     args.update(csrf(request))
     prod = Product.objects.get(id=product_id)
+    user_object = User.objects.get(username=username)
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    if not user_object in prod.users_voted.all():
+        flag_he_voted = True
     if username:
         basket = Basket.objects.get(id=request.user.id)
         cost = basket.get_basket_cost(cost)
@@ -600,6 +646,7 @@ def notebook_product_page(request, product_id):
     args['cost'] = cost
     technik = Product.objects.get(id=product_id)
     args['product'] = technik
+    args['flag_he_voted'] = flag_he_voted
     args['username'] = username
     product_comments = Comments.objects.filter(comments_product=technik)
     args['comments'] = product_comments
@@ -609,6 +656,7 @@ def notebook_product_page(request, product_id):
 @csrf_protect
 def add_comment(request, product_id):
     args = {}
+    flag_he_voted = False
     cost = 0
     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!~~~~~~~~~~~~~~~~~~~~~~~', request.POST)
     username = request.user.username
@@ -617,7 +665,11 @@ def add_comment(request, product_id):
     cost = basket.get_basket_cost(cost)
     args['cost'] = cost
     technik = Product.objects.get(id=product_id)
+    user_object = User.objects.get(username=username)
+    if not user_object in technik.users_voted.all():
+        flag_he_voted = True
     args['product'] = technik
+    args['flag_he_voted'] = flag_he_voted
     args['username'] = username
     product_comments = Comments.objects.filter(comments_product=technik)
     args['comments'] = product_comments
@@ -649,6 +701,8 @@ def add_to_basket_from_card(request, product_id):
 def basket(request, flag_order_full=False, flag_order_empty=False):
     args = {}
     args.update(csrf(request))
+    flag_one_click = '0'
+    args['flag_one_click'] = flag_one_click
     username = request.user.username
     cost = 0
     basket = Basket.objects.get(id=request.user.id)
@@ -702,7 +756,7 @@ def plus_count(request, product_id):
 
 
 @csrf_protect
-def ordertype(request, flag_adress=True):
+def ordertype(request, flag_adress=True, flag_one_click='0'):
     args = {}
     username = request.user.username
     args['username'] = username
@@ -731,6 +785,7 @@ def ordertype(request, flag_adress=True):
         args['flag_order_full'] = flag_order_full
         args['flag_order_empty'] = flag_order_empty
         args['cost'] = cost
+        args['flag_one_click'] = flag_one_click
         args['flag_adress'] = flag_adress
         return render_to_response('basket.html', args)
     elif ord_type1 == '' and ord_type2 == '':
@@ -738,6 +793,7 @@ def ordertype(request, flag_adress=True):
         args['flag_order_full'] = flag_order_full
         args['flag_order_empty'] = flag_order_empty
         args['cost'] = cost
+        args['flag_one_click'] = flag_one_click
         args['flag_adress'] = flag_adress 
         return render_to_response('basket.html', args)
     elif ord_type1 != '' and ord_type2 == '':
@@ -747,6 +803,7 @@ def ordertype(request, flag_adress=True):
         flag_order2 = '0'
         args1['flag_order2'] = flag_order2
         args1['flag_adress'] = flag_adress
+        args1['flag_one_click'] = flag_one_click
         args1.update(csrf(request))
         return render_to_response('ordertype.html', args1)
     elif ord_type2 != '' and ord_type1 == '':
@@ -756,12 +813,13 @@ def ordertype(request, flag_adress=True):
         flag_order2 = '1'
         args1['flag_order2'] = flag_order2
         args1['flag_adress'] = flag_adress
+        args1['flag_one_click'] = flag_one_click
         args1.update(csrf(request))
         return render_to_response('ordertype.html', args1)
 
 
 @csrf_protect
-def booking(request, flag_order2=0):
+def booking(request, flag_order2=0, flag_one_click='0'):
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', flag_order2)
     args = {}
     username = request.user.username
@@ -776,7 +834,10 @@ def booking(request, flag_order2=0):
         adress = request.POST.get('adress', '')
         my_adress = request.POST.get('myadress', '')
         if adress != '' and my_adress == '':
-            basket1 = Basket.objects.get(id=request.user.id)
+            if flag_one_click == '0':
+                basket1 = Basket.objects.get(id=request.user.id)
+            elif flag_one_click == '1':
+                basket1 = BasketOneClick.objects.get(id=request.user.id)
             cost = basket1.get_basket_cost(cost)
             order = Orders(orders_name=username)
             order.ordered_products = basket1.chosen_products
@@ -797,7 +858,10 @@ def booking(request, flag_order2=0):
             flag_adress = False
             return ordertype(request, flag_adress=flag_adress)
         elif adress == '' and my_adress != '':
-            basket1 = Basket.objects.get(id=request.user.id)
+            if flag_one_click == '0':
+                basket1 = Basket.objects.get(id=request.user.id)
+            elif flag_one_click == '1':
+                basket1 = BasketOneClick.objects.get(id=request.user.id)
             cost = basket1.get_basket_cost(cost)
             order = Orders(orders_name=username)
             order.ordered_products = basket1.chosen_products
@@ -814,7 +878,10 @@ def booking(request, flag_order2=0):
             args['cost'] = 0
             return render_to_response('readyorder.html', args)       
     if flag_order2 == '0':
-        basket1 = Basket.objects.get(id=request.user.id)
+        if flag_one_click == '0':
+            basket1 = Basket.objects.get(id=request.user.id)
+        elif flag_one_click == '1':
+            basket1 = BasketOneClick.objects.get(id=request.user.id)
         cost = basket1.get_basket_cost(cost)
         order = Orders(orders_name=username)
         order.ordered_products = basket1.chosen_products
