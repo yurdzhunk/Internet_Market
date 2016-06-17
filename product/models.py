@@ -14,6 +14,8 @@ class Product(models.Model):
 
     product_name = models.CharField(max_length=200)
     product_image = models.ImageField(upload_to='static')
+    product_image2 = models.ImageField(default='', upload_to='static')
+    product_image3 = models.ImageField(default='', upload_to='static')
     product_type = models.CharField(default='notebook', max_length=100)
     product_description = models.TextField(default='')
     product_cost = models.IntegerField(default=0)
@@ -24,6 +26,7 @@ class Product(models.Model):
     product_memory = models.CharField(max_length=20)
     product_orm = models.CharField(max_length=20)
     users_voted = models.ManyToManyField(User)
+    product_exist = models.CharField(default='1', max_length=5)
 
     def __str__(self):              # __unicode__ on Python 2
         return self.product_name

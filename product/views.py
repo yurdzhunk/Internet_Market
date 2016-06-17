@@ -17,13 +17,16 @@ from django.db.models import Q
 
 # Create your views here.
 def basic_one(request):
+    number_of_products = 0
     args = {}
     username = request.user.username
     cost = 0
     if username:
         basket  = Basket.objects.get(id=request.user.id)
+        number_of_products = len(basket.get_list_of_products())
         cost = basket.get_basket_cost(cost)
     args['cost'] = cost
+    args['number_of_products'] = number_of_products
     args['username'] = username
     list1 = []
     list2 = []
@@ -70,11 +73,14 @@ def basic_one(request):
 
 def company(request):
     args = {}
+    number_of_products = 0
     username = request.user.username
     cost = 0
     if username:
         basket = Basket.objects.get(id=request.user.id)
+        number_of_products = len(basket.get_list_of_products())
         cost = basket.get_basket_cost(cost)
+    args['number_of_products'] = number_of_products
     args['cost'] = cost
     args['username'] = username
     return render_to_response('company.html', args)
@@ -197,6 +203,7 @@ def add_to_basket(request, product_id, page_number=1, filtring=0):
 
 def one_click(request, product_id, flag_order_full=False, flag_order_empty=False):
     args = {}
+    number_of_products = 0
     username = request.user.username
     technik = Product.objects.get(id=product_id)
     args.update(csrf(request))
@@ -206,6 +213,8 @@ def one_click(request, product_id, flag_order_full=False, flag_order_empty=False
     basket = Basket.objects.get(id=request.user.id)
     cost = basket.get_basket_cost(cost)
     args['cost'] = cost
+    number_of_products = len(basket.get_list_of_products())
+    args['number_of_products'] = number_of_products
     basket_one_click = BasketOneClick(id=request.user.id)
     basket_one_click.add_product(technik.product_name)
     basket_one_click.save()
@@ -267,14 +276,17 @@ def notebook(request, page_number=1, filtring=0):
     filtring = filtring
     old_filter = True
     args = {}
+    number_of_products = 0
     args.update(csrf(request))
     username = request.user.username
     cost = 0
     if username:
         basket = Basket.objects.get(id=request.user.id)
+        number_of_products = len(basket.get_list_of_products())
         cost = basket.get_basket_cost(cost)
     all_products = Product.objects.filter(product_type='notebook')
     current_products = Paginator(all_products, 6)
+    args['number_of_products'] = number_of_products
     args['cost'] = cost
     args['username'] = username
     args['type'] = 'notebook'
@@ -389,6 +401,7 @@ def notebook(request, page_number=1, filtring=0):
 
 def smartphone(request, page_number=1, filtring=0):
     args = {}
+    number_of_products = 0
     args.update(csrf(request))
     old_filter = True
     username = request.user.username
@@ -396,10 +409,12 @@ def smartphone(request, page_number=1, filtring=0):
     args['username'] = request.user.username
     if username:
         basket = Basket.objects.get(id=request.user.id)
+        number_of_products = len(basket.get_list_of_products())
         cost = basket.get_basket_cost(cost)
     all_products = Product.objects.filter(product_type='smartphone')
     current_products = Paginator(all_products, 6)
     args['cost'] = cost
+    args['number_of_products'] = number_of_products
     args['techniks'] = current_products.page(page_number)
     args['type'] = 'smartphone'
     print('FILTRING ===========================================', filtring)
@@ -515,6 +530,7 @@ def smartphone(request, page_number=1, filtring=0):
 
 def tv(request, page_number=1, filtring=0):
     args = {}
+    number_of_products = 0
     args.update(csrf(request))
     old_filter = True
     username = request.user.username
@@ -522,10 +538,12 @@ def tv(request, page_number=1, filtring=0):
     args['username'] = request.user.username
     if username:
         basket = Basket.objects.get(id=request.user.id)
+        number_of_products = len(basket.get_list_of_products())
         cost = basket.get_basket_cost(cost)
     all_products = Product.objects.filter(product_type='tv')
     current_products = Paginator(all_products, 6)
     args['cost'] = cost
+    args['number_of_products'] = number_of_products
     args['techniks'] = current_products.page(page_number)
     args['type'] = 'tv'
     print('FILTRING ===========================================', filtring)
@@ -606,6 +624,7 @@ def tv(request, page_number=1, filtring=0):
 
 def notebook_product_page(request, product_id):
     args = {}
+    number_of_products = 0
     flag_he_voted = False
     username = request.user.username
     cost = 0
@@ -618,6 +637,8 @@ def notebook_product_page(request, product_id):
     if username:
         basket = Basket.objects.get(id=request.user.id)
         cost = basket.get_basket_cost(cost)
+        number_of_products = len(basket.get_list_of_products())
+        args['number_of_products'] = number_of_products
         #bla = Product_watched.objects.get(name_of_user=username)
         #print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   ', len(bla.get_list_of_products()))
         if len(Product_watched.objects.filter(name_of_user=username)) == 0:
@@ -656,6 +677,7 @@ def notebook_product_page(request, product_id):
 @csrf_protect
 def add_comment(request, product_id):
     args = {}
+    number_of_products = 0
     flag_he_voted = False
     cost = 0
     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!~~~~~~~~~~~~~~~~~~~~~~~', request.POST)
@@ -664,6 +686,8 @@ def add_comment(request, product_id):
     basket = Basket.objects.get(id=request.user.id)
     cost = basket.get_basket_cost(cost)
     args['cost'] = cost
+    number_of_products = len(basket.get_list_of_products())
+    args['number_of_products'] = number_of_products
     technik = Product.objects.get(id=product_id)
     user_object = User.objects.get(username=username)
     if not user_object in technik.users_voted.all():
@@ -700,6 +724,7 @@ def add_to_basket_from_card(request, product_id):
 @csrf_protect
 def basket(request, flag_order_full=False, flag_order_empty=False):
     args = {}
+    number_of_products = 0
     args.update(csrf(request))
     flag_one_click = '0'
     args['flag_one_click'] = flag_one_click
@@ -708,6 +733,8 @@ def basket(request, flag_order_full=False, flag_order_empty=False):
     basket = Basket.objects.get(id=request.user.id)
     cost = basket.get_basket_cost(cost)
     args['cost'] = cost
+    number_of_products = len(basket.get_list_of_products())
+    args['number_of_products'] = number_of_products
     print('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC', basket.chosen_products)
     list_of_products_name = basket.get_list_of_products()
     list_of_products = []
@@ -758,6 +785,7 @@ def plus_count(request, product_id):
 @csrf_protect
 def ordertype(request, flag_adress=True, flag_one_click='0'):
     args = {}
+    number_of_products = 0
     username = request.user.username
     args['username'] = username
     args.update(csrf(request))
@@ -776,6 +804,7 @@ def ordertype(request, flag_adress=True, flag_one_click='0'):
     args['list_of_products'] = finale_list
     cost = 0
     cost = basket.get_basket_cost(cost)
+    number_of_products = len(basket.get_list_of_products())
     ord_type1 = request.POST.get('ordertype1', '')
     ord_type2 = request.POST.get('ordertype2', '')
     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   1111', ord_type1)
@@ -786,6 +815,7 @@ def ordertype(request, flag_adress=True, flag_one_click='0'):
         args['flag_order_empty'] = flag_order_empty
         args['cost'] = cost
         args['flag_one_click'] = flag_one_click
+        args['number_of_products'] = number_of_products
         args['flag_adress'] = flag_adress
         return render_to_response('basket.html', args)
     elif ord_type1 == '' and ord_type2 == '':
@@ -794,6 +824,7 @@ def ordertype(request, flag_adress=True, flag_one_click='0'):
         args['flag_order_empty'] = flag_order_empty
         args['cost'] = cost
         args['flag_one_click'] = flag_one_click
+        args['number_of_products'] = number_of_products
         args['flag_adress'] = flag_adress 
         return render_to_response('basket.html', args)
     elif ord_type1 != '' and ord_type2 == '':
@@ -803,6 +834,7 @@ def ordertype(request, flag_adress=True, flag_one_click='0'):
         flag_order2 = '0'
         args1['flag_order2'] = flag_order2
         args1['flag_adress'] = flag_adress
+        args1['number_of_products'] = number_of_products
         args1['flag_one_click'] = flag_one_click
         args1.update(csrf(request))
         return render_to_response('ordertype.html', args1)
@@ -813,6 +845,7 @@ def ordertype(request, flag_adress=True, flag_one_click='0'):
         flag_order2 = '1'
         args1['flag_order2'] = flag_order2
         args1['flag_adress'] = flag_adress
+        args1['number_of_products'] = number_of_products
         args1['flag_one_click'] = flag_one_click
         args1.update(csrf(request))
         return render_to_response('ordertype.html', args1)
@@ -822,6 +855,7 @@ def ordertype(request, flag_adress=True, flag_one_click='0'):
 def booking(request, flag_order2=0, flag_one_click='0'):
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', flag_order2)
     args = {}
+    number_of_products = 0
     username = request.user.username
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', username)
     cost = 0
@@ -839,6 +873,7 @@ def booking(request, flag_order2=0, flag_one_click='0'):
             elif flag_one_click == '1':
                 basket1 = BasketOneClick.objects.get(id=request.user.id)
             cost = basket1.get_basket_cost(cost)
+
             order = Orders(orders_name=username)
             order.ordered_products = basket1.chosen_products
             order.adress_of_orderer = adress
@@ -911,6 +946,8 @@ def delete_product(request, product_id):
 
 def ready_order(request):
     args = {}
+    args['cost'] = 0
+    args['number_of_products'] = 0
     args['username'] = request.user.username
     return render_to_response('readyorder.html', args)
 
@@ -921,6 +958,8 @@ def akcii(request):
 
 def contacts(request):
     args = {}
+    args['cost'] = 0
+    args['number_of_products'] = 0
     args['username'] = request.user.username
     return render_to_response('contacts.html', args)
 

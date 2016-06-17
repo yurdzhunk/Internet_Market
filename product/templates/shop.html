@@ -15,7 +15,7 @@
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        Choose your product features
+                        Выберите параметры продукта
                     </h4>
                 </div>
                     <div class="panel-body">
@@ -107,13 +107,22 @@
     <div class="row">
         {% for technik in techniks %}
             {% if technik.product_type == 'notebook' or technik.product_type == 'tv' %}
-                <div class="col-xs-6 col-sm-4" style="height: 400px">
+                <div class="col-lg-6 col-lg-4" style="height: 420px">
                     <div class="thumbnail">
                         <img class="product-image" src="{% static technik.product_image %}">
                         <div class="caption">
                             <a href="http://127.0.0.1:8000/notebook/prod/{{ technik.id }}/"><h4>{{ technik.product_name }}</h4></a>
                            <div class="row" style="margin-left: 0px">
-                                    <h4>{{ technik.product_stars }}   <i class="fa fa-lg fa-star" style="color: yellow ; margin-top: 8px"></i></h4>  
+                                <div class="col-lg-6">
+                                    <h4>{{ technik.product_stars }}   <i class="fa fa-lg fa-star" style="color: yellow ; margin-top: 8px"></i></h4>
+                                </div>
+                                <div class="col-lg-6">
+                                    {% if technik.product_exist == '1' %}
+                                    <h4 style="color: green ; margin-top: 20px">В наличии</h4>
+                                    {% elif technik.product_exist == '0' %}
+                                    <h4 style="color: red ; margin-top: 8px">Нету в наличии</h4>
+                                    {% endif %}
+                                </div>  
                             </div>
                             <p>{{ technik.product_description }}</p>
                             <div class="btn-group">
@@ -136,13 +145,22 @@
                     </div>
                 </div>
                 {% elif technik.product_type == 'smartphone' %}
-                <div class="col-xs-6 col-sm-4" style="height: 470px">
+                <div class="col-xs-6 col-sm-4" style="height: 520px">
                     <div class="thumbnail">
                         <img class="product-image1" src="{% static technik.product_image %}">
                         <div class="caption">
                             <a href="http://127.0.0.1:8000/notebook/prod/{{ technik.id }}/"><h4>{{ technik.product_name }}</h4></a>
                             <div class="row" style="margin-left: 0px">
-                                    <h4>{{ technik.product_stars }} <i class="fa fa-lg fa-star" style="color: yellow ; margin-top: 8px"></i></h4>  
+                                <div class="col-lg-6">
+                                    <h4>{{ technik.product_stars }}   <i class="fa fa-lg fa-star" style="color: yellow ; margin-top: 8px"></i></h4>
+                                </div>
+                                <div class="col-lg-6">
+                                    {% if technik.product_exist == '1' %}
+                                    <h4 style="color: green ; margin-top: 20px">В наличии</h4>
+                                    {% elif technik.product_exist == '0' %}
+                                    <h4 style="color: red ; margin-top: 8px">Нету в наличии</h4>
+                                    {% endif %}
+                                </div>  
                             </div>
                             <p>{{ technik.product_description }}</p>
                             <div class="btn-group">

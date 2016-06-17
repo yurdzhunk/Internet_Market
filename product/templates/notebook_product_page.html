@@ -10,30 +10,70 @@
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-md-6">
-								<h3 style="color: #0f0f0f">{{ product.product_name }}</h3>
+								<h3 style="color: #0f0f0f">{{ product.product_name }}</h3><br>
+                                <h4>Рейтинг : {{ product.product_stars }}   <i class="fa fa-lg fa-star" style="color: yellow "></i></h4>
 							</div>
 						</div>
 						<hr>
 					</div>
                     <div class="panel-body">
 						<div class="row">
-                            {% if product.product_type == 'notebook' or product.product_type == 'tv' %}
+                            {% if product.product_type == 'notebook' %}
 							<div class="col-lg-4">
                                 <img class="product-image" src="{% static product.product_image %}">
+                                <img class="product-image" style="margin-top: 5px" src="{% static product.product_image2 %}">
+                                <img class="product-image" style="margin-top: 5px" src="{% static product.product_image3 %}">
                             </div>
                             <div class="col-lg-8">
                                 <p style="font-size: large ; color: #0f0f0f">
                                     {{ product.product_description }}
-                                </p>
+                                </p><br>
+                                <hr>
+                                <h4>Размер екрана : {{ product.product_screen_resolution }}</h4><br>
+                                <h4>Память : {{ product.product_memory }}</h4><br>
+                                <h4>RAM : {{ product.product_orm }}</h4><br>
+                                 {% if product.product_exist == '1' %}
+                                    <h4 style="color: green ; margin-top: 20px">В наличии</h4>
+                                    {% elif product.product_exist == '0' %}
+                                    <h4 style="color: red ; margin-top: 8px">Нету в наличии</h4>
+                                 {% endif %}
+                            </div>
+                            {% elif product.product_type == 'tv' %}
+                            <div class="col-lg-4">
+                                <img class="product-image" src="{% static product.product_image %}">
+                                <img class="product-image" style="margin-top: 5px" src="{% static product.product_image2 %}">
+                                <img class="product-image" style="margin-top: 5px" src="{% static product.product_image3 %}">
+                            </div>
+                            <div class="col-lg-8">
+                                <p style="font-size: large ; color: #0f0f0f">
+                                    {{ product.product_description }}
+                                </p><br>
+                                <hr>
+                                <h4>Размер екрана : {{ product.product_screen_resolution }}</h4><br>
+                                {% if product.product_exist == '1' %}
+                                    <h4 style="color: green ; margin-top: 20px">В наличии</h4>
+                                    {% elif product.product_exist == '0' %}
+                                    <h4 style="color: red ; margin-top: 8px">Нету в наличии</h4>
+                                {% endif %}
                             </div>
                             {% elif product.product_type == 'smartphone' %}
                             <div class="col-lg-4">
                                 <img class="product-image1" src="{% static product.product_image %}">
+                                <img class="product-image1" style="margin-top: 5px" src="{% static product.product_image2 %}">
+                                <img class="product-image1" style="margin-top: 5px" src="{% static product.product_image3 %}">
                             </div>
                             <div class="col-lg-8">
                                 <p style="font-size: large ; color: #0f0f0f">
                                     {{ product.product_description }}
-                                </p>
+                                </p><br>
+                                <h4>Размер екрана : {{ product.product_screen_resolution }}</h4><br>
+                                <h4>Память : {{ product.product_memory }}</h4><br>
+                                <h4>RAM : {{ product.product_orm }}</h4><br>
+                                 {% if product.product_exist == '1' %}
+                                    <h4 style="color: green ; margin-top: 20px">В наличии</h4>
+                                    {% elif product.product_exist == '0' %}
+                                    <h4 style="color: red ; margin-top: 8px">Нету в наличии</h4>
+                                {% endif %}
                             </div>
                             {% endif %}
                         </div>
@@ -54,6 +94,18 @@
                     </div>
                         {% endif %}
                         <hr>
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <a id="login-form-link" style="color: #d58512 ; font-size: 2ch"> Цена {{ product.product_cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
+                            </div>
+                            <div class="col-lg-2">
+                                {% if username %}
+                                    <a href="http://127.0.0.1:8000/add_to_basket_from_card/{{ product.id }}/" class="btn btn-success">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </a>
+                                {% else %}
+                                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal-2">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </button>
+                                {% endif %}
+                            </div>
+                        </div>
                         
                         <h4 class="active">Отзывы о товаре</h4>
                         {% for comment in comments %}
@@ -88,18 +140,7 @@
                             </form>
                         </div>
                         <hr>
-                        <div class="row">
-                            <div class="col-lg-10">
-                                <a id="login-form-link" style="color: #d58512 ; font-size: 2ch"> Цена {{ product.product_cost }} <i class="fa fa-dollar" style="color: #d58512" ></i></a>
-                            </div>
-                            <div class="col-lg-2">
-                                {% if username %}
-                                    <a href="http://127.0.0.1:8000/add_to_basket_from_card/{{ product.id }}/" class="btn btn-success">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </a>
-                                {% else %}
-                                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modal-2">В корзину <i style="color: #ffffff" class="fa fa-shopping-cart"></i> </button>
-                                {% endif %}
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

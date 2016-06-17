@@ -35,7 +35,6 @@
                                 <li><a href="http://127.0.0.1:8000/shop/tv/1/0/" style="color: #ffffff">ТВ</a> </li>
                             </ul>
                         </li>
-                        <li><a href="http://127.0.0.1:8000/akcii/">Акции</a> </li>
                         <li><a href="http://127.0.0.1:8000/company/">О компании</a> </li>
                         <li><a href="http://127.0.0.1:8000/contacts/">Контакты</a> </li>
                         <li class="navbar divider-vertical"></li>
@@ -44,7 +43,7 @@
                         {% else %}
                             <li><a data-toggle="modal" data-target="#modal-3"><i class="fa fa-2x fa-shopping-cart"></i> </a></li>
                         {% endif %}
-                        <li><h5 style="color:#666666; margin-top: 20px">{{ cost }} <i class="fa fa-dollar" ></i></h5></li>
+                        <li><h5 style="color:#666666; margin-top: 20px">Продуктов: {{ number_of_products }}   Стоимость: {{ cost }} <i class="fa fa-dollar" ></i></h5></li>
                     </ul>
                     <form class="navbar-form navbar-right">
                         {% if username %}
@@ -117,6 +116,7 @@
                 Saksaganskogo 33<br/>
                 Kyiv, Ukraine<br/>
                 Phone: +38(044)-452-52-52
+                Work shedule: 8.00am - 9.00pm, all week
             </address>
             </div>
 

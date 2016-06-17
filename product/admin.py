@@ -8,8 +8,8 @@ class ArticleInline(admin.StackedInline):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    fields = ['product_brand', 'product_name', 'product_type', 'product_image', 'product_description', 'product_cost',
-              'product_screen_resolution', 'product_memory', 'product_orm']
+    fields = ['product_brand', 'product_name', 'product_type', 'product_image', 'product_image2', 'product_image3',
+     'product_description', 'product_cost', 'product_screen_resolution', 'product_memory', 'product_orm']
     inlines = [ArticleInline]
     list_filter = ['product_name']
 

@@ -19,6 +19,7 @@ import json
 @csrf_protect
 def login(request):
     args = {}
+    number_of_products = 0
     args.update(csrf(request))
     if request.POST:
         username = request.POST.get('username', '')
@@ -45,6 +46,8 @@ def login(request):
                 obj.save()
             cost = 0
             cost = basket.get_basket_cost(cost)
+            number_of_products = len(basket.get_list_of_products())
+            args['number_of_products'] = number_of_products
             args['cost'] = cost
             args['username'] = username
             #return render_to_response('start_page.html', args)
@@ -58,16 +61,22 @@ def login(request):
 
 def login_page(request):
     args = {}
+    number_of_products = 0
     cost = 0
     args['cost'] = cost
+    number_of_products = 0
+    args['number_of_products'] = number_of_products
     args.update(csrf(request))
     return render_to_response('login_page.html', args)
 
 def register_page(request):
     args = {}
+    number_of_products = 0
     cost = 0
     args.update(csrf(request))
     args['cost'] = cost
+    number_of_products = 0
+    args['number_of_products'] = number_of_products
     args['form'] = UserCreateForm()
     return render_to_response('register_page.html', args)
 
@@ -81,6 +90,7 @@ def logout(request):
 
 def register(request):
     args = {}
+    number_of_products = 0
     args.update(csrf(request))
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
@@ -126,6 +136,7 @@ def register(request):
 def cabinet(request):
     args = {}
     cost = 0
+    number_of_products = 0
     username = request.user.username
     list_of_orders = Orders.objects.filter(orders_name=request.user.username)
     list_of_list_of_product_name = []
@@ -159,6 +170,8 @@ def cabinet(request):
     args['list_of_date'] = list_of_date
     basket = Basket.objects.get(id=request.user.id)
     cost = basket.get_basket_cost(cost)
+    number_of_products = len(basket.get_list_of_products())
+    args['number_of_products'] = number_of_products
     args['cost'] = cost
     args['first_date'] = first_date
 
